@@ -1,0 +1,8 @@
+link:focus-visible
+
+button { border: 5px solid black; }
+    /* USANDO ID */
+#boton2 { border: 10px solid red; }
+.EstiloCustom { background-color: darkblue; }
+.EstiloTexto { color: red; }
+.FondoVerde { background-color: green; }
