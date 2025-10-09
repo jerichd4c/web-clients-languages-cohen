@@ -8,7 +8,7 @@
 }
 
 body{
-    font-family: 'Bold Italic', sans-serif;
+    font-family:'Open Sans', sans-serif;
     color : black;
     background-color: white;
     padding: 20px;
@@ -33,16 +33,23 @@ body{
     color: black;
     text-align: center;
     margin: 10px;
+    border-radius: 8px;
 }
 
 .header h1 {
     font-size: 2rem;
     padding: 15px;
+    border-radius: 8px;
+    border: 1px solid black;
 }
 
 .header p {
     font-size: 1.1rem;
     padding: 10px;
+    border-radius: 8px;
+    border: 1px solid black;
+    font-weight: bold;
+    
 }
 
 /* main content */
@@ -67,23 +74,28 @@ body{
 /* profile picture */
 
 .profilePicture {
-    flex: 1;
-    min-width: 200px;
+    flex-shrink: 0;
+    width: 295px;
+    height: 310px;
     display: flex;
-    justify-content: right;
-    align-items: flex-end;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
 .profilePictureContainer {
     border: 3px solid black;
-    border-radius: 5px;
+    border-radius: 8%;
     overflow: hidden;
     background-color: white;
+    width: 100%;
+    height: 100%;
+    position: relative;
 }
 
 .profilePictureContainer img {
-    width: 150px;
-    height: auto;
+    width: 100%;
+    height: 100%;
     display: block;
 }
 
@@ -91,6 +103,17 @@ body{
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
+}
+
+.profilePictureCaption {
+    text-align: center;
+    background-color: white;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid black;
+    font-size: 1.1rem;
+    width: 250px;
+    height: 40px;
 }
 
 /* hobbies section */
@@ -115,13 +138,28 @@ ul {
 
 li {
     margin-bottom: 5px;
-    padding-left: 20px;
     position: relative;
 }
 
 li:before {
-    content: "!";
     color: black;
     position: absolute;
     left: 0;
+}
+
+/* this is for solving the problem of the text overriding the image */
+
+.aboutMeContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.textContent {
+    flex: 1;
+    min-width: 20px;
+    font-size: 1.1rem;
+    text-align: justify;
+    margin-top: 20px;
 }
