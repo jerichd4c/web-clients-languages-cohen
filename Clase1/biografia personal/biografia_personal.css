@@ -8,11 +8,16 @@
 }
 
 body{
-    font-family:'Open Sans', sans-serif;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color : black;
     background-color: white;
     padding: 20px;
     line-height: 1.6;
+    background-image: url('background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: auto;
+
 }
 
 /* main container  */
@@ -75,8 +80,8 @@ body{
 
 .profilePicture {
     flex-shrink: 0;
-    width: 295px;
-    height: 310px;
+    width: 300px;
+    height: 315px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -122,6 +127,7 @@ body{
     flex: 1;
     min-width: 300px;
     border-left: 3px solid black;
+    font-size: 1.2rem;
 }
 
 .hobbies h2, .materias h2 {
