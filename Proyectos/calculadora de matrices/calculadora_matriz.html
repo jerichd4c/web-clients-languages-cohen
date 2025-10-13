@@ -10,17 +10,19 @@
     <header>
         <h1>CALCULADORA DE MATRICES</h1>
     </header>
-    <!-- DIV DE CONFIGURACION -->
+    <!-- CONFIG DIV -->
     <div>
-        <!-- TAMAÑO DE LA MATRIZ 1 -->
+        <!-- MATRIX 1 SIZE -->
         <div>
 
             <h2>Configuracion de la matriz 1</h2>
                 <div>
-                    <label> Tamaño de la matriz 1</label>
+                    <label for="matriz1-size"> Tamaño de la matriz 1</label>
+                    <select id="matrix1-size">
                         <option value="">Seleccione tamaño</option>
-                        <option value="2x2">2x2</option>
-                        <option value="3x3">3x3</option>
+                        <option value="2">2x2</option>
+                        <option value="3">3x3</option>
+                    </select>
                 </div>
 
                 <div>  
@@ -32,17 +34,20 @@
                 </div>
                 
                 <button> 🗑️ Borrar Matriz 1 </button>
+                <div id="matrix1-error"></div>
             </div>
 
-        <!-- TAMAÑO DE LA MATRIZ 2 -->
+        <!-- MATRIX 2 SIZE -->
         <div>
 
             <h2>Configuracion de la matriz 2</h2>
                 <div>
-                    <label> Tamaño de la matriz 2</label>
+                    <label for="matriz2-size"> Tamaño de la matriz 2</label>
+                    <select id="matrix2-size">
                         <option value="">Seleccione tamaño</option>
-                        <option value="2x2">2x2</option>
-                        <option value="3x3">3x3</option>
+                        <option value="2">2x2</option>
+                        <option value="3">3x3</option>
+                    </select>
                 </div>
 
                 <div>  
@@ -55,12 +60,13 @@
                 
                 <button> 🗑️ Borrar Matriz 2 </button>
             </div>
+            <div id="matrix2-error"></div>
     </div>
 
-    <!-- DIV PARA VISUALIZACION DE MATRICES -->
+    <!-- MATRIX OPERATION VISUAL DIV -->
     <div>
 
-        <!-- MATRIZ 1 -->
+        <!-- MATRIX 1 -->
         <div>
             <div>
                 <h3>Matriz 1</h3>
@@ -72,7 +78,7 @@
             </div>
         </div>
         
-        <!-- DISPLAY DE OPERACION -->
+        <!-- OP DISPLAY -->
          <div>
             <div>
                 <h3>Operacion</h3>
@@ -82,7 +88,7 @@
             </div>
          </div>
 
-        <!-- MATRIZ 2 -->
+        <!-- MATRIX 2 -->
         <div>
             <div>
                 <h3>Matriz 2</h3>
@@ -95,7 +101,7 @@
         </div>
 
 
-        <!-- RESULTADO -->
+        <!-- RESULT -->
          <div>
             <div>
                 <h3>Resultado</h3>
@@ -108,7 +114,7 @@
          </div>
     </div>
 
-    <!-- DIV DE OPERACIONES -->
+    <!-- OPERATION DIV -->
 
     <div>
         <h2>Operaciones disponibles</h2>
@@ -124,10 +130,15 @@
         </div>
     </div>
 
-    <!-- DIV DE BOTON PARA CALCULAR (ASEGURARSE QUE TODOS LOS PARAMETROS HAYAN SIDOS SELECCIONADOS) -->
+    <!-- CALC BUTTON (ALL PARAMETERS MUST BE FILLED) -->
     <div>
         <button>CALCULAR</button>
     </div>
+    
+
+    <source>
+        <script src="calculadora_matriz.js"></script>
+    </source>
     
 </body>
 </html>
