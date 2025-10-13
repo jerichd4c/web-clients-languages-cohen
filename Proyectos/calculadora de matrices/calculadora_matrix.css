@@ -1,0 +1,23 @@
+.input-type-btn {
+    background-color: lightgreen;
+}
+
+.matrix-container {
+    display: grid;
+}
+
+.matrix-box {
+    display: flex;
+}
+
+.matrix-content {
+    display: flex;
+}
+
+.matrix-grid {
+    display: grid;
+}
+
+.matrix-cell{
+    display: grid;
+}

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="calculadora_matriz.css">
     <title>Calculadora de matrices</title>
 </head>
 <body>
@@ -27,9 +28,9 @@
 
                 <div>  
                     <label>Tipo de entrada</label>
-                    <button>Ejemplo</button>
-                    <button>Manual</button>
-                    <button>Aleatoria</button>
+                    <button class="input-type-btn" data-matrix="1" data-type="example">Ejemplo</button>
+                    <button class="input-type-btn" data-matrix="1" data-type="manual">Manual</button>
+                    <button class="input-type-btn" data-matrix="1" data-type="random">Aleatoria</button>
 
                 </div>
                 
@@ -52,9 +53,9 @@
 
                 <div>  
                     <label>Tipo de entrada</label>
-                    <button>Ejemplo</button>
-                    <button>Manual</button>
-                    <button>Aleatoria</button>
+                        <button class="input-type-btn" data-matrix="2" data-type="example">Ejemplo</button>
+                        <button class="input-type-btn" data-matrix="2" data-type="manual">Manual</button>
+                        <button class="input-type-btn" data-matrix="2" data-type="random">Aleatoria</button>
 
                 </div>
                 
@@ -64,42 +65,41 @@
     </div>
 
     <!-- MATRIX OPERATION VISUAL DIV -->
-    <div>
+    <div class="matrix-container">
 
         <!-- MATRIX 1 -->
-        <div>
-            <div>
-                <h3>Matriz 1</h3>
-            </div>
-            <div>
+            <div class="matrix-box">
                 <div>
+                    <h3>Matriz 1</h3>
+                </div>
+            <div class="matrix-content">
+                <div id="matrix1-display">
                     Seleccione tamaño y tipo de entrada
                 </div>
             </div>
         </div>
         
         <!-- OP DISPLAY -->
-         <div>
+         <div class="matrix-box">
             <div>
                 <h3>Operacion</h3>
             </div>
-            <div>
+            <div class="matrix-content">
                 Seleccione una operacion
             </div>
          </div>
 
         <!-- MATRIX 2 -->
-        <div>
-            <div>
-                <h3>Matriz 2</h3>
-            </div>
-            <div>
+            <div class="matrix-box">
                 <div>
+                    <h3>Matriz 2</h3>
+                </div>
+            <div class="matrix-content">
+                <div id="matrix2-display">
                     Seleccione tamaño y tipo de entrada
                 </div>
             </div>
         </div>
-
 
         <!-- RESULT -->
          <div>
