@@ -4,20 +4,35 @@
 
 .matrix-container {
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .matrix-box {
     display: flex;
+    flex-direction: column;
+    position: relative;
+
 }
 
 .matrix-content {
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .matrix-grid {
     display: grid;
+    gap: 6px;
+    align-items: stretch;
+    justify-items: stretch;
+    grid-auto-rows: 48px; /* make rows a consistent height */
 }
 
 .matrix-cell{
-    display: grid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 8px;
+    border: 1px solid rgba(0,0,0,0.12);
+    min-width: 40px;
 }

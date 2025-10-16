@@ -99,10 +99,10 @@ function generateMatrix(matrixId, size, inputType) {
             matrix = generateExampleMatrix(size);
             break;
         case 'manual':
-            matrix = generateExampleMatrix(size);
+            matrix =  generateManualInputMatrix(size, matrixId);
             return;
         case 'random':
-            matrix = generateExampleMatrix(size);
+            matrix = generateRandomMatrix(size);
             break;
         default:
             return;
@@ -140,6 +140,80 @@ function generateExampleMatrix(size) {
     ];
 }
 
+// random matrix
+
+function generateRandomMatrix(size) {
+    const matrix =[];
+    for (let i=0; i<size; i++) {
+        const row= [];
+        for (let j=0; j<size; j++) {
+            //RNG from -10 to 10
+            row.push((Math.random() * 20 - 10).toFixed(2));
+        }
+        matrix.push(row);
+    }
+    return matrix;
+}
+
+// manual input matrix
+
+function generateManualInputMatrix(size, matrixId) {
+    const displayElement = matrixId === 1 ? matrix1Display : matrix2Display;
+
+    displayElement.innerHTML = '';
+
+    // grids represent the matrix
+
+    const grid = document.createElement('div');
+    grid.className = 'matrix-grid';
+    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+
+    // create inputs for each cell
+    for (let i=0; i<size; i++) {
+        for (let j=0; j<size; j++) {
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.className = 'matrix-cell';
+            input.placeholder= '0';
+            input.step = 'any';
+            input.dataset.row = i;
+            input.dataset.col = j;
+            input.dataset.matrix = matrixId;
+
+            input.addEventListener('input', handleManualInput);
+            grid.appendChild(input);
+        }
+    }
+
+    displayElement.appendChild(grid);
+
+    // initialize with 0s
+
+    const matrix = Array(size).fill().map(() => Array(size).fill(0));   
+
+    if (matrixId === 1) {
+        matrix1 = matrix;
+    } else {
+        matrix2 = matrix;
+    }
+
+    return matrix;
+}
+
+// aux function to handle manual input
+function handleManualInput(e) {
+    const matrixId = parseInt(e.target.dataset.matrix);
+    const row = parseInt(e.target.dataset.row);
+    const col = parseInt(e.target.dataset.col);
+    const value = parseFloat(e.target.value) || 0;
+
+    if (matrixId == 1 && matrix1) {
+        matrix1[row][col] = value;
+    } else if (matrixId == 2 && matrix2) {
+        matrix2[row][col] = value;
+    }
+}
+
 // display matrix on page
 function displayMatrix(matrix, displayElement) {
     if (!matrix) return;
@@ -157,29 +231,16 @@ function displayMatrix(matrix, displayElement) {
         for (let j= 0; j< size; j++) {
             const cell= document.createElement('div');
             cell.className= 'matrix-cell';
-            const value= matrix[i][j];
+            let value= matrix[i][j];
             if (typeof value === 'number') { 
-                cell.textContent= Number.isInteger(value) ? value.toString() : value.toFixed(2);
-            } else {
-                cell.textContent= value;
+                value = Number.isInteger(value) ? value : parseFloat(value.toFixed(2));
             }
+            cell.textContent= value;
             grid.appendChild(cell);
         }
     }
     displayElement.appendChild(grid);
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 // show error message
 function showError(element, message) {
@@ -191,5 +252,3 @@ function showError(element, message) {
 function hideError(element) {
     element.style.display= "none";
 }
-
-
