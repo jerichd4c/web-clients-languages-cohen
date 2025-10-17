@@ -14,6 +14,9 @@ const matrix1SizeSelect= document.getElementById("matrix1-size");
 const matrix2SizeSelect= document.getElementById("matrix2-size");
 const matrix1Display= document.getElementById("matrix1-display");
 const matrix2Display= document.getElementById("matrix2-display");
+const operationDisplay= document.getElementById("operation-display");
+const calculateBtn= document.getElementById("calculate-btn");
+const resultDisplay= document.getElementById("result-display");
 const matrix1Error = document.getElementById("matrix1-error");
 const matrix2Error = document.getElementById("matrix2-error");
 
@@ -30,8 +33,15 @@ document.addEventListener("DOMContentLoaded", function() {
         btn.addEventListener('click', handleInputTypeClick);
     });
 
-});
+    // event for operation button
+    document.querySelectorAll('.operation-btn').forEach(btn => {
+        btn.addEventListener('click', handleOperationClick);
+    });
 
+    // event for calculate button
+    document.getElementById("calculate-btn").addEventListener("click", handleCalculateClick);
+
+});
 
 // handle matrix size change
 function handleMatrixSizeChange(e) {
@@ -147,8 +157,9 @@ function generateRandomMatrix(size) {
     for (let i=0; i<size; i++) {
         const row= [];
         for (let j=0; j<size; j++) {
-            //RNG from -10 to 10
-            row.push((Math.random() * 20 - 10).toFixed(2));
+            // RNG from -10 to 10
+            // parseFloat to remove string from toFixed
+            row.push(parseFloat((Math.random() * 20 - 10).toFixed(2)));
         }
         matrix.push(row);
     }
@@ -182,6 +193,7 @@ function generateManualInputMatrix(size, matrixId) {
 
             input.addEventListener('input', handleManualInput);
             grid.appendChild(input);
+
         }
     }
 
@@ -241,6 +253,40 @@ function displayMatrix(matrix, displayElement) {
     }
     displayElement.appendChild(grid);
 }
+
+// handle click on operation (add, subtract, multiply, etc)
+function handleOperationClick(e) {
+    //remove selector from previous function (handleInputTypeClick)
+    document.querySelectorAll('.input-type-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    e.target.classList.add('selected');
+    selectedOperation= e.target.getAttribute('data-operation');
+
+    operationDisplay.textContent= e.target.textContent;
+}
+
+// add matrices
+function addMatrices(a,b) {
+    const size = a.length;
+    const result = [];
+    for (let i=0; i<size; i++) {
+        const row= [];
+        for (let j=0; j<size; j++) {
+            row.push(a[i][j] + b[i][j]);
+        }
+        result.push(row);
+    }
+    return result;
+}
+
+// handle click on result 
+function handleCalculateClick() {
+    resultMatrix= addMatrices(matrix1, matrix2);
+    displayMatrix(resultMatrix, resultDisplay);
+}
+
 
 // show error message
 function showError(element, message) {

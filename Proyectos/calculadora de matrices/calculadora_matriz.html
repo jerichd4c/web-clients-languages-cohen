@@ -85,10 +85,11 @@
                 <h3>Operacion</h3>
             </div>
             <div class="matrix-content">
-                Seleccione una operacion
+                <div id="operation-display">
+                    Seleccione una operacion
+                </div>
             </div>
          </div>
-
         <!-- MATRIX 2 -->
             <div class="matrix-box">
                 <div>
@@ -107,7 +108,7 @@
                 <h3>Resultado</h3>
             </div>
             <div>
-                <div>
+                <div id="result-display">
                     El resultado se mostrará aquí
                 </div>
             </div>
@@ -119,7 +120,7 @@
     <div>
         <h2>Operaciones disponibles</h2>
         <div>
-            <button>SUMA (A+B)</button>
+            <button class="operation-btn" data-operation="sum">SUMA (A+B)</button>
             <button>RESTA (A-B)</button>
             <button>MULTIPLICACION (AxB)</button>
             <button>ESCALAR (kxA)</button>
@@ -132,7 +133,7 @@
 
     <!-- CALC BUTTON (ALL PARAMETERS MUST BE FILLED) -->
     <div>
-        <button>CALCULAR</button>
+        <button id="calculate-btn">CALCULAR</button>
     </div>
     
 
