@@ -281,10 +281,87 @@ function addMatrices(a,b) {
     return result;
 }
 
+// subtract matrices
+function subtractMatrices(a,b) {
+    const size = a.length;
+    const result = [];
+    for (let i=0; i<size; i++) {
+        const row= [];
+        for (let j=0; j<size; j++) {
+            row.push(a[i][j] - b[i][j]);
+        }
+        result.push(row);
+    }
+    return result;
+}
+
+// multiply matrices
+function multiplyMatrices(a,b) {
+    const rowsA= a.length;
+    const colsA= a[0].length;
+    const colsB= b[0].length;
+    const result = [];
+
+    for (let i=0; i< rowsA; i++) {
+        result[i] = [];
+        for (let j=0; j< colsB; j++) {
+            let sum = 0;
+            for (let k=0; k< colsA; k++) {
+                sum += a[i][k] * b[k][j];
+            }
+            result[i][j] = sum;
+        }
+    }
+    return result;
+}
+
+// scalar matrix
+function scalarMatrix(matrix, scalar) {
+    return matrix.map(row => row.map(val => val * scalar));
+}
+
+// transpose matrix
+function transposeMatrix(matrix) {
+    const rows = matrix.length;
+    const cols = matrix[0].length;
+    const result = [];
+
+    for (let i=0; i< cols; i++) {
+        result[i] = [];
+        for (let j=0; j< rows; j++) {
+            result[i][j] = matrix[j][i];
+        }
+    }
+    return result;
+}
+
 // handle click on result 
 function handleCalculateClick() {
-    resultMatrix= addMatrices(matrix1, matrix2);
-    displayMatrix(resultMatrix, resultDisplay);
+    try {
+        switch(selectedOperation){
+            case 'sum':
+                resultMatrix= addMatrices(matrix1, matrix2);
+                break;
+            case 'subtract':
+                resultMatrix= subtractMatrices(matrix1, matrix2);
+                break;
+            case 'multiply':
+                resultMatrix= multiplyMatrices(matrix1, matrix2);
+                break;
+            case 'scalar':
+                // for now, only scalar by 2
+                resultMatrix= scalarMatrix(matrix1, 2);
+                break;
+            case 'transpose':
+                resultMatrix= transposeMatrix(matrix1);
+                break;
+            default:
+                throw new error('Operacion invalida')
+        }
+        displayMatrix(resultMatrix, resultDisplay);
+    } catch (error) {
+        showError(calculationError, 'Error en el calculo: ${error.message}');
+    }
 }
 
 
