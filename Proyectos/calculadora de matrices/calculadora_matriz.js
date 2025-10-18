@@ -212,6 +212,20 @@ function generateManualInputMatrix(size, matrixId) {
     return matrix;
 }
 
+// identity matrix
+
+function generateIdentityMatrix(size) {
+    const matrix = [];
+    for (let i = 0; i < size; i++) {
+        const row = [];
+        for (let j = 0; j < size; j++) {
+            row.push(i === j ? 1 : 0);
+        }
+        matrix.push(row);
+    }
+    return matrix;
+}
+
 // aux function to handle manual input
 function handleManualInput(e) {
     const matrixId = parseInt(e.target.dataset.matrix);
@@ -267,6 +281,8 @@ function handleOperationClick(e) {
     operationDisplay.textContent= e.target.textContent;
 }
 
+// FUNCTIONS BETWEEN 2 MATRICES
+
 // add matrices
 function addMatrices(a,b) {
     const size = a.length;
@@ -315,6 +331,8 @@ function multiplyMatrices(a,b) {
     return result;
 }
 
+// FUNCTIONS WITH ONLY 1 MATRIX
+
 // scalar matrix
 function scalarMatrix(matrix, scalar) {
     return matrix.map(row => row.map(val => val * scalar));
@@ -333,6 +351,60 @@ function transposeMatrix(matrix) {
         }
     }
     return result;
+}
+
+// determinant
+function calculateDeterminant(matrix) {
+    const size = matrix.length;
+
+    if (size==1){
+        return matrix[0][0];
+    }
+
+    if (size==2) {
+        return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+    }
+
+    let det= 0;
+
+    for (let j=0; j< size; j++){
+        const minor = getMinor(matrix, 0, j);
+        det += matrix[0][j] * Math.pow(-1, j) * calculateDeterminant(minor);
+    }
+    return det;
+}
+
+// AUX function for determinant: get minor
+ function getMinor(matrix, row, col) {
+            return matrix
+                .filter((_, i) => i !== row)
+                .map(r => r.filter((_, j) => j !== col));
+        }
+
+// invert 
+function invertMatrix(matrix) {
+    const det = calculateDeterminant(matrix);
+
+    if (det=== 0) {
+        throw new Error('La matriz no tiene inversa');
+    }
+
+    const size = matrix.length;
+    const adjugate = [];
+
+    for (let i=0; i< size; i++) {
+        adjugate[i] = [];
+        for (let j=0; j< size; j++) {
+            const minor = getMinor(matrix, i, j);
+            adjugate[i][j] = Math.pow(-1, i+j) * calculateDeterminant(minor);
+        }
+    }
+
+    // transpose the adjugate
+    const adjugateT = transposeMatrix(adjugate);
+
+    // multiply by 1/det
+    return scalarMatrix(adjugateT, 1/det);
 }
 
 // handle click on result 
@@ -354,6 +426,16 @@ function handleCalculateClick() {
                 break;
             case 'transpose':
                 resultMatrix= transposeMatrix(matrix1);
+                break;
+            case 'determinant':
+                const det = calculateDeterminant(matrix1);
+                // return as a 1x1 matrix
+                resultMatrix= [[det]];
+            case 'inverse':
+                resultMatrix= invertMatrix(matrix1);
+                break;
+            case 'identity':
+                resultMatrix= generateIdentityMatrix(matrix1Size || 3);
                 break;
             default:
                 throw new error('Operacion invalida')
