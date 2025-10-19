@@ -19,6 +19,8 @@ const calculateBtn= document.getElementById("calculate-btn");
 const resultDisplay= document.getElementById("result-display");
 const matrix1Error = document.getElementById("matrix1-error");
 const matrix2Error = document.getElementById("matrix2-error");
+const calculationError = document.getElementById("calculate-error");
+const calculationSuccess = document.getElementById("calculate-success");
 
 // initialize event listeners
 
@@ -41,6 +43,10 @@ document.addEventListener("DOMContentLoaded", function() {
     // event for calculate button
     document.getElementById("calculate-btn").addEventListener("click", handleCalculateClick);
 
+    // events for cleaning matrices and result
+    document.getElementById("clear-matrix1").addEventListener("click", () => clearMatrix(1));
+    document.getElementById("clear-matrix2").addEventListener("click", () => clearMatrix(2));
+    document.getElementById("clear-result").addEventListener("click", () => clearResult());
 });
 
 // handle matrix size change
@@ -409,6 +415,40 @@ function invertMatrix(matrix) {
 
 // handle click on result 
 function handleCalculateClick() {
+
+    // clean previous messages
+    hideError(calculationError);
+    hideError(calculationSuccess);
+
+    // validations
+
+    if (!selectedOperation) {
+        showError(calculationError, 'Seleccione una operacion primero');
+        return;
+    }
+
+    if (!matrix1 && selectedOperation !== 'identity') {
+        showError(calculationError, 'Matrix 1 no definida');
+        return;
+    }
+
+    if ((selectedOperation === 'sum' || selectedOperation === 'subtract' || 
+        selectedOperation === 'multiply') && !matrix2) {
+        showError(calculationError, 'Matrix 2 no definida');
+        return;
+    }
+
+    if ((selectedOperation === 'sum' || selectedOperation === 'subtract') && matrix1.length !== matrix2.length) {
+        showError(calculationError, 'Las matrices deben ser de la misma dimension');
+        return; 
+    }
+
+    if (selectedOperation === 'multiply' && matrix1[0].length !== matrix2.length) {
+            showError(calculationError, 'El número de columnas de A debe igualar el número de filas de B para multiplicación.');
+            return;
+            }
+            
+
     try {
         switch(selectedOperation){
             case 'sum':
@@ -441,11 +481,52 @@ function handleCalculateClick() {
                 throw new error('Operacion invalida')
         }
         displayMatrix(resultMatrix, resultDisplay);
+        showError(calculationSuccess, 'Calculo exitoso');
     } catch (error) {
         showError(calculationError, 'Error en el calculo: ${error.message}');
     }
 }
 
+// UI utils functions
+
+// clear matrix
+
+function clearMatrix(matrixId) {
+    if (matrixId === 1) {
+        matrix1 = null;
+        matrix1Size = 0;
+        matrix1InputType = null;
+        matrix1SizeSelect.value = '';
+        matrix1Display.innerHTML = "Seleccione tamaño y tipo de entrada";
+
+        // clean input
+        document.querySelectorAll('.input-type-btn[data-matrix="1"]').forEach(btn => {
+        btn.classList.remove('selected');
+        });
+
+    } else {
+        matrix2 = null;
+        matrix2Size = 0;
+        matrix2InputType = null;
+        matrix2SizeSelect.value = '';
+        matrix2Display.innerHTML = 'Seleccione tamaño y tipo de entrada';
+                
+        // clean input
+        document.querySelectorAll('.input-type-btn[data-matrix="2"]').forEach(btn => {
+        btn.classList.remove('selected');
+        });
+    }
+    hideError(matrixId === 1 ? matrix1Error : matrix2Error);
+}
+
+// clear result
+
+function clearResult() {
+    resultMatrix = null;
+    resultDisplay.innerHTML = 'El resultado se mostrará aqui';
+    hideError(calculationError);
+    hideError(calculationSuccess);
+}
 
 // show error message
 function showError(element, message) {
@@ -456,4 +537,10 @@ function showError(element, message) {
 // hide error message
 function hideError(element) {
     element.style.display= "none";
+}
+
+// show success message
+function showSuccess(element, message) {
+    element.textContent = message;
+    element.style.display= "block";
 }
