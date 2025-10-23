@@ -18,11 +18,18 @@
 
             <h2>Configuracion de la matriz 1</h2>
                 <div>
-                        <label for="matrix1-size"> Tamaño de la matriz 1</label>
+                    <label for="matrix1-size"> Tamaño de la matriz 1</label>
                     <select id="matrix1-size">
                         <option value="">Seleccione tamaño</option>
                         <option value="2">2x2</option>
                         <option value="3">3x3</option>
+                        <option value="4">4x4</option>
+                        <option value="5">5x5</option>
+                        <option value="6">6x6</option>
+                        <option value="7">7x7</option>
+                        <option value="8">8x8</option>
+                        <option value="9">9x9</option>
+                        <option value="10">10x10</option>
                     </select>
                 </div>
 
@@ -48,6 +55,13 @@
                         <option value="">Seleccione tamaño</option>
                         <option value="2">2x2</option>
                         <option value="3">3x3</option>
+                        <option value="4">4x4</option>
+                        <option value="5">5x5</option>
+                        <option value="6">6x6</option>
+                        <option value="7">7x7</option>
+                        <option value="8">8x8</option>
+                        <option value="9">9x9</option>
+                        <option value="10">10x10</option>
                     </select>
                 </div>
 
@@ -74,7 +88,7 @@
                 </div>
             <div class="matrix-content">
                 <div id="matrix1-display">
-                    Seleccione tamaño y tipo de entrada
+                    <button class="btn" id="create-matrix1">Crear Matriz</button>
                 </div>
             </div>
         </div>
@@ -97,7 +111,7 @@
                 </div>
             <div class="matrix-content">
                 <div id="matrix2-display">
-                    Seleccione tamaño y tipo de entrada
+                    <button class="btn" id="create-matrix2">Crear Matriz</button>
                 </div>
             </div>
         </div>
@@ -138,7 +152,39 @@
         <div id="calculate-error"></div>
         <div id="calculate-success"></div>
     </div>
-    
+
+    <!-- MATRIX MODAL -->
+    <div id="matrix-modal">
+        <div>
+            <div>
+                <h3>Crear nueva matriz</h3>
+                <button id="close-modal">&times;</button>
+            </div>
+            <div>
+                <label for="matrix-size">Tamaño de la matriz</label>
+                <select id="matrix-size">
+                    <option value="2">2x2</option>
+                    <option value="3">3x3</option>
+                    <option value="4">4x4</option>
+                    <option value="5">5x5</option>
+                    <option value="6">6x6</option>
+                    <option value="7">7x7</option>
+                    <option value="8">8x8</option>
+                    <option value="9">9x9</option>
+                    <option value="10">10x10</option>
+                </select>
+            </div>
+            <div>
+            <div>
+                <button id="cancel-matrix">Cancelar</button>
+                <button id="create-matrix">Crear Matriz</button>
+            </div>
+            <div id="modal-error"></div>
+        </div>
+    </div>
+
+    <div id="calculation-error"></div>
+    <div id="calculation-success"></div>
 
     <script src="calculadora_matriz.js"></script>
     

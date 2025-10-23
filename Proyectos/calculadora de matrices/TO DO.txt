@@ -1,0 +1,21 @@
+TO DO LIST:
+
+En tamaño de la matriz, llegar hasta 10x10
+
+separar las operaciones de una sola matriz, con las operaciones entre matrices (sum, resta y multi)
+
+POSIBLE MODIFICACION: poner las operaciones de matrices debajo de matriz 1 y matriz 2 para c/u
+
+en la sección de operaciones disponibles, quitar botón calcular y que se hagan de una vez las operaciones, por lo tanto, quitar sección operación y poner los botones de una vez en el grid de matrices
+
+NUEVA LOGICA PARA CONFIGURACION DE MATRIZ 
+
+botón crear matriz: que se haga un dropdown o popup, y que salgan las opciones tamaño de la matriz y dejar dos botones: valores aleatorio y valores de ejemplos predeterminados, botón manual se borra, poner este botón en la sección de grid
+
+a partir de esto, botón borrar matriz se mueve al grid de matrices
+
+POR LO TANTO, NUEVO MOCKUP:
+
+-seccion de configuración de matrices se borra, se hará con botón crear matriz en grid de matrices (donde estaba seleccione tamaño y tipo de entrada)
+
+- botones para una matriz se moverán abajo de la matrices y botones para op entre matrices ahora estarán en operación (seleccione una operación)

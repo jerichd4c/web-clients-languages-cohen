@@ -7,6 +7,7 @@ let matrix1Size= 0;
 let matrix2Size= 0;
 let matrix1InputType= null;
 let matrix2InputType= null;
+let currentMatrixId= null;
 
 // DOM elements
 
@@ -22,9 +23,23 @@ const matrix2Error = document.getElementById("matrix2-error");
 const calculationError = document.getElementById("calculate-error");
 const calculationSuccess = document.getElementById("calculate-success");
 
+// matrix modal elements
+
+const matrixModal = document.getElementById("matrix-modal");
+const matrixSizeSelect = document.getElementById("matrix-size");
+const createMatrixBtn = document.getElementById("create-matrix");
+const cancelMatrixBtn = document.getElementById("cancel-matrix");
+const closeModalBtn = document.getElementById("close-modal");
+const modalError = document.getElementById("modal-error");
+
 // initialize event listeners
 
 document.addEventListener("DOMContentLoaded", function() {
+
+    // event for matrix creations
+
+    document.getElementById("create-matrix1").addEventListener("click", () => openMatrixModal(1));
+    document.getElementById("create-matrix2").addEventListener("click", () => openMatrixModal(2));
 
     // event for matriz size selector
     matrix1SizeSelect.addEventListener("change", handleMatrixSizeChange);
@@ -47,7 +62,65 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("clear-matrix1").addEventListener("click", () => clearMatrix(1));
     document.getElementById("clear-matrix2").addEventListener("click", () => clearMatrix(2));
     document.getElementById("clear-result").addEventListener("click", () => clearResult());
+
+    // events for matrix modal
+    createMatrixBtn.addEventListener("click",  createMatrix);
+    cancelMatrixBtn.addEventListener("click", closeMatrixModal);
+    closeModalBtn.addEventListener("click", closeMatrixModal);
 });
+
+
+
+
+
+
+
+
+
+// open matrix modal
+function openMatrixModal(matrixId) {
+    currentMatrixId = matrixId;
+    matrixModal.style.display = "flex";
+    hideError(modalError);
+}
+
+// close matrix modal
+
+function closeMatrixModal() {
+    currentMatrixId = null;
+    matrixModal.style.display = "none";
+}
+
+// create matrix from modal
+
+function createMatrix() {
+    const size = parseInt(matrixSizeSelect.value);
+
+    if (isNaN(size) || size < 2 || size > 10) {
+       showError(modalError, "Seleccione un tamaño entre 2 y 10.");
+       return;
+    }
+
+    const matrix = Array(size).fill().map(() => Array(size).fill(0));
+
+    // Save matrix and display
+    if (currentMatrixId === 1) {
+        matrix1 = matrix;
+        //replace button with matrix
+        matrix1Display.innerHTML = '';
+        displayMatrix(matrix, matrix1Display);
+    } else if (currentMatrixId === 2) {
+        matrix2 = matrix;
+        //replace button with matrix
+        matrix2Display.innerHTML = '';
+        displayMatrix(matrix, matrix2Display);
+    }
+
+    closeMatrixModal();
+}
+
+
+
 
 // handle matrix size change
 function handleMatrixSizeChange(e) {
@@ -105,6 +178,31 @@ function handleInputTypeClick(e) {
     generateMatrix(matrixId, size, inputType);
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // generate matrix based on size and input type
 function generateMatrix(matrixId, size, inputType) {
     let matrix;
@@ -138,6 +236,39 @@ function generateMatrix(matrixId, size, inputType) {
              displayMatrix(matrix, matrix2Display);
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // example matrix (3x3) 
 function generateExampleMatrix(size) {
@@ -250,8 +381,6 @@ function handleManualInput(e) {
 function displayMatrix(matrix, displayElement) {
     if (!matrix) return;
 
-    //innerHTML to dont bloat pre-existent HTML
-    displayElement.innerHTML = '';
     const size =matrix.length;
 
     const grid= document.createElement('div');
