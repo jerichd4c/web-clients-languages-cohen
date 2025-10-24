@@ -35,11 +35,11 @@
 
                     <h2>Operaciones de una sola matriz:</h2>
 
-                    <button class="operation-btn" data-operation="scalar">ESCALAR (kxA)</button>
-                    <button class="operation-btn" data-operation="transpose">TRANSPUESTA (A^T)</button>
-                    <button class="operation-btn" data-operation="determinant">DETERMINANTE (det(A))</button>
-                    <button class="operation-btn" data-operation="inverse" >INVERSA (A^-1)</button>
-                    <button class="operation-btn" data-operation="identity">IDENTIDAD (In)</button>
+                    <button class="operation-btn" data-operation="scalar" data-matrix="1">ESCALAR (kxA)</button>
+                    <button class="operation-btn" data-operation="transpose" data-matrix="1">TRANSPUESTA (A^T)</button>
+                    <button class="operation-btn" data-operation="determinant" data-matrix="1">DETERMINANTE (det(A))</button>
+                    <button class="operation-btn" data-operation="inverse" data-matrix="1">INVERSA (A^-1)</button>
+                    <button class="operation-btn" data-operation="identity" data-matrix="1">IDENTIDAD (In)</button>
 
                 </div>
             </div>
@@ -80,11 +80,11 @@
 
                     <h2>Operaciones de una sola matriz:</h2>
 
-                    <button class="operation-btn" data-operation="scalar">ESCALAR (kxA)</button>
-                    <button class="operation-btn" data-operation="transpose">TRANSPUESTA (A^T)</button>
-                    <button class="operation-btn" data-operation="determinant">DETERMINANTE (det(A))</button>
-                    <button class="operation-btn" data-operation="inverse" >INVERSA (A^-1)</button>
-                    <button class="operation-btn" data-operation="identity">IDENTIDAD (In)</button>
+                    <button class="operation-btn" data-operation="scalar" data-matrix="2">ESCALAR (kxA)</button>
+                    <button class="operation-btn" data-operation="transpose" data-matrix="2">TRANSPUESTA (A^T)</button>
+                    <button class="operation-btn" data-operation="determinant" data-matrix="2">DETERMINANTE (det(A))</button>
+                    <button class="operation-btn" data-operation="inverse" data-matrix="2">INVERSA (A^-1)</button>
+                    <button class="operation-btn" data-operation="identity" data-matrix="2">IDENTIDAD (In)</button>
 
                 </div>
             </div>
@@ -100,13 +100,6 @@
             </div>
             <button id="clear-result">🗑️ Borrar Resultado</button>
          </div>
-    </div>
-
-    <!-- CALC BUTTON (ALL PARAMETERS MUST BE FILLED) -->
-    <div>
-        <button id="calculate-btn">CALCULAR</button>
-        <div id="calculate-error"></div>
-        <div id="calculate-success"></div>
     </div>
 
     <!-- MATRIX MODAL -->

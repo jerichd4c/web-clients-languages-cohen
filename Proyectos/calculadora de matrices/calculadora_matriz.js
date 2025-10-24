@@ -9,7 +9,6 @@ let currentMatrixId= null;
 const matrix1Display= document.getElementById("matrix1-display");
 const matrix2Display= document.getElementById("matrix2-display");
 const operationDisplay= document.getElementById("operation-display");
-const calculateBtn= document.getElementById("calculate-btn");
 const resultDisplay= document.getElementById("result-display");
 const matrix1Error = document.getElementById("matrix1-error");
 const matrix2Error = document.getElementById("matrix2-error");
@@ -41,13 +40,17 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("random-matrix2").addEventListener("click", () => fillMatrix(2, 'random'));
     document.getElementById("example-matrix2").addEventListener("click", () => fillMatrix(2, 'example'));
 
-    // event for operation button
-    document.querySelectorAll('.operation-btn').forEach(btn => {
-        btn.addEventListener('click', handleOperationClick);
+    // events for calcs
+
+    // single matrix operations
+    document.querySelectorAll('.operation-btn[data-matrix]').forEach(btn => {
+    btn.addEventListener('click', handleSingleMatrixOperation);
     });
 
-    // event for calculate button
-    document.getElementById("calculate-btn").addEventListener("click", handleCalculateClick);
+    // two matrix operations
+    document.querySelectorAll('.operation-btn[data-operation]').forEach(btn => {
+        btn.addEventListener('click', handleMatrixPairOperation);
+    });
 
     // events for cleaning matrices and result
     document.getElementById("clear-matrix1").addEventListener("click", () => clearMatrix(1));
@@ -183,6 +186,105 @@ function handleManualInput(e) {
     }
 }
 
+// single matrix operations
+
+function handleSingleMatrixOperation(e) {
+    const operation= e.target.getAttribute('data-operation');
+    const matrixId= parseInt(e.target.getAttribute('data-matrix'));
+    const matrix= matrixId === 1 ? matrix1 : matrix2;
+
+    if (!matrix) {
+        showError(calculationError, `Matriz ${matrixId} no definida`);
+        return;
+    }
+
+    try {
+        let result;
+         switch(operation) {
+                    case 'transpose':
+                        result = transposeMatrix(matrix);
+                        operationDisplay.textContent = `Transposición de Matriz ${matrixId}`;
+                        break;
+                    case 'determinant':
+                        const det = calculateDeterminant(matrix);
+                        result = [[det]];
+                        operationDisplay.textContent = `Determinante de Matriz ${matrixId}`;
+                        break;
+                    case 'inverse':
+                        result = invertMatrix(matrix);
+                        operationDisplay.textContent = `Inversa de Matriz ${matrixId}`;
+                        break;
+                    case 'identity':
+                        result = generateIdentityMatrix(matrix.length);
+                        operationDisplay.textContent = `Matriz Identidad ${matrix.length}×${matrix.length}`;
+                        break;
+                    case 'scalar':
+                        result = scalarMultiply(matrix, 2);
+                        operationDisplay.textContent = `Multiplicación por escalar (2) de Matriz ${matrixId}`;
+                        break;
+                    default:
+                        throw new Error('Operación no reconocida');
+            }
+            resultMatrix = result;
+            resultDisplay.innerHTML = '';
+            displayMatrix(result, resultDisplay);
+            showSuccess(calculationSuccess, 'Cálculo realizado con éxito');
+    } catch (error) {
+        showError(calculationError, `Error en la operación: ${error.message}`);
+    }
+}
+
+// two matrix operations
+
+function handleMatrixPairOperation(e) {
+    const operation= e.target.getAttribute('data-operation');
+
+    // validate
+
+    if (!matrix1) {
+        showError(calculationError, `Matriz ${matrixId} no definida`);
+        return;
+    }
+
+    if (!matrix2) {
+        showError(calculationError, `Matriz 2 no definida`);
+        return;
+    }
+
+    if ((operation === 'sum' || operation === 'subtract') && 
+        matrix1.length !== matrix2.length) {
+        showError(calculationError, 'Las matrices deben tener el mismo tamaño para suma/resta.');
+        return;
+    }
+
+    try {
+        let result;
+        switch(operation) {
+            case 'sum':
+                result = addMatrices(matrix1, matrix2);
+                operationDisplay.textContent = 'Suma de Matrices';
+                break;
+            case 'subtract':
+                result = subtractMatrices(matrix1, matrix2);
+                operationDisplay.textContent = 'Resta de Matrices';
+                break;
+            case 'multiply':
+                result = multiplyMatrices(matrix1, matrix2);
+                operationDisplay.textContent = 'Multiplicación de Matrices';
+                break;
+            default:
+                throw new Error('Operación no reconocida');
+        }
+        resultMatrix = result;
+        resultDisplay.innerHTML = '';
+        displayMatrix(result, resultDisplay);
+        showSuccess(calculationSuccess, 'Cálculo realizado con éxito');
+    }
+    catch (error) {
+        showError(calculationError, error.message);
+    }
+}
+
 // display matrix on page
 function displayMatrix(matrix, displayElement) {
     if (!matrix) return;
@@ -207,23 +309,6 @@ function displayMatrix(matrix, displayElement) {
         }
     }
     displayElement.appendChild(grid);
-}
-
-//***                                    ***//
-//***CHANGE THIS, SINGLE AND PAIR OP     ***//
-//***                                    ***//
-
-// handle click on operation (add, subtract, multiply, etc)
-function handleOperationClick(e) {
-    //remove selector from previous function (handleInputTypeClick)
-    document.querySelectorAll('.input-type-btn').forEach(btn => {
-        btn.classList.remove('selected');
-    });
-    
-    e.target.classList.add('selected');
-    selectedOperation= e.target.getAttribute('data-operation');
-    
-    operationDisplay.textContent= e.target.textContent;
 }
 
 //***                                    ***//
@@ -369,79 +454,6 @@ function generateIdentityMatrix(size) {
     }
     return matrix;
 }
-
-// handle click on result 
-function handleCalculateClick() {
-
-    // clean previous messages
-    hideError(calculationError);
-    hideError(calculationSuccess);
-
-    // validations
-
-    if (!selectedOperation) {
-        showError(calculationError, 'Seleccione una operacion primero');
-        return;
-    }
-
-    if (!matrix1 && selectedOperation !== 'identity') {
-        showError(calculationError, 'Matrix 1 no definida');
-        return;
-    }
-
-    if ((selectedOperation === 'sum' || selectedOperation === 'subtract' || 
-        selectedOperation === 'multiply') && !matrix2) {
-        showError(calculationError, 'Matrix 2 no definida');
-        return;
-    }
-
-    if ((selectedOperation === 'sum' || selectedOperation === 'subtract') && matrix1.length !== matrix2.length) {
-        showError(calculationError, 'Las matrices deben ser de la misma dimension');
-        return; 
-    }
-
-    if (selectedOperation === 'multiply' && matrix1[0].length !== matrix2.length) {
-            showError(calculationError, 'El número de columnas de A debe igualar el número de filas de B para multiplicación.');
-            return;
-            }
-            
-
-    try {
-        switch(selectedOperation){
-            case 'sum':
-                resultMatrix= addMatrices(matrix1, matrix2);
-                break;
-            case 'subtract':
-                resultMatrix= subtractMatrices(matrix1, matrix2);
-                break;
-            case 'multiply':
-                resultMatrix= multiplyMatrices(matrix1, matrix2);
-                break;
-            case 'scalar':
-                // for now, only scalar by 2
-                resultMatrix= scalarMatrix(matrix1, 2);
-                break;
-            case 'transpose':
-                resultMatrix= transposeMatrix(matrix1);
-                break;
-            case 'determinant':
-                const det = calculateDeterminant(matrix1);
-                // return as a 1x1 matrix
-                resultMatrix= [[det]];
-            case 'inverse':
-                resultMatrix= invertMatrix(matrix1);
-                break;
-            case 'identity':
-                resultMatrix= generateIdentityMatrix(matrix1Size || 3);
-                break;
-            default:
-                throw new error('Operacion invalida')
-        }
-        displayMatrix(resultMatrix, resultDisplay);
-        showError(calculationSuccess, 'Calculo exitoso');
-    } catch (error) {
-        showError(calculationError, 'Error en el calculo: ${error.message}');
-    }}
 
 //***                                    ***//
 //***         UI UTILS FUNCTIONS         ***//
