@@ -2,17 +2,10 @@
 let matrix1= null;
 let matrix2= null;
 let resultMatrix= null;
-let selectedOperation= null;
-let matrix1Size= 0;
-let matrix2Size= 0;
-let matrix1InputType= null;
-let matrix2InputType= null;
 let currentMatrixId= null;
 
 // DOM elements
 
-const matrix1SizeSelect= document.getElementById("matrix1-size");
-const matrix2SizeSelect= document.getElementById("matrix2-size");
 const matrix1Display= document.getElementById("matrix1-display");
 const matrix2Display= document.getElementById("matrix2-display");
 const operationDisplay= document.getElementById("operation-display");
@@ -41,14 +34,12 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("create-matrix1").addEventListener("click", () => openMatrixModal(1));
     document.getElementById("create-matrix2").addEventListener("click", () => openMatrixModal(2));
 
-    // event for matriz size selector
-    matrix1SizeSelect.addEventListener("change", handleMatrixSizeChange);
-    matrix2SizeSelect.addEventListener("change", handleMatrixSizeChange);
+    // events for filling matrices
 
-    // event for input type
-    document.querySelectorAll('.input-type-btn').forEach(btn => {
-        btn.addEventListener('click', handleInputTypeClick);
-    });
+    document.getElementById("random-matrix1").addEventListener("click", () => fillMatrix(1, 'random'));
+    document.getElementById("example-matrix1").addEventListener("click", () => fillMatrix(1, 'example'));
+    document.getElementById("random-matrix2").addEventListener("click", () => fillMatrix(2, 'random'));
+    document.getElementById("example-matrix2").addEventListener("click", () => fillMatrix(2, 'example'));
 
     // event for operation button
     document.querySelectorAll('.operation-btn').forEach(btn => {
@@ -64,18 +55,10 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("clear-result").addEventListener("click", () => clearResult());
 
     // events for matrix modal
-    createMatrixBtn.addEventListener("click",  createMatrix);
+    createMatrixBtn.addEventListener("click",  createEmptyMatrix);
     cancelMatrixBtn.addEventListener("click", closeMatrixModal);
     closeModalBtn.addEventListener("click", closeMatrixModal);
 });
-
-
-
-
-
-
-
-
 
 // open matrix modal
 function openMatrixModal(matrixId) {
@@ -93,7 +76,7 @@ function closeMatrixModal() {
 
 // create matrix from modal
 
-function createMatrix() {
+function createEmptyMatrix() {
     const size = parseInt(matrixSizeSelect.value);
 
     if (isNaN(size) || size < 2 || size > 10) {
@@ -107,168 +90,50 @@ function createMatrix() {
     if (currentMatrixId === 1) {
         matrix1 = matrix;
         //replace button with matrix
-        matrix1Display.innerHTML = '';
         displayMatrix(matrix, matrix1Display);
     } else if (currentMatrixId === 2) {
         matrix2 = matrix;
         //replace button with matrix
-        matrix2Display.innerHTML = '';
         displayMatrix(matrix, matrix2Display);
     }
 
     closeMatrixModal();
 }
 
+// fill matrices with random or example values
 
+function fillMatrix(matrixId, type) {
+    const matrix = matrixId === 1 ? matrix1 : matrix2;
 
-
-// handle matrix size change
-function handleMatrixSizeChange(e) {
-    const matrixId = e.target.id === "matrix1-size" ? 1 : 2;
-    const size = parseInt(e.target.value);
-
-    if (isNaN(size) || size < 2 || size > 10) {
-        showError(matrixId === 1 ? matrix1Error : matrix2Error, "Seleccione un tamaño entre 2 y 10.");
+    if (!matrix) {
+        showError(matrixId === 1 ? matrix1Error : matrix2Error, "La matriz no está definida.");
         return;
     }
 
-    hideError(matrixId === 1 ? matrix1Error : matrix2Error);
+    let newMatrix;
 
-    if (matrixId === 1) {
-        matrix1Size = size;
-        // if theres already an input type selected, generate matrix inputs
-        if (matrix1InputType) {
-            generateMatrix(matrixId, size, matrix1InputType);
-        } 
-    } else {
-        matrix2Size = size;
-        if (matrix2InputType) {
-            generateMatrix(matrixId, size, matrix2InputType);
-        }
-    }
-}
-
-// handle input type button click
-function handleInputTypeClick(e) {
-    const matrixId = parseInt(e.target.getAttribute('data-matrix'));
-    const inputType = e.target.getAttribute('data-type');
-
-    document.querySelectorAll(`.input-type-btn[data-matrix="${matrixId}"]`).forEach(btn => {
-        btn.classList.remove('selected');
-    });
-    e.target.classList.add('selected');
-    
-    if (matrixId === 1) {
-        matrix1InputType = inputType;
-    } else {
-        matrix2InputType = inputType;
-    }
-    
-    // get selected size 
-
-    const sizeSelect = matrixId === 1 ? matrix1SizeSelect : matrix2SizeSelect;
-    const size = parseInt(sizeSelect.value);
-
-    if (isNaN(size) || size < 2 || size > 10) {
-        showError(matrixId === 1 ? matrix1Error : matrix2Error, "Seleccione un tamaño entre 2 y 10.");
-        return;
-    }
-
-    hideError(matrixId === 1 ? matrix1Error : matrix2Error);
-    generateMatrix(matrixId, size, inputType);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// generate matrix based on size and input type
-function generateMatrix(matrixId, size, inputType) {
-    let matrix;
-
-    // switch case: example, manual, random
-    switch (inputType) {
-        case 'example':
-            matrix = generateExampleMatrix(size);
-            break;
-        case 'manual':
-            matrix =  generateManualInputMatrix(size, matrixId);
-            return;
+    switch (type) {
         case 'random':
-            matrix = generateRandomMatrix(size);
+            newMatrix = generateRandomMatrix(matrix.length);
+            break;
+        case 'example':
+            newMatrix = generateExampleMatrix(matrix.length);
             break;
         default:
             return;
-        }
-
-        //DEBUG, REMOVE LATE
-
-        console.log('Matrix:', matrix);
-
-        //save matrix and show on page
-
-        if (matrixId === 1) {
-            matrix1 = matrix;
-             displayMatrix(matrix, matrix1Display);
-        } else {
-            matrix2 = matrix;
-             displayMatrix(matrix, matrix2Display);
-        }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    // update matrix 
+    if (matrixId === 1) {
+        matrix1 = newMatrix;
+        matrix1Display.innerHTML = '';
+        displayMatrix(newMatrix, matrix1Display);
+    } else {
+        matrix2 = newMatrix;
+        matrix2Display.innerHTML = '';
+        displayMatrix(newMatrix, matrix2Display);
+    }
+}
 
 // example matrix (3x3) 
 function generateExampleMatrix(size) {
@@ -303,65 +168,6 @@ function generateRandomMatrix(size) {
     return matrix;
 }
 
-// manual input matrix
-
-function generateManualInputMatrix(size, matrixId) {
-    const displayElement = matrixId === 1 ? matrix1Display : matrix2Display;
-
-    displayElement.innerHTML = '';
-
-    // grids represent the matrix
-
-    const grid = document.createElement('div');
-    grid.className = 'matrix-grid';
-    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-
-    // create inputs for each cell
-    for (let i=0; i<size; i++) {
-        for (let j=0; j<size; j++) {
-            const input = document.createElement('input');
-            input.type = 'number';
-            input.className = 'matrix-cell';
-            input.placeholder= '0';
-            input.step = 'any';
-            input.dataset.row = i;
-            input.dataset.col = j;
-            input.dataset.matrix = matrixId;
-
-            input.addEventListener('input', handleManualInput);
-            grid.appendChild(input);
-
-        }
-    }
-
-    displayElement.appendChild(grid);
-
-    // initialize with 0s
-
-    const matrix = Array(size).fill().map(() => Array(size).fill(0));   
-
-    if (matrixId === 1) {
-        matrix1 = matrix;
-    } else {
-        matrix2 = matrix;
-    }
-
-    return matrix;
-}
-
-// identity matrix
-
-function generateIdentityMatrix(size) {
-    const matrix = [];
-    for (let i = 0; i < size; i++) {
-        const row = [];
-        for (let j = 0; j < size; j++) {
-            row.push(i === j ? 1 : 0);
-        }
-        matrix.push(row);
-    }
-    return matrix;
-}
 
 // aux function to handle manual input
 function handleManualInput(e) {
@@ -369,7 +175,7 @@ function handleManualInput(e) {
     const row = parseInt(e.target.dataset.row);
     const col = parseInt(e.target.dataset.col);
     const value = parseFloat(e.target.value) || 0;
-
+    
     if (matrixId == 1 && matrix1) {
         matrix1[row][col] = value;
     } else if (matrixId == 2 && matrix2) {
@@ -380,13 +186,13 @@ function handleManualInput(e) {
 // display matrix on page
 function displayMatrix(matrix, displayElement) {
     if (!matrix) return;
-
+    
     const size =matrix.length;
-
+    
     const grid= document.createElement('div');
     grid.className= 'matrix-grid';
     grid.style.gridTemplateColumns= `repeat(${size}, 1fr)`;
-
+    
     //iterate matrix and create divs for each element
     for (let i= 0; i< size; i++) {
         for (let j= 0; j< size; j++) {
@@ -403,6 +209,10 @@ function displayMatrix(matrix, displayElement) {
     displayElement.appendChild(grid);
 }
 
+//***                                    ***//
+//***CHANGE THIS, SINGLE AND PAIR OP     ***//
+//***                                    ***//
+
 // handle click on operation (add, subtract, multiply, etc)
 function handleOperationClick(e) {
     //remove selector from previous function (handleInputTypeClick)
@@ -412,11 +222,15 @@ function handleOperationClick(e) {
     
     e.target.classList.add('selected');
     selectedOperation= e.target.getAttribute('data-operation');
-
+    
     operationDisplay.textContent= e.target.textContent;
 }
 
-// FUNCTIONS BETWEEN 2 MATRICES
+//***                                    ***//
+//***OPERATION PART, MESS WITH THIS LATER***//
+//***                                    ***//
+
+// FUNCTIONS BETWEEN 2 MATRICES 
 
 // add matrices
 function addMatrices(a,b) {
@@ -452,7 +266,7 @@ function multiplyMatrices(a,b) {
     const colsA= a[0].length;
     const colsB= b[0].length;
     const result = [];
-
+    
     for (let i=0; i< rowsA; i++) {
         result[i] = [];
         for (let j=0; j< colsB; j++) {
@@ -478,7 +292,7 @@ function transposeMatrix(matrix) {
     const rows = matrix.length;
     const cols = matrix[0].length;
     const result = [];
-
+    
     for (let i=0; i< cols; i++) {
         result[i] = [];
         for (let j=0; j< rows; j++) {
@@ -491,17 +305,17 @@ function transposeMatrix(matrix) {
 // determinant
 function calculateDeterminant(matrix) {
     const size = matrix.length;
-
+    
     if (size==1){
         return matrix[0][0];
     }
-
+    
     if (size==2) {
         return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
     }
-
+    
     let det= 0;
-
+    
     for (let j=0; j< size; j++){
         const minor = getMinor(matrix, 0, j);
         det += matrix[0][j] * Math.pow(-1, j) * calculateDeterminant(minor);
@@ -510,23 +324,23 @@ function calculateDeterminant(matrix) {
 }
 
 // AUX function for determinant: get minor
- function getMinor(matrix, row, col) {
-            return matrix
-                .filter((_, i) => i !== row)
-                .map(r => r.filter((_, j) => j !== col));
-        }
+function getMinor(matrix, row, col) {
+    return matrix
+    .filter((_, i) => i !== row)
+    .map(r => r.filter((_, j) => j !== col));
+}
 
 // invert 
 function invertMatrix(matrix) {
     const det = calculateDeterminant(matrix);
-
+    
     if (det=== 0) {
         throw new Error('La matriz no tiene inversa');
     }
-
+    
     const size = matrix.length;
     const adjugate = [];
-
+    
     for (let i=0; i< size; i++) {
         adjugate[i] = [];
         for (let j=0; j< size; j++) {
@@ -534,12 +348,26 @@ function invertMatrix(matrix) {
             adjugate[i][j] = Math.pow(-1, i+j) * calculateDeterminant(minor);
         }
     }
-
+    
     // transpose the adjugate
     const adjugateT = transposeMatrix(adjugate);
-
+    
     // multiply by 1/det
     return scalarMatrix(adjugateT, 1/det);
+}
+
+// identity matrix
+
+function generateIdentityMatrix(size) {
+    const matrix = [];
+    for (let i = 0; i < size; i++) {
+        const row = [];
+        for (let j = 0; j < size; j++) {
+            row.push(i === j ? 1 : 0);
+        }
+        matrix.push(row);
+    }
+    return matrix;
 }
 
 // handle click on result 
@@ -613,39 +441,27 @@ function handleCalculateClick() {
         showError(calculationSuccess, 'Calculo exitoso');
     } catch (error) {
         showError(calculationError, 'Error en el calculo: ${error.message}');
-    }
-}
+    }}
 
-// UI utils functions
+//***                                    ***//
+//***         UI UTILS FUNCTIONS         ***//
+//***                                    ***//
 
 // clear matrix
 
 function clearMatrix(matrixId) {
     if (matrixId === 1) {
         matrix1 = null;
-        matrix1Size = 0;
-        matrix1InputType = null;
-        matrix1SizeSelect.value = '';
-        matrix1Display.innerHTML = "Seleccione tamaño y tipo de entrada";
-
-        // clean input
-        document.querySelectorAll('.input-type-btn[data-matrix="1"]').forEach(btn => {
-        btn.classList.remove('selected');
-        });
-
+        matrix1Display.innerHTML = '<button class="btn" id="create-matrix1">Crear Matriz</button>';
+        document.getElementById('create-matrix1').addEventListener('click', () => openMatrixModal(1));
     } else {
         matrix2 = null;
-        matrix2Size = 0;
-        matrix2InputType = null;
-        matrix2SizeSelect.value = '';
-        matrix2Display.innerHTML = 'Seleccione tamaño y tipo de entrada';
-                
-        // clean input
-        document.querySelectorAll('.input-type-btn[data-matrix="2"]').forEach(btn => {
-        btn.classList.remove('selected');
-        });
+        matrix2Display.innerHTML = '<button class="btn" id="create-matrix2">Crear Matriz</button>';
+        document.getElementById('create-matrix2').addEventListener('click', () => openMatrixModal(2));
     }
-    hideError(matrixId === 1 ? matrix1Error : matrix2Error);
+    hideError(calculationError);
+    hideError(calculationSuccess);
+
 }
 
 // clear result
@@ -653,6 +469,7 @@ function clearMatrix(matrixId) {
 function clearResult() {
     resultMatrix = null;
     resultDisplay.innerHTML = 'El resultado se mostrará aqui';
+    operationDisplay.textContent = 'Seleccione una operacion';
     hideError(calculationError);
     hideError(calculationSuccess);
 }

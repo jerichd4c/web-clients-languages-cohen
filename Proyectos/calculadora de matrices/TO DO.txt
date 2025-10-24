@@ -1,7 +1,5 @@
 TO DO LIST:
 
-En tamaño de la matriz, llegar hasta 10x10
-
 separar las operaciones de una sola matriz, con las operaciones entre matrices (sum, resta y multi)
 
 POSIBLE MODIFICACION: poner las operaciones de matrices debajo de matriz 1 y matriz 2 para c/u

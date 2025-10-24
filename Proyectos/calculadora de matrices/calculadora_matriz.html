@@ -11,72 +11,6 @@
     <header>
         <h1>CALCULADORA DE MATRICES</h1>
     </header>
-    <!-- CONFIG DIV -->
-    <div>
-        <!-- MATRIX 1 SIZE -->
-        <div>
-
-            <h2>Configuracion de la matriz 1</h2>
-                <div>
-                    <label for="matrix1-size"> Tamaño de la matriz 1</label>
-                    <select id="matrix1-size">
-                        <option value="">Seleccione tamaño</option>
-                        <option value="2">2x2</option>
-                        <option value="3">3x3</option>
-                        <option value="4">4x4</option>
-                        <option value="5">5x5</option>
-                        <option value="6">6x6</option>
-                        <option value="7">7x7</option>
-                        <option value="8">8x8</option>
-                        <option value="9">9x9</option>
-                        <option value="10">10x10</option>
-                    </select>
-                </div>
-
-                <div>  
-                    <label>Tipo de entrada</label>
-                    <button class="input-type-btn" data-matrix="1" data-type="example">Ejemplo</button>
-                    <button class="input-type-btn" data-matrix="1" data-type="manual">Manual</button>
-                    <button class="input-type-btn" data-matrix="1" data-type="random">Aleatoria</button>
-
-                </div>
-                
-                <button id="clear-matrix1"> 🗑️ Borrar Matriz 1 </button>
-                <div id="matrix1-error"></div>
-            </div>
-
-        <!-- MATRIX 2 SIZE -->
-        <div>
-
-            <h2>Configuracion de la matriz 2</h2>
-                <div>
-                    <label for="matrix2-size"> Tamaño de la matriz 2</label>
-                    <select id="matrix2-size">
-                        <option value="">Seleccione tamaño</option>
-                        <option value="2">2x2</option>
-                        <option value="3">3x3</option>
-                        <option value="4">4x4</option>
-                        <option value="5">5x5</option>
-                        <option value="6">6x6</option>
-                        <option value="7">7x7</option>
-                        <option value="8">8x8</option>
-                        <option value="9">9x9</option>
-                        <option value="10">10x10</option>
-                    </select>
-                </div>
-
-                <div>  
-                    <label>Tipo de entrada</label>
-                        <button class="input-type-btn" data-matrix="2" data-type="example">Ejemplo</button>
-                        <button class="input-type-btn" data-matrix="2" data-type="manual">Manual</button>
-                        <button class="input-type-btn" data-matrix="2" data-type="random">Aleatoria</button>
-
-                </div>
-                
-                <button id="clear-matrix2"> 🗑️ Borrar Matriz 2 </button>
-            </div>
-            <div id="matrix2-error"></div>
-    </div>
 
     <!-- MATRIX OPERATION VISUAL DIV -->
     <div class="matrix-container">
@@ -84,11 +18,29 @@
         <!-- MATRIX 1 -->
             <div class="matrix-box">
                 <div>
-                    <h3>Matriz 1</h3>
+                    <h3>Matriz 1</h3> 
+                    
                 </div>
             <div class="matrix-content">
                 <div id="matrix1-display">
                     <button class="btn" id="create-matrix1">Crear Matriz</button>
+                </div>
+            </div>
+            <div>
+                <h4>Opciones de matriz:</h4>
+                <div>
+                    <button id="random-matrix1">Valores Aleatorios</button>
+                    <button id="example-matrix1">Ejemplo</button>
+                    <button id="clear-matrix1"> 🗑️ Borrar Matriz 1 </button>
+
+                    <h2>Operaciones de una sola matriz:</h2>
+
+                    <button class="operation-btn" data-operation="scalar">ESCALAR (kxA)</button>
+                    <button class="operation-btn" data-operation="transpose">TRANSPUESTA (A^T)</button>
+                    <button class="operation-btn" data-operation="determinant">DETERMINANTE (det(A))</button>
+                    <button class="operation-btn" data-operation="inverse" >INVERSA (A^-1)</button>
+                    <button class="operation-btn" data-operation="identity">IDENTIDAD (In)</button>
+
                 </div>
             </div>
         </div>
@@ -96,22 +48,44 @@
         <!-- OP DISPLAY -->
          <div class="matrix-box">
             <div>
-                <h3>Operacion</h3>
+                <h3>Operaciones</h3>
             </div>
             <div class="matrix-content">
                 <div id="operation-display">
-                    Seleccione una operacion
+                    Seleccione una operación
                 </div>
             </div>
+            <button class="operation-btn" data-operation="sum">SUMA (A+B)</button>
+            <button class="operation-btn" data-operation="subtract">RESTA (A-B)</button>
+            <button class="operation-btn" data-operation="multiply">MULTIPLICACIÓN (A×B)</button>
          </div>
+
         <!-- MATRIX 2 -->
             <div class="matrix-box">
                 <div>
                     <h3>Matriz 2</h3>
+                    
                 </div>
             <div class="matrix-content">
                 <div id="matrix2-display">
                     <button class="btn" id="create-matrix2">Crear Matriz</button>
+                </div>
+            </div>
+            <div>
+                <h4>Opciones de matriz:</h4>
+                <div>
+                    <button id="random-matrix2">Valores Aleatorios</button>
+                    <button id="example-matrix2">Ejemplo</button>
+                    <button id="clear-matrix2"> 🗑️ Borrar Matriz 2 </button>
+
+                    <h2>Operaciones de una sola matriz:</h2>
+
+                    <button class="operation-btn" data-operation="scalar">ESCALAR (kxA)</button>
+                    <button class="operation-btn" data-operation="transpose">TRANSPUESTA (A^T)</button>
+                    <button class="operation-btn" data-operation="determinant">DETERMINANTE (det(A))</button>
+                    <button class="operation-btn" data-operation="inverse" >INVERSA (A^-1)</button>
+                    <button class="operation-btn" data-operation="identity">IDENTIDAD (In)</button>
+
                 </div>
             </div>
         </div>
@@ -122,28 +96,10 @@
                 <h3>Resultado</h3>
             </div>
             <div>
-                <div id="result-display">
-                    El resultado se mostrará aquí
-                </div>
+                <div id="result-display"></div>
             </div>
             <button id="clear-result">🗑️ Borrar Resultado</button>
          </div>
-    </div>
-
-    <!-- OPERATION DIV -->
-
-    <div>
-        <h2>Operaciones disponibles</h2>
-        <div>
-            <button class="operation-btn" data-operation="sum">SUMA (A+B)</button>
-            <button class="operation-btn" data-operation="subtract">RESTA (A-B)</button>
-            <button class="operation-btn" data-operation="multiply">MULTIPLICACION (AxB)</button>
-            <button class="operation-btn" data-operation="scalar">ESCALAR (kxA)</button>
-            <button class="operation-btn" data-operation="transpose">TRANSPUESTA (A^T)</button>
-            <button class="operation-btn" data-operation="determinant">DETERMINANTE (det(A))</button>
-            <button class="operation-btn" data-operation="inverse" >INVERSA (A^-1)</button>
-            <button class="operation-btn" data-operation="identity">IDENTIDAD (In)</button>
-        </div>
     </div>
 
     <!-- CALC BUTTON (ALL PARAMETERS MUST BE FILLED) -->
