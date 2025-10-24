@@ -12,8 +12,8 @@ const operationDisplay= document.getElementById("operation-display");
 const resultDisplay= document.getElementById("result-display");
 const matrix1Error = document.getElementById("matrix1-error");
 const matrix2Error = document.getElementById("matrix2-error");
-const calculationError = document.getElementById("calculate-error");
-const calculationSuccess = document.getElementById("calculate-success");
+const calculationError = document.getElementById("calculation-error");
+const calculationSuccess = document.getElementById("calculation-success");
 
 // matrix modal elements
 
@@ -219,8 +219,20 @@ function handleSingleMatrixOperation(e) {
                         operationDisplay.textContent = `Matriz Identidad ${matrix.length}×${matrix.length}`;
                         break;
                     case 'scalar':
-                        result = scalarMultiply(matrix, 2);
-                        operationDisplay.textContent = `Multiplicación por escalar (2) de Matriz ${matrixId}`;
+                        // ask user for scalar value
+                        const userInput = prompt(`Ingrese el escalar (k) para multiplicar la Matriz ${matrixId}:`, '2');
+                        if (userInput === null) {
+                            // user cancelled
+                            showError(calculationError, 'Operación de escalar cancelada por el usuario.');
+                            return;
+                        }
+                        const scalar = parseFloat(userInput);
+                        if (isNaN(scalar)) {
+                            showError(calculationError, 'Valor de escalar inválido. Debe ser un número.');
+                            return;
+                        }
+                        result = scalarMatrix(matrix, scalar);
+                        operationDisplay.textContent = `Multiplicación por escalar (${scalar}) de Matriz ${matrixId}`;
                         break;
                     default:
                         throw new Error('Operación no reconocida');
@@ -454,11 +466,7 @@ function generateIdentityMatrix(size) {
     }
     return matrix;
 }
-
-//***                                    ***//
-//***         UI UTILS FUNCTIONS         ***//
-//***                                    ***//
-
+           
 // clear matrix
 
 function clearMatrix(matrixId) {
