@@ -2,5 +2,4 @@ TO DO LIST:
 
 feat: agregar css
 fix: al momento de hacer operacion de una sola matrix sale mensaje 'operacion no reconocida'
-feat: mejor estilizacion para matriz default
 fix: hacer que en la funcion de matrix escalar tenga espacio para valor k

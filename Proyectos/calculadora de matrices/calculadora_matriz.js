@@ -56,8 +56,8 @@ document.addEventListener("DOMContentLoaded", function() {
     btn.addEventListener('click', handleSingleMatrixOperation);
     });
 
-    // two matrix operations
-    document.querySelectorAll('.operation-btn[data-operation]').forEach(btn => {
+    // two matrix operations (only buttons that do NOT have data-matrix attribute)
+    document.querySelectorAll('.operation-btn[data-operation]:not([data-matrix])').forEach(btn => {
         btn.addEventListener('click', handleMatrixPairOperation);
     });
 
@@ -141,8 +141,9 @@ function handleManualInput(e) {
     const matrixId = parseInt(e.target.dataset.matrix);
     const row = parseInt(e.target.dataset.row);
     const col = parseInt(e.target.dataset.col);
-    const value = parseFloat(e.target.value) || 0;
-    
+    const raw = e.target.value;
+    const value = (raw === null || raw === undefined || String(raw).trim() === '') ? null : parseFloat(raw);
+
     if (matrixId == 1 && matrix1) {
         matrix1[row][col] = value;
     } else if (matrixId == 2 && matrix2) {
@@ -164,6 +165,12 @@ function handleSingleMatrixOperation(e) {
 
     try {
         let result;
+        // validate matrix completeness
+        const valid = validateMatrixComplete(matrix);
+        if (!valid.ok) {
+            showError(calculationError, valid.reason);
+            return;
+        }
          switch(operation) {
                     case 'transpose':
                         result = transposeMatrix(matrix);
@@ -204,7 +211,6 @@ function handleSingleMatrixOperation(e) {
             resultMatrix = result;
             resultDisplay.innerHTML = '';
             displayMatrix(result, resultDisplay);
-            showSuccess(calculationSuccess, 'Cálculo realizado con éxito');
     } catch (error) {
         showError(calculationError, `Error en la operación: ${error.message}`);
     }
@@ -218,7 +224,7 @@ function handleMatrixPairOperation(e) {
     // validate
 
     if (!matrix1) {
-        showError(calculationError, `Matriz ${matrixId} no definida`);
+        showError(calculationError, 'Matriz 1 no definida');
         return;
     }
 
@@ -235,6 +241,14 @@ function handleMatrixPairOperation(e) {
 
     try {
         let result;
+        // validate both matrices for pair operations
+        if (operation === 'sum' || operation === 'subtract' || operation === 'multiply') {
+            const v1 = validateMatrixComplete(matrix1);
+            if (!v1.ok) { showError(calculationError, `Matriz 1: ${v1.reason}`); return; }
+            const v2 = validateMatrixComplete(matrix2);
+            if (!v2.ok) { showError(calculationError, `Matriz 2: ${v2.reason}`); return; }
+        }
+
         switch(operation) {
             case 'sum':
                 result = addMatrices(matrix1, matrix2);
@@ -254,7 +268,6 @@ function handleMatrixPairOperation(e) {
         resultMatrix = result;
         resultDisplay.innerHTML = '';
         displayMatrix(result, resultDisplay);
-        showSuccess(calculationSuccess, 'Cálculo realizado con éxito');
     }
     catch (error) {
         showError(calculationError, error.message);
@@ -288,6 +301,21 @@ function displayMatrix(matrix, displayElement) {
 }
 
 // FUNCTIONS BETWEEN 2 MATRICES 
+
+// validate matrix has no empty cells
+function validateMatrixComplete(matrix) {
+    if (!matrix || !Array.isArray(matrix)) return { ok: false, reason: 'Matriz no definida' };
+    for (let i = 0; i < matrix.length; i++) {
+        for (let j = 0; j < matrix[i].length; j++) {
+            const v = matrix[i][j];
+            if (!Number.isFinite(v)) {
+                return { ok: false, reason: `Celda vacía en fila ${i+1}, columna ${j+1}` };
+            }
+        }
+    }
+    return { ok: true };
+}
+
 
 // add matrices
 function addMatrices(a,b) {
@@ -443,7 +471,7 @@ function clearMatrix(matrixId) {
 
 function clearResult() {
     resultMatrix = null;
-    resultDisplay.innerHTML = 'El resultado se mostrará aqui';
+    resultDisplay.innerHTML = '';
     operationDisplay.textContent = 'Seleccione una operacion';
     hideError(calculationError);
     hideError(calculationSuccess);
@@ -480,8 +508,10 @@ function generateManualInputMatrix(size, matrixId) {
         for (let j = 0; j < size; j++) {
             const input = document.createElement('input');
             input.type = 'number';
-            input.className = 'matrix-cell';
-            input.placeholder = '0';
+            // separate class for inputs so CSS can target them
+            input.className = 'matrix-input';
+            input.value = '';
+            input.placeholder = '';
             input.step = 'any';
             input.dataset.row = i;
             input.dataset.col = j;
@@ -493,7 +523,8 @@ function generateManualInputMatrix(size, matrixId) {
 
     displayElement.appendChild(grid);
 
-    const matrix = Array(size).fill().map(() => Array(size).fill(0));
+    // initialize with nulls to represent empty cells
+    const matrix = Array(size).fill().map(() => Array(size).fill(null));
 
     if (matrixId === 1) {
         matrix1 = matrix;
