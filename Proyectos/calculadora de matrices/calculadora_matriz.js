@@ -104,19 +104,17 @@ function fillMatrix(matrixId, type) {
 
 // example matrix (3x3) 
 function generateExampleMatrix(size) {
-    if (size != 3) {
-        //generateIdentityMatrix
-        //REMEMBER TO CHANGE THIS LATER
-        return [
-            [1, 2],
-            [3, 4]
-        ]
+    const matrix =[];
+    // incremental values
+    let counter = 1;
+    for (let i=0; i<size; i++) {
+        const row= [];
+        for (let j=0; j<size; j++) {
+            row.push(counter++);
+        }
+        matrix.push(row);
     }
-    return [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 9]
-    ];
+    return matrix;
 }
 
 // random matrix
