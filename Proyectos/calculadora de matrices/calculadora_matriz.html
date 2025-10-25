@@ -31,6 +31,17 @@
                 <div>
                     <button id="random-matrix1">Valores Aleatorios</button>
                     <button id="example-matrix1">Ejemplo</button>
+                    <select id="matrix1-size">
+                        <option value="2">2x2</option>
+                        <option value="3" selected>3x3</option>
+                        <option value="4">4x4</option>
+                        <option value="5">5x5</option>
+                        <option value="6">6x6</option>
+                        <option value="7">7x7</option>
+                        <option value="8">8x8</option>
+                        <option value="9">9x9</option>
+                        <option value="10">10x10</option>
+                    </select>
                     <button id="clear-matrix1"> 🗑️ Borrar Matriz 1 </button>
 
                     <h2>Operaciones de una sola matriz:</h2>
@@ -76,6 +87,17 @@
                 <div>
                     <button id="random-matrix2">Valores Aleatorios</button>
                     <button id="example-matrix2">Ejemplo</button>
+                    <select id="matrix2-size">
+                        <option value="2">2x2</option>
+                        <option value="3" selected>3x3</option>
+                        <option value="4">4x4</option>
+                        <option value="5">5x5</option>
+                        <option value="6">6x6</option>
+                        <option value="7">7x7</option>
+                        <option value="8">8x8</option>
+                        <option value="9">9x9</option>
+                        <option value="10">10x10</option>
+                    </select>
                     <button id="clear-matrix2"> 🗑️ Borrar Matriz 2 </button>
 
                     <h2>Operaciones de una sola matriz:</h2>
@@ -99,38 +121,10 @@
                 <div id="result-display"></div>
             </div>
             <button id="clear-result">🗑️ Borrar Resultado</button>
-         </div>
-    </div>
-
-    <!-- MATRIX MODAL -->
-    <div id="matrix-modal">
-        <div>
-            <div>
-                <h3>Crear nueva matriz</h3>
-                <button id="close-modal">&times;</button>
-            </div>
-            <div>
-                <label for="matrix-size">Tamaño de la matriz</label>
-                <select id="matrix-size">
-                    <option value="2">2x2</option>
-                    <option value="3">3x3</option>
-                    <option value="4">4x4</option>
-                    <option value="5">5x5</option>
-                    <option value="6">6x6</option>
-                    <option value="7">7x7</option>
-                    <option value="8">8x8</option>
-                    <option value="9">9x9</option>
-                    <option value="10">10x10</option>
-                </select>
-            </div>
-            <div>
-            <div>
-                <button id="cancel-matrix">Cancelar</button>
-                <button id="create-matrix">Crear Matriz</button>
-            </div>
-            <div id="modal-error"></div>
         </div>
     </div>
+
+    <!-- Size selectors placed next to matrix options are added in each matrix block above -->
 
     <div id="calculation-error"></div>
     <div id="calculation-success"></div>

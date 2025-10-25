@@ -15,23 +15,13 @@ const matrix2Error = document.getElementById("matrix2-error");
 const calculationError = document.getElementById("calculation-error");
 const calculationSuccess = document.getElementById("calculation-success");
 
-// matrix modal elements
-
-const matrixModal = document.getElementById("matrix-modal");
-const matrixSizeSelect = document.getElementById("matrix-size");
-const createMatrixBtn = document.getElementById("create-matrix");
-const cancelMatrixBtn = document.getElementById("cancel-matrix");
-const closeModalBtn = document.getElementById("close-modal");
-const modalError = document.getElementById("modal-error");
+// size selectors for each matrix (always-visible matrices)
+const matrix1SizeSelect = document.getElementById("matrix1-size");
+const matrix2SizeSelect = document.getElementById("matrix2-size");
 
 // initialize event listeners
 
 document.addEventListener("DOMContentLoaded", function() {
-
-    // event for matrix creations
-
-    document.getElementById("create-matrix1").addEventListener("click", () => openMatrixModal(1));
-    document.getElementById("create-matrix2").addEventListener("click", () => openMatrixModal(2));
 
     // events for filling matrices
 
@@ -39,6 +29,25 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("example-matrix1").addEventListener("click", () => fillMatrix(1, 'example'));
     document.getElementById("random-matrix2").addEventListener("click", () => fillMatrix(2, 'random'));
     document.getElementById("example-matrix2").addEventListener("click", () => fillMatrix(2, 'example'));
+
+    // initialize default manual matrices (3x3)
+    const defaultSize = 3;
+    if (matrix1SizeSelect) matrix1SizeSelect.value = String(defaultSize);
+    if (matrix2SizeSelect) matrix2SizeSelect.value = String(defaultSize);
+    generateManualInputMatrix(defaultSize, 1);
+    generateManualInputMatrix(defaultSize, 2);
+
+    // size selector listeners
+    if (matrix1SizeSelect) matrix1SizeSelect.addEventListener('change', (e) => {
+        const s = parseInt(e.target.value);
+        if (isNaN(s) || s < 2) return;
+        generateManualInputMatrix(s, 1);
+    });
+    if (matrix2SizeSelect) matrix2SizeSelect.addEventListener('change', (e) => {
+        const s = parseInt(e.target.value);
+        if (isNaN(s) || s < 2) return;
+        generateManualInputMatrix(s, 2);
+    });
 
     // events for calcs
 
@@ -56,52 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("clear-matrix1").addEventListener("click", () => clearMatrix(1));
     document.getElementById("clear-matrix2").addEventListener("click", () => clearMatrix(2));
     document.getElementById("clear-result").addEventListener("click", () => clearResult());
-
-    // events for matrix modal
-    createMatrixBtn.addEventListener("click",  createEmptyMatrix);
-    cancelMatrixBtn.addEventListener("click", closeMatrixModal);
-    closeModalBtn.addEventListener("click", closeMatrixModal);
 });
-
-// open matrix modal
-function openMatrixModal(matrixId) {
-    currentMatrixId = matrixId;
-    matrixModal.style.display = "flex";
-    hideError(modalError);
-}
-
-// close matrix modal
-
-function closeMatrixModal() {
-    currentMatrixId = null;
-    matrixModal.style.display = "none";
-}
-
-// create matrix from modal
-
-function createEmptyMatrix() {
-    const size = parseInt(matrixSizeSelect.value);
-
-    if (isNaN(size) || size < 2 || size > 10) {
-       showError(modalError, "Seleccione un tamaño entre 2 y 10.");
-       return;
-    }
-
-    const matrix = Array(size).fill().map(() => Array(size).fill(0));
-
-    // Save matrix and display
-    if (currentMatrixId === 1) {
-        matrix1 = matrix;
-        //replace button with matrix
-        displayMatrix(matrix, matrix1Display);
-    } else if (currentMatrixId === 2) {
-        matrix2 = matrix;
-        //replace button with matrix
-        displayMatrix(matrix, matrix2Display);
-    }
-
-    closeMatrixModal();
-}
 
 // fill matrices with random or example values
 
@@ -323,10 +287,6 @@ function displayMatrix(matrix, displayElement) {
     displayElement.appendChild(grid);
 }
 
-//***                                    ***//
-//***OPERATION PART, MESS WITH THIS LATER***//
-//***                                    ***//
-
 // FUNCTIONS BETWEEN 2 MATRICES 
 
 // add matrices
@@ -470,15 +430,10 @@ function generateIdentityMatrix(size) {
 // clear matrix
 
 function clearMatrix(matrixId) {
-    if (matrixId === 1) {
-        matrix1 = null;
-        matrix1Display.innerHTML = '<button class="btn" id="create-matrix1">Crear Matriz</button>';
-        document.getElementById('create-matrix1').addEventListener('click', () => openMatrixModal(1));
-    } else {
-        matrix2 = null;
-        matrix2Display.innerHTML = '<button class="btn" id="create-matrix2">Crear Matriz</button>';
-        document.getElementById('create-matrix2').addEventListener('click', () => openMatrixModal(2));
-    }
+    const size = matrixId === 1 ? (parseInt(matrix1SizeSelect.value) || 3) : (parseInt(matrix2SizeSelect.value) || 3);
+    // regenerate a manual matrix of the selected size filled with zeros
+    generateManualInputMatrix(size, matrixId);
+    hideError(matrixId === 1 ? matrix1Error : matrix2Error);
     hideError(calculationError);
     hideError(calculationSuccess);
 
@@ -509,4 +464,42 @@ function hideError(element) {
 function showSuccess(element, message) {
     element.textContent = message;
     element.style.display= "block";
+}
+
+// generate manual input matrix (creates inputs and returns matrix of zeros)
+function generateManualInputMatrix(size, matrixId) {
+    const displayElement = matrixId === 1 ? matrix1Display : matrix2Display;
+
+    displayElement.innerHTML = '';
+
+    const grid = document.createElement('div');
+    grid.className = 'matrix-grid';
+    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.className = 'matrix-cell';
+            input.placeholder = '0';
+            input.step = 'any';
+            input.dataset.row = i;
+            input.dataset.col = j;
+            input.dataset.matrix = matrixId;
+            input.addEventListener('input', handleManualInput);
+            grid.appendChild(input);
+        }
+    }
+
+    displayElement.appendChild(grid);
+
+    const matrix = Array(size).fill().map(() => Array(size).fill(0));
+
+    if (matrixId === 1) {
+        matrix1 = matrix;
+    } else {
+        matrix2 = matrix;
+    }
+
+    return matrix;
 }
