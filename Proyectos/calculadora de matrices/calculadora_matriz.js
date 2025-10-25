@@ -70,10 +70,15 @@ document.addEventListener("DOMContentLoaded", function() {
 // fill matrices with random or example values
 
 function fillMatrix(matrixId, type) {
+    // when generating/filling a matrix, clear previous calculation messages
+    hideError(calculationError);
+    hideError(calculationSuccess);
+
     const matrix = matrixId === 1 ? matrix1 : matrix2;
 
     if (!matrix) {
-        showError(matrixId === 1 ? matrix1Error : matrix2Error, "La matriz no está definida.");
+        // show a calculation-level error when there's no current manual matrix
+        showError(calculationError, "La matriz no está definida.");
         return;
     }
 
@@ -187,6 +192,9 @@ function handleManualInput(e) {
     } else if (matrixId == 2 && matrix2) {
         matrix2[row][col] = value;
     }
+    // User edited input — clear any previous calculation messages so they don't persist
+    hideError(calculationError);
+    hideError(calculationSuccess);
 }
 
 // single matrix operations
@@ -253,6 +261,9 @@ function handleSingleMatrixOperation(e) {
             resultMatrix = result;
             resultDisplay.innerHTML = '';
             displayMatrix(result, resultDisplay);
+            // operation succeeded — clear previous error and show success
+            hideError(calculationError);
+            showSuccess(calculationSuccess, 'Operación completada correctamente.');
     } catch (error) {
         showError(calculationError, `Error en la operación: ${error.message}`);
     }
@@ -310,6 +321,9 @@ function handleMatrixPairOperation(e) {
         resultMatrix = result;
         resultDisplay.innerHTML = '';
         displayMatrix(result, resultDisplay);
+        // operation succeeded — clear previous error and show success
+        hideError(calculationError);
+        showSuccess(calculationSuccess, 'Operación completada correctamente.');
     }
     catch (error) {
         showError(calculationError, error.message);
@@ -521,17 +535,24 @@ function clearResult() {
 
 // show error message
 function showError(element, message) {
+    if (!element) {
+        // fallback to console if element is missing
+        console.warn('showError called but target element is missing:', message);
+        return;
+    }
     element.textContent = message;
     element.style.display= "block";
 }
 
 // hide error message
 function hideError(element) {
+    if (!element) return;
     element.style.display= "none";
 }
 
 // show success message
 function showSuccess(element, message) {
+    if (!element) return;
     element.textContent = message;
     element.style.display= "block";
 }
