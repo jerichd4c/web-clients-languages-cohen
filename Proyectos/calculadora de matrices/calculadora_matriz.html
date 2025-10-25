@@ -72,7 +72,9 @@
             <button class="operation-btn" data-operation="sum">SUMA (A+B)</button>
             <button class="operation-btn" data-operation="subtract">RESTA (A-B)</button>
             <button class="operation-btn" data-operation="multiply">MULTIPLICACIÓN (A×B)</button>
-            <button id="clear-result">🗑️ Borrar Resultado</button>
+            <button class="operation-btn" id="clear-result">🗑️ Borrar Resultado</button>
+              <div id="calculation-error"></div>
+              <div id="calculation-success"></div>
          </div>
 
         <!-- MATRIX 2 -->
@@ -129,11 +131,6 @@
             </div>
         </div>
     </div>
-
-    <!-- size selectors placed next to matrix options are added in each matrix block above -->
-
-    <div id="calculation-error"></div>
-    <div id="calculation-success"></div>
 
     <script src="calculadora_matriz.js"></script>
     

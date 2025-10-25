@@ -133,6 +133,46 @@ function generateRandomMatrix(size) {
     return matrix;
 }
 
+// generate manual input matrix (creates inputs and returns matrix of zeros)
+function generateManualInputMatrix(size, matrixId) {
+    const displayElement = matrixId === 1 ? matrix1Display : matrix2Display;
+
+    displayElement.innerHTML = '';
+
+    const grid = document.createElement('div');
+    grid.className = 'matrix-grid';
+    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            const input = document.createElement('input');
+            input.type = 'number';
+            // separate class for inputs so CSS can target them
+            input.className = 'matrix-input';
+            input.value = '';
+            input.placeholder = '';
+            input.step = 'any';
+            input.dataset.row = i;
+            input.dataset.col = j;
+            input.dataset.matrix = matrixId;
+            input.addEventListener('input', handleManualInput);
+            grid.appendChild(input);
+        }
+    }
+
+    displayElement.appendChild(grid);
+
+    // initialize with nulls to represent empty cells
+    const matrix = Array(size).fill().map(() => Array(size).fill(null));
+
+    if (matrixId === 1) {
+        matrix1 = matrix;
+    } else {
+        matrix2 = matrix;
+    }
+
+    return matrix;
+}
 
 // aux function to handle manual input
 function handleManualInput(e) {
@@ -410,7 +450,7 @@ function calculateDeterminant(matrix) {
     return det;
 }
 
-// AUX function for determinant: get minor
+// aux function for determinant: get minor
 function getMinor(matrix, row, col) {
     return matrix
     .filter((_, i) => i !== row)
@@ -494,45 +534,4 @@ function hideError(element) {
 function showSuccess(element, message) {
     element.textContent = message;
     element.style.display= "block";
-}
-
-// generate manual input matrix (creates inputs and returns matrix of zeros)
-function generateManualInputMatrix(size, matrixId) {
-    const displayElement = matrixId === 1 ? matrix1Display : matrix2Display;
-
-    displayElement.innerHTML = '';
-
-    const grid = document.createElement('div');
-    grid.className = 'matrix-grid';
-    grid.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-
-    for (let i = 0; i < size; i++) {
-        for (let j = 0; j < size; j++) {
-            const input = document.createElement('input');
-            input.type = 'number';
-            // separate class for inputs so CSS can target them
-            input.className = 'matrix-input';
-            input.value = '';
-            input.placeholder = '';
-            input.step = 'any';
-            input.dataset.row = i;
-            input.dataset.col = j;
-            input.dataset.matrix = matrixId;
-            input.addEventListener('input', handleManualInput);
-            grid.appendChild(input);
-        }
-    }
-
-    displayElement.appendChild(grid);
-
-    // initialize with nulls to represent empty cells
-    const matrix = Array(size).fill().map(() => Array(size).fill(null));
-
-    if (matrixId === 1) {
-        matrix1 = matrix;
-    } else {
-        matrix2 = matrix;
-    }
-
-    return matrix;
 }
