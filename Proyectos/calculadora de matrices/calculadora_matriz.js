@@ -190,14 +190,18 @@ function handleSingleMatrixOperation(e) {
                         operationDisplay.textContent = `Matriz Identidad ${matrix.length}×${matrix.length}`;
                         break;
                     case 'scalar':
-                        // ask user for scalar value
-                        const userInput = prompt(`Ingrese el escalar (k) para multiplicar la Matriz ${matrixId}:`, '2');
-                        if (userInput === null) {
-                            // user cancelled
-                            showError(calculationError, 'Operación de escalar cancelada por el usuario.');
+                        // read scalar from inline input
+                        const scalarElement = document.getElementById(`scalar-input-${matrixId}`);
+                        if (!scalarElement) {
+                            showError(calculationError, 'Entrada de escalar no encontrada.');
                             return;
                         }
-                        const scalar = parseFloat(userInput);
+                        const rawK = scalarElement.value;
+                        if (rawK === null || String(rawK).trim() === '') {
+                            showError(calculationError, 'Ingrese un valor para el escalar (k).');
+                            return;
+                        }
+                        const scalar = parseFloat(rawK);
                         if (isNaN(scalar)) {
                             showError(calculationError, 'Valor de escalar inválido. Debe ser un número.');
                             return;

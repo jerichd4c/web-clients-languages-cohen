@@ -46,7 +46,10 @@
 
                     <h2>Operaciones de una sola matriz:</h2>
 
-                    <button class="operation-btn" data-operation="scalar" data-matrix="1">ESCALAR (kxA)</button>
+                    <label class="scalar-wrap">
+                        <button class="operation-btn" data-operation="scalar" data-matrix="1">ESCALAR</button>
+                        <input id="scalar-input-1" class="scalar-input" type="number" step="any" placeholder="k" value="2" aria-label="Escalar matriz 1" />
+                    </label>
                     <button class="operation-btn" data-operation="transpose" data-matrix="1">TRANSPUESTA (A^T)</button>
                     <button class="operation-btn" data-operation="determinant" data-matrix="1">DETERMINANTE (det(A))</button>
                     <button class="operation-btn" data-operation="inverse" data-matrix="1">INVERSA (A^-1)</button>
@@ -69,6 +72,7 @@
             <button class="operation-btn" data-operation="sum">SUMA (A+B)</button>
             <button class="operation-btn" data-operation="subtract">RESTA (A-B)</button>
             <button class="operation-btn" data-operation="multiply">MULTIPLICACIÓN (A×B)</button>
+            <button id="clear-result">🗑️ Borrar Resultado</button>
          </div>
 
         <!-- MATRIX 2 -->
@@ -102,7 +106,10 @@
 
                     <h2>Operaciones de una sola matriz:</h2>
 
-                    <button class="operation-btn" data-operation="scalar" data-matrix="2">ESCALAR (kxA)</button>
+                    <label class="scalar-wrap">
+                        <button class="operation-btn" data-operation="scalar" data-matrix="2">ESCALAR</button>
+                        <input id="scalar-input-2" class="scalar-input" type="number" step="any" placeholder="k" value="2" aria-label="Escalar matriz 2" />
+                    </label>
                     <button class="operation-btn" data-operation="transpose" data-matrix="2">TRANSPUESTA (A^T)</button>
                     <button class="operation-btn" data-operation="determinant" data-matrix="2">DETERMINANTE (det(A))</button>
                     <button class="operation-btn" data-operation="inverse" data-matrix="2">INVERSA (A^-1)</button>
@@ -120,7 +127,6 @@
             <div>
                 <div id="result-display"></div>
             </div>
-            <button id="clear-result">🗑️ Borrar Resultado</button>
         </div>
     </div>
 
