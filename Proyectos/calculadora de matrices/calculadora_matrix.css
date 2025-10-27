@@ -42,6 +42,12 @@ header h1 {
     box-shadow: 0 1px 3px rgba(16,24,40,0.04);
 }
 
+/* place the result box centered beneath the middle (operations) column */
+.result-box {
+    grid-column: 2 / 3;
+    align-items: center; /* center the heading and result display */
+}
+
 .matrix-content {
     display: flex;
     flex-direction: column;
@@ -87,7 +93,7 @@ header h1 {
 
 /* inputs inside the manual grid */
 .matrix-input {
-    width: 100%;
+    width: 90%;
     height: 100%;
     border: 1px solid rgba(0,0,0,0.08);
     border-radius: 4px;
@@ -119,6 +125,7 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 /* result and messages */
 #result-display {
     min-height: 120px;
+    min-width: 300px;
     background: #ffffff;
     border: 1px solid #e6eef6;
     border-radius: 8px;
