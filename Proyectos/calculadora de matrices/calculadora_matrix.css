@@ -42,6 +42,24 @@ header h1 {
     box-shadow: 0 1px 3px rgba(16,24,40,0.04);
 }
 
+/* allow grid children to shrink instead of forcing the page wider */
+.matrix-box, .matrix-content, .matrix-grid {
+    min-width: 0;
+}
+
+/* keep large matrices from expanding the page — allow internal scrolling */
+.matrix-grid {
+    overflow: auto;
+    max-width: 100%;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* make sure cells and inputs don't force their container wider than allowed */
+.matrix-cell, .matrix-input {
+    box-sizing: border-box;
+    min-width: 40px; /* allow columns to shrink to this minimum */
+}
+
 /* place the result box centered beneath the middle (operations) column */
 .result-box {
     grid-column: 2 / 3;
