@@ -4,7 +4,7 @@ Small browser-based matrix calculator (HTML / CSS / JS) for quick operations wit
 
 ## Quick start 🚀
 
-1. Open `calculadora_matriz.html` in your browser.
+1. Open `matrix_calculator.html` in your browser.
 2. The page loads with two editable **3×3** matrices.
 3. Change size (2–10), fill manually, or use **Random** / **Example** buttons, then run operations from the center panel.
 
@@ -26,6 +26,6 @@ Small browser-based matrix calculator (HTML / CSS / JS) for quick operations wit
 
 ## Files 📁
 
-- `calculadora_matriz.html` — UI
-- `calculadora_matrix.css` — styles
-- `calculadora_matriz.js` — logic and operations
+- `matrix_calculator.html` — UI
+- `matrix_calculator.css` — styles
+- `matrix_calculator.js` — logic and operations
