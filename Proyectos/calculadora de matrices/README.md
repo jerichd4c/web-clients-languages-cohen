@@ -29,5 +29,3 @@ Small browser-based matrix calculator (HTML / CSS / JS) for quick operations wit
 - `calculadora_matriz.html` — UI
 - `calculadora_matrix.css` — styles
 - `calculadora_matriz.js` — logic and operations
-
----
