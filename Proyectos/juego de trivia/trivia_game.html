@@ -3,23 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Juego de trivia</title>
+    <link rel="stylesheet" href="trivia_game.css">
 </head>
 <body>
     <div id="app">
 
-        <label for="difficulty">Dificultad</label>
-        <select id="difficulty">
-            <option value="easy">Facil</option>
-            <option value="medium">Medio</option>
-            <option value="hard">Dificil</option>
-        </select>
+        <!-- config form -->
+        <div id="config-screen" class="screen active">
+            <h1>Configuracion del juego</h1>
+            <form id="config-form">
+                <label for="player-name">Nombre del jugador</label>
+                <input type="text" id="player-name" required minlength="2" maxlength="20">
 
-        <label for="category">Categoria</label>
-        <select id="category">
-            <option value="0">Mixtas</option>
-        </select>
+                <label for="question-count">Cantidad de preguntas</label>
+                <input type="number" id="question-count" required min="5" max="20" value="10">
 
+                <label for="difficulty">Dificultad</label>
+                <select id="difficulty">
+                    <option value="easy">Facil</option>
+                    <option value="medium">Medio</option>
+                    <option value="hard">Dificil</option>
+                </select>
+        
+                <label for="category">Categoria</label>
+                <select id="category">
+                    <option value="0">Mixtas</option>
+                    <!-- categories load based on Trivia API -->
+                </select>
+                <!-- submit button -->
+                <button type="submit">Iniciar juego</button>    
+            </form>
+        </div>
+
+        <!-- loading screen -->
+        <div id="loading-screen" class="screen">
+            <div class="spinner"></div>
+            <p>Cargando preguntas...</p>
+        </div>
+
+        <!-- game screen -->
+        <div id="game-screen" class="screen">
+            <header>
+                <span id="progress">Pregunta 1 de 10</span>
+                <span id="score">Puntaje: 0</span>
+            </header>
+        </div>
+     
     </div>
     <script src="trivia_game.js"></script>
 </body>
