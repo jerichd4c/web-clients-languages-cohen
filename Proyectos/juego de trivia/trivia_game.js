@@ -95,7 +95,7 @@ class TriviaGame {
         this.resetTimer();
         const question = this.questions[this.currentQuestion];
         // display question and options
-        document.getElementById('progress'). textContent = `Pregunta ${this.currentQuestion + 1} de ${this.config.questionLength}`;
+        document.getElementById('progress'). textContent = `Pregunta ${this.currentQuestion + 1} de ${this.questions.length}`;
         document.getElementById('score').textContent = `Puntuación: ${this.score}`;
         document.getElementById('question-text').innerHTML = atob(question.question);
 
