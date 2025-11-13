@@ -1,9 +1,58 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
 /* display must be none by default  */
 .screen {
     display:none;
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 .screen.active {
     display:block;
+}
+
+#config-form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+/* unify buttons and inputs styles */
+#config-form input, #config-form select {
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border: 1px solid #cdd7e2;
+    border-radius: 8px;
+    background: #fdfefe;
+    box-sizing: border-box;
+}
+
+#config-form input#player-name:focus,
+#config-form input#question-count:focus,
+#config-form select:focus {
+    outline: none;
+    border-color: #007cba;
+}
+
+button {
+    background: #007cba;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+button:hover {
+    background: #005a87;
 }
 
 .spinner { 
@@ -21,12 +70,11 @@
     100% { transform: rotate(360deg); }
 }
 
-.correct {
-    background: #4CAF50 !important;
-}
-
-.incorrect {
-    background: #F44336 !important;
+.options button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    text-align: left;
 }
 
 #timer {
@@ -50,4 +98,12 @@
 
 #timer-bar.danger {
     background: #ff0000;
+}
+
+.correct {
+    background: #4CAF50 !important;
+}
+
+.incorrect {
+    background: #F44336 !important;
 }
