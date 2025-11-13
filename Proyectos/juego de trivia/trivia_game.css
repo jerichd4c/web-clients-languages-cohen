@@ -20,3 +20,11 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+.correct {
+    background: #4CAF50 !important;
+}
+
+.incorrect {
+    background: #F44336 !important;
+}

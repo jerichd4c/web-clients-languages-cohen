@@ -36,7 +36,7 @@ class TriviaGame {
     // populate categories in the select element
     populateCategories(categories) {
         const categorySelect = document.getElementById('category');
-        categories.forEach(category => {
+        categories.slice(0, 5).forEach(category => {
             const option = document.createElement('option');
             option.value = category.id;
             option.textContent = category.name;
@@ -51,6 +51,19 @@ class TriviaGame {
         document.getElementById('config-form').addEventListener('submit', (e) => {
             e.preventDefault();
             this.startGame();
+        });
+
+        // restart game with same config
+        document.getElementById('restart-same').addEventListener('click', () => {
+            this.restartGame(true);
+        });
+        // restart game with new config
+        document.getElementById('restart-new').addEventListener('click', () => {
+            this.restartGame(false);
+        });
+        // quit game
+        document.getElementById('quit').addEventListener('click', () => {
+            this.showScreen('config-screen');
         });
     }
 
@@ -202,7 +215,6 @@ class TriviaGame {
     }
 
     // show results with stats
-
     showResults() {
         this.showScreen('result-screen');
         const percentage = ((this.correctAnswers / this.questions.length) * 100).toFixed(1);
@@ -215,6 +227,22 @@ class TriviaGame {
             <p><strong>Porcentaje de Acierto:</strong> ${percentage}%</p>
             <p><strong>Tiempo Promedio por Pregunta:</strong> ${avgTime} segundos</p>
         `;
+    }
+
+    //restart game 
+    restartGame(sameconfig) {
+        //set initial values for a new game
+        this.currentQuestion = 0;
+        this.score = 0;
+        this.correctAnswers = 0;
+        this.totalTime = 0;
+        // if config is the same, start game directly
+        if (sameconfig) {
+            this.startGame();
+        } else {
+        // else, go back to config screen
+            this.showScreen('config-screen');
+        }
     }
 }
 
