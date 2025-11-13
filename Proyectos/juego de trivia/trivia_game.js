@@ -11,6 +11,7 @@ class TriviaGame {
         this.timer = null;
         this.timeLeft = 20;
         this.totalQuestions = 0;
+        this.totalTime = 0;
 
         this.initializeApp();
     }
@@ -143,12 +144,12 @@ class TriviaGame {
     handleTimeUp() {
         clearInterval(this.timer);
         this.currentQuestion++;
-        this.totalTiem += 20;
+        // add full time for one question (20 seconds used)
+        this.totalTime += 20;
         if (this.currentQuestion < this.questions.length) {
             this.displayQuestion();
         } else {
-            //TO DO: if there are no more questions, show results
-            //this.showResults();
+            this.showResults();
         }
     }
 
@@ -184,8 +185,7 @@ class TriviaGame {
             if (this.currentQuestion < this.questions.length) {
                 this.displayQuestion();
             } else {
-                // TO DO: show results when no more questions
-                // this.showResults();
+                this.showResults();
             }
         }, 2000);
     }
@@ -199,6 +199,22 @@ class TriviaGame {
             screen.classList.remove('active');
         });
         document.getElementById(screenId).classList.add('active');
+    }
+
+    // show results with stats
+
+    showResults() {
+        this.showScreen('result-screen');
+        const percentage = ((this.correctAnswers / this.questions.length) * 100).toFixed(1);
+        const avgTime = (this.totalTime / this.questions.length).toFixed(1);
+
+        document.getElementById('results-content').innerHTML = `
+            <p><strong>Jugador:</strong> ${this.config.playerName}</p>
+            <p><strong>Puntuación Total:</strong> ${this.score}</p>
+            <p><strong>Respuestas Correctas:</strong> ${this.correctAnswers} de ${this.questions.length} (${percentage}%)</p>
+            <p><strong>Porcentaje de Acierto:</strong> ${percentage}%</p>
+            <p><strong>Tiempo Promedio por Pregunta:</strong> ${avgTime} segundos</p>
+        `;
     }
 }
 
