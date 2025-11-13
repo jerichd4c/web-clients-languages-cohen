@@ -20,7 +20,7 @@ class TriviaGame {
         this.setupEventListeners();
     }
 
-    // async method to load categories from API
+    // async function to load categories from API
     async loadCategories() {
         try {
             const response = await fetch('https://opentdb.com/api_category.php');
@@ -53,7 +53,7 @@ class TriviaGame {
         });
     }
 
-    // async method to start the game
+    // async function to start the game
     async startGame() {
         // load config
         this.config = {
@@ -68,7 +68,7 @@ class TriviaGame {
         await this.fetchQuestions();
     }   
 
-    // async method to fetch questions from API
+    // async function to fetch questions from API
     async fetchQuestions() {
         // build API URL based on config (Generate API URL on page)
         const url = `https://opentdb.com/api.php?amount=${this.config.questionCount}&category=${this.config.category !== '0' ? this.config.category : ''}&difficulty=${this.config.difficulty}&type=multiple&encode=base64`;
@@ -80,14 +80,117 @@ class TriviaGame {
             if (data.response_code === 0) {
                 this.questions = data.results;
                 this.showScreen('game-screen');
+                this.displayQuestion();
             } else {
                 throw new Error('Error al cargar preguntas');
             }
         } catch (error) {
             alert('Error al cargar preguntas. Por favor, intenta de nuevo.');
-            this.showScreen('error-screen');
+            this.showScreen('config-screen');
         }
     }
+
+    // function to display the current question
+    displayQuestion() {
+        this.resetTimer();
+        const question = this.questions[this.currentQuestion];
+        // display question and options
+        document.getElementById('progress'). textContent = `Pregunta ${this.currentQuestion + 1} de ${this.config.questionLength}`;
+        document.getElementById('score').textContent = `Puntuación: ${this.score}`;
+        document.getElementById('question-text').innerHTML = atob(question.question);
+
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        //opt : options
+        //atob is necessary to decode base64 encoded strings from trivia API
+        const allOptions = [...question.incorrect_answers.map(opt => atob(opt)), atob(question.correct_answer)];
+
+        allOptions.forEach(option => {
+            const button = document.createElement('button');
+            button.textContent = option;
+            button.addEventListener('click', () => this.checkAnswer(option, question.correct_answer));
+            optionsContainer.appendChild(button);
+        });
+        // start timer for question
+        this.startTimer();
+    }
+
+    // AUX functions for trivia game
+
+    // start game timer
+    startTimer() {
+        this.timeLeft = 20;
+        // set interval 
+        this.timer = setInterval(() => {
+            this.timeLeft--;
+
+            if (this.timeLeft <= 0) {
+                // call function to handle time up (next question)
+                this.handleTimeUp();
+            } 
+        // 1 second
+        }, 1000);
+    }
+
+    // reset timer for question
+    resetTimer() {
+        // clear interval and reset time left
+        clearInterval(this.timer);
+        this.timeLeft = 20;
+    }
+
+    // handle time up scenario
+    handleTimeUp() {
+        clearInterval(this.timer);
+        this.currentQuestion++;
+        this.totalTiem += 20;
+        if (this.currentQuestion < this.questions.length) {
+            this.displayQuestion();
+        } else {
+            //TO DO: if there are no more questions, show results
+            //this.showResults();
+        }
+    }
+
+    // check if selected answer is correct
+    checkAnswer(selectedAnswer, correct) {
+        clearInterval(this.timer);
+        // resets timer
+        this.totalTime += (20 - this.timeLeft);
+
+        //fetch correct answer from API data
+        const correctAnswer = atob(correct);
+        const buttons = document.querySelectorAll('#options-container button');
+
+        buttons.forEach(button => {
+            // disable all buttons after selection
+            button.disabled = true;
+            if (button.textContent === correctAnswer) {
+                button.classList.add('correct');
+            } else if (button.textContent === selectedAnswer && selectedAnswer !== correctAnswer) {
+                button.classList.add('incorrect');
+            }
+        });
+
+        if (selectedAnswer === correctAnswer) {
+            // increase score for correct answer
+            this.score += 10;
+            this.correctAnswers++;
+        }
+
+        setTimeout(() => {
+            this.currentQuestion++;
+            // if there are more questions, display next question
+            if (this.currentQuestion < this.questions.length) {
+                this.displayQuestion();
+            } else {
+                // TO DO: show results when no more questions
+                // this.showResults();
+            }
+        }, 2000);
+    }
+
+    // AUX functions for trivia game
 
     // show screens with IDs
     showScreen(screenId) {
