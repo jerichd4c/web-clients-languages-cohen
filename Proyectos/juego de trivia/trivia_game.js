@@ -134,9 +134,11 @@ class TriviaGame {
     // start game timer
     startTimer() {
         this.timeLeft = 20;
+        this.updateTimerDisplay();
         // set interval 
         this.timer = setInterval(() => {
             this.timeLeft--;
+            this.updateTimerDisplay();
 
             if (this.timeLeft <= 0) {
                 // call function to handle time up (next question)
@@ -242,6 +244,20 @@ class TriviaGame {
         } else {
         // else, go back to config screen
             this.showScreen('config-screen');
+        }
+    }
+
+    // update displayTimer in real time
+    updateTimerDisplay() {
+        const timerBar= document.getElementById('timer-bar');
+        const percentage = (this.timeLeft / 20) * 100;
+        timerBar.style.width = `${percentage}%`;
+        timerBar.className = '';
+        if (this.timeLeft <= 5) {
+            // if there are 5 seconds or less, change color to red
+            timerBar.classList.add('danger');
+        } else if (this.timeLeft <= 10) {
+            timerBar.classList.add('warning');
         }
     }
 }
