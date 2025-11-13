@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de trivia</title>
+    <title>Trivia game</title>
     <link rel="stylesheet" href="trivia_game.css">
 </head>
 <body>
@@ -11,42 +11,42 @@
 
         <!-- config form -->
         <div id="config-screen" class="screen active">
-            <h1>Configuracion del juego</h1>
+            <h1>Game Configuration</h1>
             <form id="config-form">
-                <label for="player-name">Nombre del jugador</label>
+                <label for="player-name">Player name</label>
                 <input type="text" id="player-name" required minlength="2" maxlength="20">
 
-                <label for="question-count">Cantidad de preguntas</label>
+                <label for="question-count">Number of questions</label>
                 <input type="number" id="question-count" required min="5" max="20" value="10">
 
-                <label for="difficulty">Dificultad</label>
+                <label for="difficulty">Difficulty</label>
                 <select id="difficulty">
-                    <option value="easy">Facil</option>
-                    <option value="medium">Medio</option>
-                    <option value="hard">Dificil</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
                 </select>
         
-                <label for="category">Categoria</label>
+                <label for="category">Category</label>
                 <select id="category">
-                    <option value="0">Mixtas</option>
+                    <option value="0">Mixed</option>
                     <!-- categories load based on Trivia API -->
                 </select>
                 <!-- submit button -->
-                <button type="submit">Iniciar juego</button>    
+                <button type="submit">Start Game</button>    
             </form>
         </div>
 
         <!-- loading screen -->
         <div id="loading-screen" class="screen">
             <div class="spinner"></div>
-            <p>Cargando preguntas...</p>
+            <p>Loading questions...</p>
         </div>
 
         <!-- game screen -->
         <div id="game-screen" class="screen">
             <header>
-                <span id="progress">Pregunta 1 de 10</span>
-                <span id="score">Puntaje: 0</span>
+                <span id="progress">Question 1 of 10</span>
+                <span id="score">Score: 0</span>
             </header>
             <div id="question-container">
                 <h2 id="question-text"></h2>
@@ -60,12 +60,12 @@
         <!-- result screen -->
 
         <div id="result-screen" class="screen">
-            <h1>Resultados</h1>
+            <h1>Results</h1>
             <div id="results-content"></div>
             <div class="actions"></div>
-                <button id="restart-same">Reiniciar juego</button>
-                <button id="restart-new">Nuevo juego</button>
-                <button id="quit">Salir</button>
+                <button id="restart-same">Restart Game</button>
+                <button id="restart-new">New Game</button>
+                <button id="quit">Quit</button>
         </div>
     </div>
     <script src="trivia_game.js"></script>

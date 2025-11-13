@@ -29,14 +29,14 @@ class TriviaGame {
             // load categories into the game
             this.populateCategories(data.trivia_categories);
         } catch (error) {
-            console.error('Error cargando categorias:', error);
+            console.error('Error loading categories:', error);
         }
     }
 
     // populate categories in the select element
     populateCategories(categories) {
         const categorySelect = document.getElementById('category');
-        categories.slice(0, 5).forEach(category => {
+        categories.forEach(category => {
             const option = document.createElement('option');
             option.value = category.id;
             option.textContent = category.name;
@@ -99,7 +99,7 @@ class TriviaGame {
                 throw new Error('Error al cargar preguntas');
             }
         } catch (error) {
-            alert('Error al cargar preguntas. Por favor, intenta de nuevo.');
+            alert('Error loading questions. Please try again.');
             this.showScreen('config-screen');
         }
     }
@@ -223,11 +223,11 @@ class TriviaGame {
         const avgTime = (this.totalTime / this.questions.length).toFixed(1);
 
         document.getElementById('results-content').innerHTML = `
-            <p><strong>Jugador:</strong> ${this.config.playerName}</p>
-            <p><strong>Puntuación Total:</strong> ${this.score}</p>
-            <p><strong>Respuestas Correctas:</strong> ${this.correctAnswers} de ${this.questions.length} (${percentage}%)</p>
-            <p><strong>Porcentaje de Acierto:</strong> ${percentage}%</p>
-            <p><strong>Tiempo Promedio por Pregunta:</strong> ${avgTime} segundos</p>
+            <p><strong>Player:</strong> ${this.config.playerName}</p>
+            <p><strong>Total Score:</strong> ${this.score}</p>
+            <p><strong>Correct Answers:</strong> ${this.correctAnswers} of ${this.questions.length} (${percentage}%)</p>
+            <p><strong>Accuracy Percentage:</strong> ${percentage}%</p>
+            <p><strong>Average Time per Question:</strong> ${avgTime} seconds</p>
         `;
     }
 
