@@ -96,7 +96,7 @@ class TriviaGame {
                 this.showScreen('game-screen');
                 this.displayQuestion();
             } else {
-                throw new Error('Error al cargar preguntas');
+                throw new Error('Error loading questions from API');
             }
         } catch (error) {
             alert('Error loading questions. Please try again.');
@@ -109,8 +109,8 @@ class TriviaGame {
         this.resetTimer();
         const question = this.questions[this.currentQuestion];
         // display question and options
-        document.getElementById('progress'). textContent = `Pregunta ${this.currentQuestion + 1} de ${this.questions.length}`;
-        document.getElementById('score').textContent = `Puntuación: ${this.score}`;
+        document.getElementById('progress'). textContent = `Question ${this.currentQuestion + 1} of ${this.questions.length}`;
+        document.getElementById('score').textContent = `Score: ${this.score}`;
         document.getElementById('question-text').innerHTML = atob(question.question);
 
         const optionsContainer = document.getElementById('options-container');
