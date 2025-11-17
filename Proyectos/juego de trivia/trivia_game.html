@@ -3,14 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trivia game</title>
+    <title>Trivia Challenge 🎮</title>
     <link rel="stylesheet" href="trivia_game.css">
+    <!-- font awesome and google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" 
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <div class="background-animation"></div>
+
     <div id="app">
 
+        <!-- welcome screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-container">
+                <div class="logo">
+                    <i class="fas fa-brain"></i>    
+                    <h1>Trivia Challenge</h1>
+                </div>
+                <div class="welcome-content">
+                    <h2>Test your knowledge!</h2>
+                    <button id ="start-btn" class="btn-primary pulse">
+                        <i class="fas fa-play"></i>
+                        Start Quiz
+                    </button>
+                </div>  
+            </div>
+        </div>
+
         <!-- config form -->
-        <div id="config-screen" class="screen active">
+        <div id="config-screen" class="screen">
             <h1>Game Configuration</h1>
             <form id="config-form">
                 <label for="player-name">Player name</label>

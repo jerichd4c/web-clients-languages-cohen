@@ -12,6 +12,7 @@ class TriviaGame {
         this.timeLeft = 20;
         this.totalQuestions = 0;
         this.totalTime = 0;
+        this.isAnswerSelected = false;
 
         this.initializeApp();
     }
@@ -46,6 +47,11 @@ class TriviaGame {
 
     // setup event listeners for UI elements
     setupEventListeners() {
+
+        // startup screen: start button
+        document.getElementById('start-btn').addEventListener('click', () => {
+            this.showScreen('config-screen');
+        });
 
         // config form: difficulty, category, number of questions
         document.getElementById('config-form').addEventListener('submit', (e) => {
