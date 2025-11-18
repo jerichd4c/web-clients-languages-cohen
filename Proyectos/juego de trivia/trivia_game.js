@@ -317,7 +317,7 @@ class TriviaGame {
 
         feedbackIcon.className = `feedback-icon ${isCorrect ? 'correct' : 'incorrect'}`;
         feedbackIcon.innerHTML = isCorrect ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times"></i>';
-        feedbackTitle.textContent = isCorrect ? '¡Correcto!' : '¡Incorrecto!';
+        feedbackTitle.textContent = isCorrect ? '¡Correct!' : '¡Incorrect!';
         feedbackMessage.textContent = message;
 
         this.showScreen('feedback-screen');
