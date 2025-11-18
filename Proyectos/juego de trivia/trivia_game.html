@@ -193,9 +193,9 @@
             </div>
         </div>
 
-        <!-- result screen -->
+        <!-- results screen -->
 
-        <div id="result-screen" class="screen">
+        <div id="results-screen" class="screen">
             <div class="results-container">
                 <div class="results=header">
                     <div class="trophy">
@@ -208,7 +208,7 @@
                     <div class="result-card">
                         <div class="result-item">
                             <i class="fas fa-user"></i>
-                            </div>
+                            <div>
                                 <span class="label">Player</span>
                                 <span id="result-player" class="value">Name</span>
                             </div>
@@ -217,7 +217,7 @@
                         <!-- score -->
                         <div class="result-item">
                             <i class="fas fa-star"></i>
-                            </div>
+                            <div>
                                 <span class="label">Final Score</span>
                                 <span id="result-score" class="value">0</span>
                             </div>
@@ -226,7 +226,7 @@
                         <!-- answers -->
                         <div class="results-item">
                             <i class="fas fa-chart-pie"></i>
-                            </div>
+                            <div>
                                 <span class="label">Correct Answers</span>
                                 <span id="result-correct" class="value">0%</span>
                             </div>
@@ -235,7 +235,7 @@
                         <!-- time taken -->
                         <div class="result-item">
                             <i class="fas fa-clock"></i>
-                            </div>
+                            <div>
                                 <span class="label">Time Taken</span>
                                 <span id="result-time" class="value">0s</span>
                             </div>
@@ -248,7 +248,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- action buttons (after the game) -->
                 <div class="results-actions">
                     <button id="restart-same" class="btn-primary">
@@ -274,8 +274,6 @@
     <audio id="timer-beep" src="sounds/timer-beep.mp3" preload="auto"></audio>
     <audio id="game-start-sound" src="sounds/game-start.mp3" preload="auto"></audio>
     <audio id="results-sound" src="sounds/results.mp3" preload="auto"></audio>
-
-
 
     <!-- script for charts -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -79,7 +79,7 @@ class TriviaGame {
         categories.forEach(category => {
             const option = document.createElement('option');
             option.value = category.id;
-            option.textContent = category.name;
+            option.textContent = `🎯 ${category.name}`;
             categorySelect.appendChild(option);
         });
     }
@@ -147,7 +147,7 @@ class TriviaGame {
                 throw new Error('Error loading questions from API');
             }
         } catch (error) {
-            alert('Error loading questions. Please try again.');
+            this.showError('Failed to load questions. Please try again.');
             this.showScreen('config-screen');
         }
     }
@@ -189,7 +189,7 @@ class TriviaGame {
             const button = document.createElement('button');
             button.className = 'option-btn';
             button.innerHTML = `<span>${option}</span>`;
-            button.setAttribute('data-label', optionLabels[index]);
+            button.setAttribute('data-option', optionLabels[index]);
 
             button.addEventListener('click', () => {
                 if (!this.isAnswerSelected) {
@@ -405,7 +405,7 @@ class TriviaGame {
 
     // decode base64 strings from API
     decodeBase64(str) {
-        return decodeURIComponent(escape(atob(str)));
+        return decodeURIComponent(escape(window.atob(str)));
     }
     
 }
