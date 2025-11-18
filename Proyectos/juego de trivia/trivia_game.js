@@ -14,12 +14,51 @@ class TriviaGame {
         this.totalTime = 0;
         this.isAnswerSelected = false;
 
+        // sounds
+        this.sounds = {
+            correct: document.getElementById('correct-sound'),
+            wrong: document.getElementById('wrong-sound'),
+            timerBeep: document.getElementById('timer-beep'),
+            gameStart: document.getElementById('game-start-sound'),
+            results: document.getElementById('results-sound')
+        };
+
         this.initializeApp();
     }
 
     initializeApp() {
         this.loadCategories();
         this.setupEventListeners();
+        this.setupRangeInput();
+        this.setupDifficultyButtons();
+    }
+
+    // setup range input for number of questions
+    setupRangeInput() {
+        // setup range input for number of questions
+        const range= document.getElementById('question-count');
+        // update the value display when the range input changes
+        const value= document.getElementById('question-count-value');
+        range.addEventListener('input', (e) => {
+            value.textContent = e.target.value;
+        });
+    }
+    
+    // setup difficulty buttons (visual feedback, only one active at a time)
+    setupDifficultyButtons() { 
+        const buttons = document.querySelectorAll('.difficulty-btn');
+        const hiddenInput = document.getElementById('difficulty');
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // remove active class from all buttons and add to clicked button
+                buttons.forEach(b => b.classList.remove('active'));
+                // add active class to clicked button
+                btn.classList.add('active');
+                // set hidden input value to clicked button data-value
+                hiddenInput.value = btn.dataset.value;
+            });
+        });
     }
 
     // async function to load categories from API
@@ -83,6 +122,9 @@ class TriviaGame {
             category: document.getElementById('category').value
         };
 
+        // play game start sound
+        this.playSound('gameStart');
+
         this.showScreen('loading-screen');
         // wait for config to be set before fetching questions
         await this.fetchQuestions();
@@ -112,30 +154,51 @@ class TriviaGame {
 
     // function to display the current question
     displayQuestion() {
-        this.resetTimer();
+        this.resetQuestionState();
         const question = this.questions[this.currentQuestion];
-        // display question and options
-        document.getElementById('progress'). textContent = `Question ${this.currentQuestion + 1} of ${this.questions.length}`;
-        document.getElementById('score').textContent = `Score: ${this.score}`;
-        document.getElementById('question-text').innerHTML = atob(question.question);
+        // display UI elements
+        document.getElementById('player-display-name').textContent = this.config.playerName;
+        document.getElementById('score').textContent = this.score;
+        document.getElementById('corrent-count').textContent = this.correctAnswers;
+        document.getElementById('progress'). textContent = `${this.currentQuestion + 1} of ${this.questions.length}`;
+        document.getElementById('current-q').textContent = this.currentQuestion + 1;
 
-        const optionsContainer = document.getElementById('options-container');
-        optionsContainer.innerHTML = '';
-        //opt : options
-        //atob is necessary to decode base64 encoded strings from trivia API
-        const allOptions = [...question.incorrect_answers.map(opt => atob(opt)), atob(question.correct_answer)];
+        // show question text
+        document.getElementById('question-text').textContent = this.decodeBase64(question.question);    
 
-        allOptions.forEach(option => {
-            const button = document.createElement('button');
-            button.textContent = option;
-            button.addEventListener('click', () => this.checkAnswer(option, question.correct_answer));
-            optionsContainer.appendChild(button);
-        });
+        // display answers options
+        this.displayOptions(question);
+
         // start timer for question
         this.startTimer();
     }
 
-    // AUX functions for trivia game
+    // display options from API
+    displayOptions(question) {
+        const optionsContainer = document.getElementById('options-container');
+        optionsContainer.innerHTML = '';
+        
+        // combine correct and incorrect answers with 3 dots operator
+        const allOptions = [...question.incorrect_answers.map(opt => this.decodeBase64(opt)), 
+            this.decodeBase64(question.correct_answer)
+        ];
+
+        const optionLabels = ['A', 'B', 'C', 'D'];
+
+        allOptions.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.className = 'option-btn';
+            button.innerHTML = `<span>${option}</span>`;
+            button.setAttribute('data-label', optionLabels[index]);
+
+            button.addEventListener('click', () => {
+                if (!this.isAnswerSelected) {
+                    this.checkAnswer(option, question.correct_answer);
+                }
+            });
+            optionsContainer.appendChild(button);
+        });
+    }
 
     // start game timer
     startTimer() {
@@ -146,6 +209,11 @@ class TriviaGame {
             this.timeLeft--;
             this.updateTimerDisplay();
 
+            // play beep sound when 5 seconds or less
+            if (this.timeLeft <= 5 && this.timeLeft > 0) {
+                this.playSound('timerBeep');
+            }
+
             if (this.timeLeft <= 0) {
                 // call function to handle time up (next question)
                 this.handleTimeUp();
@@ -154,89 +222,141 @@ class TriviaGame {
         }, 1000);
     }
 
-    // reset timer for question
-    resetTimer() {
-        // clear interval and reset time left
-        clearInterval(this.timer);
-        this.timeLeft = 20;
-    }
+    updateTimerDisplay() {
+        const timerText= document.getElementById('timer-text');
+        const timerPath= document.getElementById('timer-path');
+        const timerCircle= document.getElementById('timer-circle');
 
-    // handle time up scenario
-    handleTimeUp() {
-        clearInterval(this.timer);
-        this.currentQuestion++;
-        // add full time for one question (20 seconds used)
-        this.totalTime += 20;
-        if (this.currentQuestion < this.questions.length) {
-            this.displayQuestion();
-        } else {
-            this.showResults();
+        timerText.textContent = this.timeLeft;
+
+        // calc progress
+        const circumference = 2 * Math.PI * 45; // 2πr where r=45
+        const offset = circumference - (this.timeLeft / 20) * circumference;
+
+        timerPath.style.strokeDasharray = circumference;
+        timerPath.style.strokeDashoffset = offset;
+
+        // change color based on time left
+        timerCircle.className = timer-timerCircle;
+        if (this.timeLeft < 5) {
+            timerCircle.classList.add('danger');
+        } else if (this.timeLeft < 10) {
+            timerCircle.classList.add('warning');
         }
     }
 
+    
+    // handle time up scenario
+    handleTimeUp() {
+        clearInterval(this.timer);
+        this.isAnswerSelected = true;
+        // IF time is up, answer is wrong
+        this.playSound('wrong');
+        this.showFeedback(false, "Time's up!");
+        
+        setTimeout(() => {
+            this.nextQuestion();
+        }, 2000);
+    }
+    
     // check if selected answer is correct
     checkAnswer(selectedAnswer, correct) {
+        if (this.isAnswerSelected) return; // prevent multiple selections
         clearInterval(this.timer);
-        // resets timer
-        this.totalTime += (20 - this.timeLeft);
+        this.isAnswerSelected = true;
 
         //fetch correct answer from API data
-        const correctAnswer = atob(correct);
-        const buttons = document.querySelectorAll('#options-container button');
-
+        const correctAnswer = this.decodeBase64(correct);
+        const buttons = document.querySelectorAll('.option-btn');
+        
         buttons.forEach(button => {
-            // disable all buttons after selection
-            button.disabled = true;
-            if (button.textContent === correctAnswer) {
+            if (button.querySelector('span').textContent === correctAnswer) {
+                // highlight correct answer
                 button.classList.add('correct');
-            } else if (button.textContent === selectedAnswer && selectedAnswer !== correctAnswer) {
+            } else if (button.querySelector('span').textContent === selectedAnswer) {
+                // highlight incorrect answer
                 button.classList.add('incorrect');
             }
+            button.style.pointerEvents = 'none'; // disable further clicks
         });
-
+        
         if (selectedAnswer === correctAnswer) {
             // increase score for correct answer
             this.score += 10;
             this.correctAnswers++;
+            this.playSound('correct');
+            this.showFeedback(true, 'Correct!, +10 points');
+        } else {
+            this.playSound('wrong');
+            this.showFeedback(false, `Incorrect!, The correct answer was: ${correctAnswer}`);
         }
-
+        // small pause and go to next question
         setTimeout(() => {
-            this.currentQuestion++;
-            // if there are more questions, display next question
-            if (this.currentQuestion < this.questions.length) {
-                this.displayQuestion();
-            } else {
-                this.showResults();
-            }
-        }, 2000);
+            this.nextQuestion();
+        }, 3000);
     }
 
-    // AUX functions for trivia game
+    //show feedback between questions
+    showFeedback(isCorrect, message) {
+        // get feedback elements from HTML 
+        const feedbackScreen = document.getElementById('feedback-screen');
+        const feedbackIcon = document.getElementById('feedback-icon');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackMessage = document.getElementById('feedback-message');
+        const countdown = document.getElementById('countdown');
 
-    // show screens with IDs
-    showScreen(screenId) {
-        // mark all screens as inactive and activate the selected one
-        document.querySelectorAll('.screen').forEach(screen => {
-            screen.classList.remove('active');
-        });
-        document.getElementById(screenId).classList.add('active');
+        feedbackIcon.className = `feedback-icon ${isCorrect ? 'correct' : 'incorrect'}`;
+        feedbackIcon.innerHTML = isCorrect ? '<i class="fas fa-check-circle"></i>' : '<i class="fas fa-times"></i>';
+        feedbackTitle.textContent = isCorrect ? '¡Correcto!' : '¡Incorrecto!';
+        feedbackMessage.textContent = message;
+
+        this.showScreen('feedback-screen');
+
+        // countdown before next question
+        let count = 3;
+        countdown.textContent = count;
+
+        const countdownInterval = setInterval(() => {
+            count--;
+            // update countdown display
+            countdown.textContent = count;
+
+            if (count <= 0) {
+                clearInterval(countdownInterval);
+            }
+        // 1 second
+        }, 1000);
+    }
+
+    // go to next question or show results
+    nextQuestion() {
+        this.currentQuestion++;
+
+        if (this.currentQuestion < this.questions.length) {
+            // display next question
+            this.showScreen('game-screen');
+            this.displayQuestion();
+        } else {
+            // if no more questions, show results
+            this.showResults();
+        }
     }
 
     // show results with stats
     showResults() {
+        this.playSound('results');
         this.showScreen('result-screen');
+
         const percentage = ((this.correctAnswers / this.questions.length) * 100).toFixed(1);
         const avgTime = (this.totalTime / this.questions.length).toFixed(1);
+        
+        document.getElementById('result-player').textContent = this.config.playerName;
+        document.getElementById('result-score').textContent = this.score;
+        document.getElementById('result-correct').textContent = `${percentage}%`;
+        document.getElementById('result-avg-time').textContent = `${avgTime}s`;
 
-        document.getElementById('results-content').innerHTML = `
-            <p><strong>Player:</strong> ${this.config.playerName}</p>
-            <p><strong>Total Score:</strong> ${this.score}</p>
-            <p><strong>Correct Answers:</strong> ${this.correctAnswers} of ${this.questions.length} (${percentage}%)</p>
-            <p><strong>Accuracy Percentage:</strong> ${percentage}%</p>
-            <p><strong>Average Time per Question:</strong> ${avgTime} seconds</p>
-        `;
     }
-
+    
     //restart game 
     restartGame(sameconfig) {
         //set initial values for a new game
@@ -248,26 +368,48 @@ class TriviaGame {
         if (sameconfig) {
             this.startGame();
         } else {
-        // else, go back to config screen
+            // else, go back to config screen
             this.showScreen('config-screen');
         }
     }
+    
+    // reset timer for question
+    resetQuestionState() {
+        this.isAnswerSelected = false;
+        this.timeLeft = 20;
+        clearInterval(this.timer);
+    }
 
-    // update displayTimer in real time
-    updateTimerDisplay() {
-        const timerBar= document.getElementById('timer-bar');
-        const percentage = (this.timeLeft / 20) * 100;
-        timerBar.style.width = `${percentage}%`;
-        timerBar.className = '';
-        if (this.timeLeft <= 5) {
-            // if there are 5 seconds or less, change color to red
-            timerBar.classList.add('danger');
-        } else if (this.timeLeft <= 10) {
-            timerBar.classList.add('warning');
+    // show screens with IDs
+    showScreen(screenId) {
+        // mark all screens as inactive and activate the selected one
+        document.querySelectorAll('.screen').forEach(screen => {
+            screen.classList.remove('active');
+        });
+        document.getElementById(screenId).classList.add('active');
+    }
+
+    // show specific error
+    showError(message) {
+        alert(message);
+    }
+    
+    // play sound effects
+    playSound(soundName) {
+        const sound = this.sounds[soundName];
+        if (sound) {
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log('Sound play error:', e));
         }
     }
-}
 
+    // decode base64 strings from API
+    decodeBase64(str) {
+        return decodeURIComponent(escape(atob(str)));
+    }
+    
+}
+    
 // Initialize the trivia game when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', () => {
     new TriviaGame();
