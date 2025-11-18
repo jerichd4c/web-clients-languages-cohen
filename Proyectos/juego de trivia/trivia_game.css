@@ -77,33 +77,64 @@ button:hover {
     text-align: left;
 }
 
-#timer {
-    height: 10px;
-    background: #ddd;
-    margin-top: 20px;
-    border-radius: 5px;
-}
-
-#timer-bar {
-    height: 100%;
-    background: #007cba;
-    width: 100%;
-    border-radius: 5px;
-    transition: width 1s linear;
-}
-
-#timer-bar.warning {
-    background: #ff9900;
-}
-
-#timer-bar.danger {
-    background: #ff0000;
-}
-
 .correct {
     background: #4CAF50 !important;
 }
 
 .incorrect {
     background: #F44336 !important;
+}
+
+/* Timer (circular) */
+.timer-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timer-circle {
+    position: relative;
+    width: 96px;
+    height: 96px;
+}
+
+.timer-svg {
+    width: 96px;
+    height: 96px;
+    transform: rotate(-90deg); /* start from top */
+}
+
+.timer-svg circle {
+    fill: none;
+    stroke-width: 8px;
+}
+
+/* background track */
+.timer-svg circle:first-child {
+    stroke: #e6edf5;
+}
+
+/* foreground progress path */
+#timer-path {
+    stroke: #007cba;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1s linear, stroke 0.2s ease;
+}
+
+#timer-path.warning {
+    stroke: #ff9900;
+}
+
+#timer-path.danger {
+    stroke: #ff3b30;
+}
+
+/* numeric label in the center */
+#timer-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    color: #1f2937;
 }

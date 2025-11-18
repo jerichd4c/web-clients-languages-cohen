@@ -252,11 +252,17 @@ class TriviaGame {
 
         timerPath.style.strokeDasharray = String(circumference);
         timerPath.style.strokeDashoffset = offset;
-        // optional: color changes can be added via classes on timerPath if styled
+
+        // update color based on remaining time
+        timerPath.classList.remove('warning', 'danger');
+        if (this.timeLeft <= 5) {
+            timerPath.classList.add('danger');
+        } else if (this.timeLeft <= 10) {
+            timerPath.classList.add('warning');
+        }
     }
 
-    
-    // handle time up scenario
+        // handle time up scenario
     handleTimeUp() {
         clearInterval(this.timer);
         this.isAnswerSelected = true;
