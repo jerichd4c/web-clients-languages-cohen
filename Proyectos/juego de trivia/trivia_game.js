@@ -132,17 +132,35 @@ class TriviaGame {
 
     // async function to fetch questions from API
     async fetchQuestions() {
-        // build API URL based on config (Generate API URL on page)
-        const url = `https://opentdb.com/api.php?amount=${this.config.questionCount}&category=${this.config.category !== '0' ? this.config.category : ''}&difficulty=${this.config.difficulty}&type=multiple&encode=base64`;
+        // build API URL based on config; omit optional params when not set
+        const params = new URLSearchParams({
+            amount: String(this.config.questionCount || 10),
+            type: 'multiple',
+            encode: 'base64'
+        });
+        if (this.config && this.config.category && this.config.category !== '0') {
+            params.append('category', this.config.category);
+        }
+        if (this.config && this.config.difficulty) {
+            params.append('difficulty', this.config.difficulty);
+        }
+        const url = `https://opentdb.com/api.php?${params.toString()}`;
         try {
             const response = await fetch(url);
             const data = await response.json();
 
             // response code is a property from the API response, 0 means success
             if (data.response_code === 0) {
-                this.questions = data.results;
+                this.questions = Array.isArray(data.results) ? data.results : [];
+                this.totalQuestions = this.questions.length;
+                if (this.totalQuestions === 0) {
+                    throw new Error('No questions returned by API');
+                }
                 this.showScreen('game-screen');
                 this.displayQuestion();
+            } else if (data.response_code === 1) {
+                // no results for selected options
+                throw new Error('No questions found for the selected settings. Try different options.');
             } else {
                 throw new Error('Error loading questions from API');
             }
@@ -157,9 +175,9 @@ class TriviaGame {
         this.resetQuestionState();
         const question = this.questions[this.currentQuestion];
         // display UI elements
-        document.getElementById('player-display-name').textContent = this.config.playerName;
+        document.getElementById('player-name-display').textContent = this.config.playerName;
         document.getElementById('score').textContent = this.score;
-        document.getElementById('corrent-count').textContent = this.correctAnswers;
+        document.getElementById('correct-answers').textContent = this.correctAnswers;
         document.getElementById('progress'). textContent = `${this.currentQuestion + 1} of ${this.questions.length}`;
         document.getElementById('current-q').textContent = this.currentQuestion + 1;
 
@@ -225,7 +243,6 @@ class TriviaGame {
     updateTimerDisplay() {
         const timerText= document.getElementById('timer-text');
         const timerPath= document.getElementById('timer-path');
-        const timerCircle= document.getElementById('timer-circle');
 
         timerText.textContent = this.timeLeft;
 
@@ -233,16 +250,9 @@ class TriviaGame {
         const circumference = 2 * Math.PI * 45; // 2πr where r=45
         const offset = circumference - (this.timeLeft / 20) * circumference;
 
-        timerPath.style.strokeDasharray = circumference;
+        timerPath.style.strokeDasharray = String(circumference);
         timerPath.style.strokeDashoffset = offset;
-
-        // change color based on time left
-        timerCircle.className = timer-timerCircle;
-        if (this.timeLeft < 5) {
-            timerCircle.classList.add('danger');
-        } else if (this.timeLeft < 10) {
-            timerCircle.classList.add('warning');
-        }
+        // optional: color changes can be added via classes on timerPath if styled
     }
 
     
@@ -345,7 +355,7 @@ class TriviaGame {
     // show results with stats
     showResults() {
         this.playSound('results');
-        this.showScreen('result-screen');
+        this.showScreen('results-screen');
 
         const percentage = ((this.correctAnswers / this.questions.length) * 100).toFixed(1);
         const avgTime = (this.totalTime / this.questions.length).toFixed(1);
@@ -353,7 +363,10 @@ class TriviaGame {
         document.getElementById('result-player').textContent = this.config.playerName;
         document.getElementById('result-score').textContent = this.score;
         document.getElementById('result-correct').textContent = `${percentage}%`;
-        document.getElementById('result-avg-time').textContent = `${avgTime}s`;
+        const timeEl = document.getElementById('result-time');
+        if (timeEl) {
+            timeEl.textContent = `${avgTime}s`;
+        }
 
     }
     
