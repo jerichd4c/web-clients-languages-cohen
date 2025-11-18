@@ -32,50 +32,163 @@
             </div>
         </div>
 
-        <!-- config form -->
+        <!-- config screen -->
         <div id="config-screen" class="screen">
-            <h1>Game Configuration</h1>
-            <form id="config-form">
-                <label for="player-name">Player name</label>
-                <input type="text" id="player-name" required minlength="2" maxlength="20">
+            <div class="config-container">
+                <div class="config-header">
+                    <h1><i class="fas fa-cog"></i> Game Configuration</h1>
+                    <p>Set up your game settings below</p>
+                </div>
 
-                <label for="question-count">Number of questions</label>
-                <input type="number" id="question-count" required min="5" max="20" value="10">
+                <form id="config-form" class="config-form">
 
-                <label for="difficulty">Difficulty</label>
-                <select id="difficulty">
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                </select>
-        
-                <label for="category">Category</label>
-                <select id="category">
-                    <option value="0">Mixed</option>
-                    <!-- categories load based on Trivia API -->
-                </select>
-                <!-- submit button -->
-                <button type="submit">Start Game</button>    
-            </form>
+                    <!-- user name field -->
+                    <div class="input-group">
+                        <label for="player-name">
+                            <i class="fas fa-user"></i> 
+                            Player name
+                        </label>
+                        <input type="text" id="player-name" required minlength="2" maxlength="20" 
+                        
+                            placeholder="Your name">
+                        <span class="input-helper">2-20 characters</span>
+                    </div>
+
+                    <!-- question count field -->
+                    <div class="input-group">
+                        <label for="question-count"> 
+                            <i class="fas fa-question-circle"></i>
+                            Number of questions
+                        </label>
+                        <div class="range-container">
+                            <input type="number" id="question-count" required min="5" max="20" value="10">
+                            <span id="question-count-value">10</span>
+                        </div>
+                    </div>
+
+                    <!-- difficulty field -->
+                    <div class="input-group">
+                        <label for="difficulty">
+                            <i class="fas fa-signal"></i>
+                            Difficulty
+                        </label>
+                        <div class="difficulty-buttons">
+                            <button type="'button" class="difficulty-btn-active" data-value="easy"></button>
+                                <i class="fas fa-seedling"></i>
+                                Easy
+                            </button>
+                            <button type="button" class="difficulty-btn" data-value="medium">
+                                <i class="fas fa-mountain"></i>
+                                Medium
+                            </button>
+                            <button type="button" class="difficulty-btn" data-value="hard">
+                            <i class="fas fa-rocket"></i>
+                                Hard
+                            </button>
+                        </div>
+                        <input type="hidden" id="difficulty" value="easy">
+                    </div>
+    
+                    <!-- category field -->
+                    <div class="input-group">
+                        <label for="category">
+                            <i class="fas fa-layer-group"></i>
+                            Category
+                        </label>
+                        <select id="category" class="styled-select">
+                            <option value="0">Mixed</option>
+                            <!-- categories load based on Trivia API -->
+                        </select>
+                    </div>
+
+                    <!-- submit button -->
+                    <button type="submit" class="btn-primary btn-large">
+                        <i class="fas fa-rocket"></i>
+                        Start Game!
+                    </button>    
+                </form>
+            </div>
         </div>
 
         <!-- loading screen -->
         <div id="loading-screen" class="screen">
-            <div class="spinner"></div>
-            <p>Loading questions...</p>
+            <div class="loading-container">
+                <div class="loading-spinner">
+                    <div class="spinner-circle"></div>
+                    <i class="fas fa-brain spinner-icon"></i>
+                </div>
+                <h2>Preparing your trivia...</h2>
+                <p>Loading questions...</p>
+                <div class="loading-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
         </div>
 
         <!-- game screen -->
         <div id="game-screen" class="screen">
-            <header>
-                <span id="progress">Question 1 of 10</span>
-                <span id="score">Score: 0</span>
-            </header>
-            <div id="question-container">
-                <h2 id="question-text"></h2>
-                <div id="options-container" class="options"></div>
-                <div id="timer">
-                    <div id="timer-bar"></div>
+
+            <div class="game-header">
+                <div class="player-info">
+                    <div class="player-avatar">
+                        <i class="fas fa-user"></i>
+                    <div>
+                    <span id="player-name-display">Player</span>
+                </div>
+
+                <div class="game-stats">
+                    <div class="stat">  
+                        <i class="fas fa-star"></i>
+                        <span id="score">0</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-check-circle"></i>
+                        <span id="correct-answers">0</span>
+                    </div>
+                    <div class="stat">
+                        <i class="fas fa-clock"></i>
+                        <span id="progress">1/0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="game-content">
+                <div class="question-card">
+                    <div class="question-header">
+                        <span class="question-number">Pregunta<span id="current-q">1</span></span>
+
+                        <div class="timer-container">
+                            <div class="timer-circle">
+                                <svg class="timer-svg" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="45"></circle>
+                                    <circle cx="50" cy="50" r="45" id="timer-path"></circle>
+                                </svg>
+                                <span id="timer-text">20</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 id="question-text" class="question-text"></h2>
+
+                    <div id="options-container" class="options-grid">
+                        <!-- answer options load here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- feedback screen -->
+        <div id="feedback-screen" class="screen">
+            <div class="feedback-container">
+                <div id="feedback-icon" class="feedback-icon">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h2 id="feedback-title">Correct!</h2>
+                <p id="feedback-message">+10 points</p>
+                <div class="next-question-countdown">
+                    <span id="countdown">3</span>
                 </div>
             </div>
         </div>
@@ -83,14 +196,89 @@
         <!-- result screen -->
 
         <div id="result-screen" class="screen">
-            <h1>Results</h1>
-            <div id="results-content"></div>
-            <div class="actions"></div>
-                <button id="restart-same">Restart Game</button>
-                <button id="restart-new">New Game</button>
-                <button id="quit">Quit</button>
+            <div class="results-container">
+                <div class="results=header">
+                    <div class="trophy">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <h1>Quiz Completed!</h1>
+                </div>
+
+                <div class="results-content">
+                    <div class="result-card">
+                        <div class="result-item">
+                            <i class="fas fa-user"></i>
+                            </div>
+                                <span class="label">Player</span>
+                                <span id="result-player" class="value">Name</span>
+                            </div>
+                        </div>
+
+                        <!-- score -->
+                        <div class="result-item">
+                            <i class="fas fa-star"></i>
+                            </div>
+                                <span class="label">Final Score</span>
+                                <span id="result-score" class="value">0</span>
+                            </div>
+                        </div>
+
+                        <!-- answers -->
+                        <div class="results-item">
+                            <i class="fas fa-chart-pie"></i>
+                            </div>
+                                <span class="label">Correct Answers</span>
+                                <span id="result-correct" class="value">0%</span>
+                            </div>
+                        </div>
+
+                        <!-- time taken -->
+                        <div class="result-item">
+                            <i class="fas fa-clock"></i>
+                            </div>
+                                <span class="label">Time Taken</span>
+                                <span id="result-time" class="value">0s</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="results-chart">
+                        <div class="chart-container">
+                            <canvas id="results-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- action buttons (after the game) -->
+                <div class="results-actions">
+                    <button id="restart-same" class="btn-primary">
+                        <i class="fas fa-redo"></i>
+                        Play Again
+                    </button>
+                    <button id="restart-new" class="btn-secondary">
+                        <i class="fas fa-cog"></i>
+                        New Game
+                    </button>
+                    <button id="quit" class="btn-outline">
+                        <i class="fas fa-home"></i>
+                        Exit
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
+
+    <!-- sound effects -->
+    <audio id="correct-sound" src="sounds/correct.mp3" preload="auto"></audio>
+    <audio id="wrong-sound" src="sounds/wrong.mp3" preload="auto"></audio>
+    <audio id="timer-beep" src="sounds/timer-beep.mp3" preload="auto"></audio>
+    <audio id="game-start-sound" src="sounds/game-start.mp3" preload="auto"></audio>
+    <audio id="results-sound" src="sounds/results.mp3" preload="auto"></audio>
+
+
+
+    <!-- script for charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="trivia_game.js"></script>
 </body>
 </html>
