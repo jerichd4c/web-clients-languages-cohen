@@ -301,10 +301,16 @@ class TriviaGame {
             this.score += 10;
             this.correctAnswers++;
             this.playSound('correct');
-            this.showFeedback(true, 'Correct!, +10 points');
+            // small delay to allow highlight before switching screens
+            setTimeout(() => {
+                this.showFeedback(true, 'Correct!, +10 points');
+            }, 800);
         } else {
             this.playSound('wrong');
-            this.showFeedback(false, `Incorrect!, The correct answer was: ${correctAnswer}`);
+            // small delay to allow highlight before switching screens
+            setTimeout(() => {
+                this.showFeedback(false, `Incorrect!, The correct answer was: ${correctAnswer}`);
+            }, 800);
         }
         // small pause and go to next question
         setTimeout(() => {

@@ -315,29 +315,84 @@ body {
     40% { transform: scale(1); }
 }
 
+/* GAME SCREEN */
 
-/* Timer (circular) */
-.timer-container {
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.player-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     display: flex;
     align-items: center;
     justify-content: center;
+    color: white;
+    font-size: 1.2rem;
 }
 
+.game-stats {
+    display: flex;
+    gap: 20px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.stat i {
+    color: var(--primary);
+}
+
+/* question card (container) */
+.question-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    animation: slideUp 0.5s ease;
+}
+
+.question-number {
+    font-weight: 600;
+    color: var(--gray);
+}
+
+/* timer (circular) */
 .timer-circle {
     position: relative;
-    width: 96px;
-    height: 96px;
+    width: 60px;
+    height: 60px;
 }
 
 .timer-svg {
-    width: 96px;
-    height: 96px;
+    width: 100%;
+    height: 100%;
     transform: rotate(-90deg); /* start from top */
 }
 
 .timer-svg circle {
     fill: none;
-    stroke-width: 8px;
+    stroke-width: 5px;
 }
 
 /* background track */
@@ -346,10 +401,22 @@ body {
 }
 
 /* foreground progress path */
-#timer-path {
-    stroke: #007cba;
+.timer-svg circle:last-child {
+    stroke: var(--primary);
     stroke-linecap: round;
-    transition: stroke-dashoffset 1s linear, stroke 0.2s ease;
+    transition: stroke-dashoffset 1s linear;
+}
+
+
+/* numeric label in the center */
+#timer-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #1f2937;
 }
 
 #timer-path.warning {
@@ -360,12 +427,50 @@ body {
     stroke: #ff3b30;
 }
 
-/* numeric label in the center */
-#timer-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-weight: 700;
-    color: #1f2937;
+/* question text */
+.question-text {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 30px;
+    line-height: 1.4;
+}
+
+/* options grid */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.option-btn {
+    padding: 20px;
+    border: 2px solid #e9ecef;
+    border-radius: var(--border-radius);
+    background: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: left;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-btn:hover {
+    border-color: var(--primary);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.option-btn.correct {
+    background: var(--success);
+    color: white;
+    border-color: var(--success);
+}
+
+.option-btn.incorrect {
+    background: var(--danger);
+    color: white;
+    border-color: var(--danger);
 }
