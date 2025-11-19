@@ -474,3 +474,66 @@ body {
     color: white;
     border-color: var(--danger);
 }
+
+/* FEEDBACK SCREEN */
+
+.feedback-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: var(--border-radius);
+    padding: 50px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    animation: zoomIn 0.5s ease;
+}
+
+/* keyframes for zoomIn */
+
+@keyframes zoomIn {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.feedback-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    font-size: 2.5rem;
+    color: white;
+}
+
+.feedback-icon.correct {
+    background: var(--success);
+}
+
+.feedback-icon.incorrect {
+    background: var(--danger);
+}
+
+.next-question-countdown {
+    margin-top: 30px;
+}
+
+.next-question-countdown span {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 0 auto;
+    animation: pulse 1s infinite;
+}

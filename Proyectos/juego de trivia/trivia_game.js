@@ -315,13 +315,12 @@ class TriviaGame {
         // small pause and go to next question
         setTimeout(() => {
             this.nextQuestion();
-        }, 3000);
+        }, 3800);
     }
 
     //show feedback between questions
     showFeedback(isCorrect, message) {
         // get feedback elements from HTML 
-        const feedbackScreen = document.getElementById('feedback-screen');
         const feedbackIcon = document.getElementById('feedback-icon');
         const feedbackTitle = document.getElementById('feedback-title');
         const feedbackMessage = document.getElementById('feedback-message');
