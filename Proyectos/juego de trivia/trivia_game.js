@@ -39,6 +39,10 @@ class TriviaGame {
         const range= document.getElementById('question-count');
         // update the value display when the range input changes
         const value= document.getElementById('question-count-value');
+        // initialize display with the current input value (handles page refresh/restore)
+        if (range && value) {
+            value.textContent = range.value;
+        }
         range.addEventListener('input', (e) => {
             value.textContent = e.target.value;
         });
