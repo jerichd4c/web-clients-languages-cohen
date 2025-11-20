@@ -13,6 +13,7 @@ class TriviaGame {
         this.totalQuestions = 0;
         this.totalTime = 0;
         this.isAnswerSelected = false;
+        this.questionStartTime = 0; 
 
         // sounds
         this.sounds = {
@@ -178,6 +179,8 @@ class TriviaGame {
     displayQuestion() {
         this.resetQuestionState();
         const question = this.questions[this.currentQuestion];
+        // mark question start time for timing stats
+        this.questionStartTime = performance.now();
         // display UI elements
         document.getElementById('player-name-display').textContent = this.config.playerName;
         document.getElementById('score').textContent = this.score;
@@ -273,6 +276,8 @@ class TriviaGame {
         // IF time is up, answer is wrong
         this.playSound('wrong');
         this.showFeedback(false, "Time's up!");
+        // full time consumed
+        this.totalTime += 20;
         
         setTimeout(() => {
             this.nextQuestion();
@@ -305,12 +310,16 @@ class TriviaGame {
             this.score += 10;
             this.correctAnswers++;
             this.playSound('correct');
+            // accumulate time taken for this question
+            this.totalTime += (performance.now() - this.questionStartTime) / 1000;
             // small delay to allow highlight before switching screens
             setTimeout(() => {
                 this.showFeedback(true, 'Correct!, +10 points');
             }, 800);
         } else {
             this.playSound('wrong');
+            // accumulate time taken for this question (user answered but wrong)
+            this.totalTime += (performance.now() - this.questionStartTime) / 1000;
             // small delay to allow highlight before switching screens
             setTimeout(() => {
                 this.showFeedback(false, `Incorrect!, The correct answer was: ${correctAnswer}`);
@@ -377,7 +386,10 @@ class TriviaGame {
         
         document.getElementById('result-player').textContent = this.config.playerName;
         document.getElementById('result-score').textContent = this.score;
-        document.getElementById('result-correct').textContent = `${percentage}%`;
+        const percEl = document.getElementById('result-percentage');
+        if (percEl) {
+            percEl.textContent = `${percentage}%`;
+        }
         const timeEl = document.getElementById('result-time');
         if (timeEl) {
             timeEl.textContent = `${avgTime}s`;
