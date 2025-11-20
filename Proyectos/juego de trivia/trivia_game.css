@@ -537,3 +537,78 @@ body {
     margin: 0 auto;
     animation: pulse 1s infinite;
 }
+
+/* RESULTS SCREEN */       
+    
+.results-header {
+    margin-bottom: 30px;
+}
+
+.trophy {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2.5rem;
+    color: white;
+}
+
+.results-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.result-card {
+    background: #f8f9fa;
+    border-radius: var(--border-radius);
+    padding: 25px;
+}
+
+.result-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.result-item:last-child {
+    margin-bottom: 0;
+}
+
+.result-item i {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.result-item .label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 2px;
+}
+
+.result-item .value {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.results-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
