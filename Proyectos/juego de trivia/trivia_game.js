@@ -314,7 +314,7 @@ class TriviaGame {
             this.totalTime += (performance.now() - this.questionStartTime) / 1000;
             // small delay to allow highlight before switching screens
             setTimeout(() => {
-                this.showFeedback(true, 'Correct!, +10 points');
+                this.showFeedback(true, '+10 points!');
             }, 800);
         } else {
             this.playSound('wrong');
@@ -322,7 +322,7 @@ class TriviaGame {
             this.totalTime += (performance.now() - this.questionStartTime) / 1000;
             // small delay to allow highlight before switching screens
             setTimeout(() => {
-                this.showFeedback(false, `Incorrect!, The correct answer was: ${correctAnswer}`);
+                this.showFeedback(false, `The correct answer was: ${correctAnswer}`);
             }, 800);
         }
         // small pause and go to next question
