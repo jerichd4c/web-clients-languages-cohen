@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Finance System</title>
+</head>
+<body>
+    <h1>Loading System...</h1>
+
+    <script type="module">
+        import { db } from './js/db/db.js';
+        // init DB
+        db.open().then(() => {
+            console.log('Database initialized');
+            // Further initialization code can go here
+        }).catch((error) => {
+            console.error('Failed to initialize database:', error);
+        });
+    </script>
+</body>
+</html>
