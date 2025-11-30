@@ -5,7 +5,7 @@ export const db = {
     // connection instance
     connection: null,
 
-    // 1. Open the database
+    // 1. open the database
     open() {
         return new Promise((resolve, reject) => {
             const request = indexedDB.open(DB_NAME, DB_VERSION);
@@ -31,7 +31,7 @@ export const db = {
                     const store = db.createObjectStore('categories', { keyPath: 'id', autoIncrement: true });
                     store.createIndex('name', 'name', { unique: true });
 
-                    // Load initial categories
+                    // load initial categories
                     const defaultCategories = [
                         { name: 'Food', color: '#FF6384' },
                         { name: 'Transport', color: '#36A2EB' },
