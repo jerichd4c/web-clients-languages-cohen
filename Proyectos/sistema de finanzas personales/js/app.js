@@ -1,6 +1,7 @@
 import { db } from "./db/db.js";
 import { CategoryManager } from "./components/CategoryManager.js";
 import { TransactionManager } from "./components/TransactionManager.js";
+import { BudgetManager } from "./components/BudgetManager.js";
 
 // wait for DOM to load
 document.addEventListener('DOMContentLoaded', async () => {
@@ -14,9 +15,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             new CategoryManager();
         }
 
-        // 3. other components can be initialized here similarly
         if (document.getElementById('transactions-section')) {
             new TransactionManager();
+        }
+
+        if (document.getElementById('budget-section')) {
+            new BudgetManager();
         }
         
         console.log('App initialized successfully.');

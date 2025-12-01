@@ -115,6 +115,57 @@
     </div>
 </section>
 
+<section id="budget-section" class="view-section">
+    <h2>Budget control</h2>
+
+    <div class="filter-bar">
+        <label>Monthly Plan:</label>
+        <input type="month" id="budget-month-picker">
+    </div>
+
+    <div class="split-view">
+        <div class="card">
+            <h3>Select Budget</h3>
+            <form id="budget-form">
+                <input type="hidden" id="budget-id"> <div class="form-group">
+                    <label>Category</label>
+                    <select id="budget-category" required>
+                        <!-- categories will be dynamically populated here -->
+                        </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Monthly Limit:</label>
+                    <input type="number" id="budget-amount" min="1" step="0.01" required>
+                </div>
+
+                <button type="submit">Save Limit</button>
+            </form>
+        </div>
+
+        <div class="table-container" style="flex-grow: 1;"></div>
+            <h3>Monthly check</h3>
+            <table id="budget-table">
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Budget</th>
+                        <th>Actual Expense</th>
+                        <th>Status</th> <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="budget-list">
+                    <!-- budget data will be dynamically populated here -->
+                    </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+
+
+
+
     <script type="module" src="./js/app.js"></script>
 
 </body>
