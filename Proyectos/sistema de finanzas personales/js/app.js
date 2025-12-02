@@ -2,6 +2,7 @@ import { db } from "./db/db.js";
 import { CategoryManager } from "./components/CategoryManager.js";
 import { TransactionManager } from "./components/TransactionManager.js";
 import { BudgetManager } from "./components/BudgetManager.js";
+import { DashboardManager } from './components/DashboardManager.js';
 
 // wait for DOM to load
 document.addEventListener('DOMContentLoaded', async () => {
@@ -11,16 +12,25 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         // 2. init components
         // (instance only loads if HTML has a container)
+
+        // category manager
         if (document.getElementById('categories-section')) {
             new CategoryManager();
         }
 
+        // transaction manager
         if (document.getElementById('transactions-section')) {
             new TransactionManager();
         }
 
+        // budget manager
         if (document.getElementById('budget-section')) {
             new BudgetManager();
+        }
+
+        // dashboard manager
+        if (document.getElementById('dashboard-section')) {
+            new DashboardManager();
         }
         
         console.log('App initialized successfully.');
