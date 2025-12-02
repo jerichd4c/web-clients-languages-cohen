@@ -1,0 +1,45 @@
+/* dashboard */
+.summary-cards {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.card.kpi {
+    flex: 1;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.amount {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 10px 0 0 0;
+}
+
+.amount.positive { color: green; }
+.amount.negative { color: red; }
+
+/* graph grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* even columns */
+    gap: 20px;
+}
+
+.chart-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-height: 300px; /* for big charts */
+}
+
+/* response for mobiles */
+@media (max-width: 768px) {
+    .charts-grid {
+        grid-template-columns: 1fr; 
+    }
+}
