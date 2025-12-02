@@ -5,209 +5,260 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="styles.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
     <title>Personal Finance System</title>
 </head>
+
 <body>
-    <h1>Loading System...</h1>
+    <div class="app-container">
+        <nav class="sidebar">
+            <h2>Personal Finance System</h2>
+            <ul id="main-nav">
+                <li class="nav-item active" data-target="dashboard-section">
+                    📊 Dashboard
+                </li>
+                <li class="nav-item" data-target="transactions-section">
+                    💸 Transactions
+                </li>
+                <li class="nav-item" data-target="budget-section">
+                    🎯 Budget
+                </li>
+                <li class="nav-item" data-target="categories-section">
+                    🗂️ Categories
+                </li>
+            </ul>
+        </nav>
 
-<section id="categories-section" class="view-section">
-    <h2>Category Manager</h2>
+        <main class="content-area">
+            <!-- Dashboard Section -->
+            <section id="dashboard-section" class="view-section active">
+                <div class="dashboard-header">
+                    <h2>Financial Dashboard</h2>
+                    <input type="month" id="dashboard-month-picker">
+                </div>
 
-<!-- category manager container -->
+                <div class="summary-cards">
+                    <div class="card kpi">
+                        <h3>Income</h3>
+                        <p id="kpi-income" class="amount positive">$0.00</p>
+                    </div>
+                    <div class="card kpi">
+                        <h3>Expenses</h3>
+                        <p id="kpi-expense" class="amount negative">$0.00</p>
+                    </div>
+                    <div class="card kpi">
+                        <h3>Balance</h3>
+                        <p id="kpi-balance" class="amount">$0.00</p>
+                    </div>
+                </div>
 
-    <div class="card">
-        <h3>New/Edit Category</h3>
-        <form id="category-form">
-            <input type="hidden" id="cat-id"> <label>Name:</label>
-            <input type="text" id="cat-name" required placeholder="Example: Gym">
-            
-            <label>Color (for graphs):</label>
-            <input type="color" id="cat-color" value="#36A2EB">
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Expenses by Category</h3>
+                        <canvas id="chart-categories"></canvas>
+                    </div>
 
-            <button type="submit" id="btn-save-cat">Save Category</button>
-            <button type="button" id="btn-cancel-cat" style="display:none">Cancel</button>
-        </form>
-    </div>
+                    <div class="chart-container">
+                        <h3>Budget vs Reality</h3>
+                        <canvas id="chart-budgets"></canvas>
+                    </div>
 
-    <div class="list-container">
-        <h3>Categories List</h3>
-        <ul id="categories-list" class="styled-list">
-            <!-- categories will be dynamically populated here -->
-        </ul>
-    </div>
-</section>
+                    <div class="chart-container">
+                        <h3>Income vs Expense</h3>
+                        <canvas id="chart-balance-bar"></canvas>
+                    </div>
 
-<section id="transactions-section" class="view-section">
-    <h2>Transaction Manager</h2>
+                    <div class="chart-container">
+                        <h3>Anual Evolution</h3>
+                        <canvas id="chart-history"></canvas>
+                    </div>
+                </div>
+            </section>
 
-    <div class="card">
-        <h3>New Transaction</h3>
-        <form id="transaction-form">
-            <input type="hidden" id="trans-id">
+            <!-- Transactions Section -->
+            <section id="transactions-section" class="view-section">
+                <h2>Transaction Manager</h2>
 
-            <div class="form-group">
-                <label>Type:</label>
-                <select id="trans-type" required>
-                    <option value="expense">Expense</option>
-                    <option value="income">Income</option>
-                </select>
-            </div>
+                <div class="card">
+                    <h3>New Transaction</h3>
+                    <form id="transaction-form">
+                        <input type="hidden" id="trans-id">
 
-            <div class="form-group">
-                <label>Amount:</label>
-                <input type="number" id="trans-amount" step="0.01" min="0" required placeholder="0.00">
-            </div>
+                        <div class="form-group">
+                            <label>Type:</label>
+                            <select id="trans-type" required>
+                                <option value="expense">Expense</option>
+                                <option value="income">Income</option>
+                            </select>
+                        </div>
 
-            <div class="form-group">
-                <label>Date:</label>
-                <input type="date" id="trans-date" required>
-            </div>
+                        <div class="form-group">
+                            <label>Amount:</label>
+                            <input type="number" id="trans-amount" step="0.01" min="0" required placeholder="0.00">
+                        </div>
 
-            <div class="form-group">
-                <label>Category:</label>
-                <select id="trans-category" required>
-                    <!-- categories will be dynamically populated here -->
-                    <option value="">Select Category</option>
-                </select>
-            </div>
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <input type="date" id="trans-date" required>
+                        </div>
 
-            <div class="form-group">
-                <label>Description:</label>
-                <input type ="text" id="trans-desc" placeholder="Detail">
-            </div>
+                        <div class="form-group">
+                            <label>Category:</label>
+                            <select id="trans-category" required>
+                                <!-- categories will be dynamically populated here -->
+                                <option value="">Select Category</option>
+                            </select>
+                        </div>
 
-            <button type="submit" id="btn-save-trans">Register Transaction</button>
-            <button type="button" id="btn-cancel-trans" style="display:none;">Cancel</button>
-        </form>
-    </div>
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <input type="text" id="trans-desc" placeholder="Detail">
+                        </div>
 
-    <div class="filters-bar">
-        <h3>History</h3>
-        <div class="filters-container">
-            <select id="filter-type">
-                <option value="all">All Types</option>
-                <option value="expense">Only Expenses</option>
-                <option value="income">Only Incomes</option>
-            </select>
+                        <button type="submit" id="btn-save-trans">Register Transaction</button>
+                        <button type="button" id="btn-cancel-trans" style="display:none;">Cancel</button>
+                    </form>
+                </div>
 
-            <select id="filter-category">
-                <option value="all">All Categories</option>
-                <!-- categories will be dynamically populated here -->
-                </select>
-            <input type="text" id="search-input" placeholder="Search By Description">
-        </div>
-    </div>
-
-    <div class="table-container">
-        <table id="transactions-table">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Type</th>
-                    <th>Category</th>
-                    <th>Description</th>
-                    <th>Amount</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="transactions-list">
-                <!-- transactions will be dynamically populated here -->
-                </tbody>
-        </table>
-    </div>
-</section>
-
-<section id="budget-section" class="view-section">
-    <h2>Budget control</h2>
-
-    <div class="filter-bar">
-        <label>Monthly Plan:</label>
-        <input type="month" id="budget-month-picker">
-    </div>
-
-    <div class="split-view">
-        <div class="card">
-            <h3>Select Budget</h3>
-            <form id="budget-form">
-                <input type="hidden" id="budget-id"> <div class="form-group">
-                    <label>Category</label>
-                    <select id="budget-category" required>
-                        <!-- categories will be dynamically populated here -->
+                <div class="filters-bar">
+                    <h3>History</h3>
+                    <div class="filters-container">
+                        <select id="filter-type">
+                            <option value="all">All Types</option>
+                            <option value="expense">Only Expenses</option>
+                            <option value="income">Only Incomes</option>
                         </select>
+
+                        <select id="filter-category">
+                            <option value="all">All Categories</option>
+                            <!-- categories will be dynamically populated here -->
+                        </select>
+                        <input type="text" id="search-input" placeholder="Search By Description">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Monthly Limit:</label>
-                    <input type="number" id="budget-amount" min="1" step="0.01" required>
+                <div class="table-container">
+                    <table id="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-list">
+                            <!-- transactions will be dynamically populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Budget Section -->
+            <section id="budget-section" class="view-section">
+                <h2>Budget control</h2>
+
+                <div class="filter-bar">
+                    <label>Monthly Plan:</label>
+                    <input type="month" id="budget-month-picker">
                 </div>
 
-                <button type="submit">Save Limit</button>
-            </form>
-        </div>
+                <div class="split-view">
+                    <div class="card">
+                        <h3>Select Budget</h3>
+                        <form id="budget-form">
+                            <input type="hidden" id="budget-id">
+                            <div class="form-group">
+                                <label>Category</label>
+                                <select id="budget-category" required>
+                                    <!-- categories will be dynamically populated here -->
+                                </select>
+                            </div>
 
-        <div class="table-container" style="flex-grow: 1;"></div>
-            <h3>Monthly check</h3>
-            <table id="budget-table">
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Budget</th>
-                        <th>Actual Expense</th>
-                        <th>Status</th> <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="budget-list">
-                    <!-- budget data will be dynamically populated here -->
-                    </tbody>
-            </table>
-        </div>
+                            <div class="form-group">
+                                <label>Monthly Limit:</label>
+                                <input type="number" id="budget-amount" min="1" step="0.01" required>
+                            </div>
+
+                            <button type="submit">Save Limit</button>
+                        </form>
+                    </div>
+
+                    <div class="table-container" style="flex-grow: 1;">
+                        <h3>Monthly check</h3>
+                        <table id="budget-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Budget</th>
+                                    <th>Actual Expense</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="budget-list">
+                                <!-- budget data will be dynamically populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Categories Section -->
+            <section id="categories-section" class="view-section">
+                <h2>Category Manager</h2>
+
+                <div class="card">
+                    <h3>New/Edit Category</h3>
+                    <form id="category-form">
+                        <input type="hidden" id="cat-id">
+                        <label>Name:</label>
+                        <input type="text" id="cat-name" required placeholder="Example: Gym">
+
+                        <label>Color (for graphs):</label>
+                        <input type="color" id="cat-color" value="#36A2EB">
+
+                        <button type="submit" id="btn-save-cat">Save Category</button>
+                        <button type="button" id="btn-cancel-cat" style="display:none">Cancel</button>
+                    </form>
+                </div>
+
+                <div class="list-container">
+                    <h3>Categories List</h3>
+                    <ul id="categories-list" class="styled-list">
+                        <!-- categories will be dynamically populated here -->
+                    </ul>
+                </div>
+            </section>
+        </main>
     </div>
-</section>
 
-<section id="dashboard-section" class="view-section">
-    <div class="dashboard-header">
-        <h2>Financial Dashboard</h2>
-        <input type="month" id="dashboard-month-picker">
-    </div>
-
-    <div class="summary-cards"></div>
-        <div class="card kpi">
-            <h3>Income</h3>
-            <p id="kpi-income" class="amount positive">$0.00</p>
-        </div>
-        <div class="card kpi">
-            <h3>Expenses</h3>
-            <p id="kpi-expense" class="amount negative">$0.00</p>
-
-        </div>
-        <div class="card kpi">
-            <h3>Balance</h3>
-            <p id="kpi-balance" class="amount">$0.00</p>
-
-        <div class="charts-grid">
-            <div class="chart-container">
-                <h3>Expenses by Category</h3>
-                <canvas id="chart-categories"></canvas>
-            </div>
-
-            <div class ="chart-container">
-                <h3>Budget vs Reality</h3>
-                <canvas id="chart-budgets"></canvas>
-            </div>
-
-            <div class="chart-container">
-                <h3>Income vs Expense</h3>
-                <canvas id="chart-balance-bar"></canvas>
-            </div>
-
-            <div class="chart-container">
-                <h3>Anual Evolution</h3>
-                <canvas id="chart-history"></canvas>
-            </div>
-        </div>
-</section>
-
-<script type="module" src="./js/app.js"></script>
-
+    <script type="module" src="./js/app.js"></script>
 </body>
+</html>
+            </ul>
+        </nav>
+
+        <main class="content-area">
+            <!-- Sections will be displayed here -->
+            <section id="dashboard-section" class="view-section active">
+               </section>
+
+            <section id="transactions-section" class="view-section">
+               </section>
+
+            <section id="budget-section" class="view-section">
+                </section>
+
+            <section id="categories-section" class="view-section">
+                </section>
+
+        </main>
+    </div>
+
+    <script type="module" src="./js/app.js"></script>
+</body>
+
 </html>

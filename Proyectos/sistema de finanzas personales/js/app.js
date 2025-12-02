@@ -3,6 +3,7 @@ import { CategoryManager } from "./components/CategoryManager.js";
 import { TransactionManager } from "./components/TransactionManager.js";
 import { BudgetManager } from "./components/BudgetManager.js";
 import { DashboardManager } from './components/DashboardManager.js';
+import { Navigation } from './components/Navigation.js';
 
 // wait for DOM to load
 document.addEventListener('DOMContentLoaded', async () => {
@@ -32,6 +33,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (document.getElementById('dashboard-section')) {
             new DashboardManager();
         }
+
+        new Navigation();
         
         console.log('App initialized successfully.');
         
