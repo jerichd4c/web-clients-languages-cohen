@@ -34,7 +34,12 @@
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    min-height: 300px; /* for big charts */
+    min-height: 180px;   /* was 300px */
+    max-height: 220px;   /* optional cap */
+}
+
+.chart-container canvas {
+    max-height: 180px;   /* keeps the canvas itself small */
 }
 
 /* response for mobiles */

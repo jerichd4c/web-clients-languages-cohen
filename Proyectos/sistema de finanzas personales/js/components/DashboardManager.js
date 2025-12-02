@@ -200,6 +200,25 @@ export class DashboardManager {
         if (this.charts[key]) {
             this.charts[key].destroy();
         }
+        
+        // base options for charts
+        const baseOptions = {
+            repsonsive: true,
+            plugins: {
+                legend: { labels: { font: { size: 10 } } },
+                tooltip: {
+                    bodyFont: { size: 10 },
+                    titleFont: { size: 11 }
+            }
+        }
+    };
+
+        // merge base options
+        config.options = {
+            ...baseOptions,
+            ...(config.options || {})
+        };
+
         this.charts[key] = new Chart(ctx, config);
     }
 }
