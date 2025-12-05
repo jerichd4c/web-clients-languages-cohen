@@ -203,7 +203,7 @@ export class DashboardManager {
         
         // base options for charts
         const baseOptions = {
-            repsonsive: true,
+            responsive: true,
             plugins: {
                 legend: { labels: { font: { size: 10 } } },
                 tooltip: {
