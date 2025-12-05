@@ -204,6 +204,8 @@ export class DashboardManager {
         // base options for charts
         const baseOptions = {
             responsive: true,
+            // css control size
+            maintainAspectRatio: false, 
             plugins: {
                 legend: { labels: { font: { size: 10 } } },
                 tooltip: {

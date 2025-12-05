@@ -165,7 +165,10 @@ export class BudgetManager {
                 <td>$${spent.toFixed(2)}</td>
                 <td>${statusHtml}</td>
                 <td>
-                    ${budget ? `<button class="btn-edit-budget" data-cat="${cat.id}" data-amount="${max}">Edit</button>` : ''}
+                    ${budget ? `
+                        <button class="btn-edit-budget" data-id="${budget.id}">Edit</button>
+                        <button class="btn-delete-budget" data-id="${budget.id}">Delete</button>
+                    ` : ''}
                 </td>
             `;
 
@@ -173,6 +176,25 @@ export class BudgetManager {
                 tr.querySelector('.btn-edit-budget').addEventListener('click', () => {
                     this.selectCategory.value = cat.id;
                     this.inputAmount.value = max;
+                    this.inputId.value = budget.id;
+                });
+
+                tr.querySelector('.btn-delete-budget').addEventListener('click', async () => {
+                    const confirmDelete = confirm('Are you sure you want to delete this budget?');
+                    if (!confirmDelete) return;
+
+                    try {
+                        const tx = db.connection.transaction('budgets', 'readwrite');
+                        const store = tx.objectStore('budgets');
+                        store.delete(budget.id);
+
+                        tx.oncomplete = () => {
+                            this.loadBudgetStatus();
+                        };
+                    } catch (error) {
+                        console.error('Error deleting budget:', error);
+                        alert('Error deleting budget: ' + error.message);
+                    }
                 });
             }
 
