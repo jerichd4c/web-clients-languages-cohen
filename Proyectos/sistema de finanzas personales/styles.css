@@ -90,7 +90,7 @@ body {
 /* cards, inputs, tables */
 .card {
     background: var(--white);
-    padding: 25px;
+    padding: 40px;
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
@@ -150,6 +150,45 @@ table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 th { text-align: left; padding: 12px; background-color: #f9fafb; color: #6b7280; font-weight: 600; }
 td { padding: 12px; border-bottom: 1px solid #f3f4f6; }
 
+/* transactions layout: single column form */
+#transactions-section .card {
+    max-width: 420px;   /* keep the card itself compact */
+}
+
+#transactions-section .card form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#transactions-section .form-group {
+    margin-bottom: 12px;
+}
+
+/* make type/amount/date/category/description fields compact and same width */
+#transactions-section select,
+#transactions-section input[type="number"],
+#transactions-section input[type="date"],
+#transactions-section input[type="text"] {
+    max-width: 100%;
+}
+
+/* buttons with a bit of top spacing */
+#transactions-section #btn-save-trans,
+#transactions-section #btn-cancel-trans {
+    margin-top: 8px;
+}
+
+/* group type + category in a row */
+#transactions-section .type-category-row {
+    display: flex;
+    gap: 12px;
+}
+
+#transactions-section .type-category-row .form-group {
+    flex: 1;
+}
+
 /* dashboard summary cards */
 .summary-cards {
     display: flex;
@@ -200,4 +239,20 @@ td { padding: 12px; border-bottom: 1px solid #f3f4f6; }
     .charts-grid {
         grid-template-columns: 1fr;
     }
+}
+
+/* transactions filters bar */
+.filters-bar {
+    margin-top: 20px;
+}
+
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px; /* space between filter controls */
+}
+
+.filters-container select,
+.filters-container input[type="text"] {
+    max-width: 220px;
 }

@@ -85,14 +85,6 @@
                         <input type="hidden" id="trans-id">
 
                         <div class="form-group">
-                            <label>Type:</label>
-                            <select id="trans-type" required>
-                                <option value="expense">Expense</option>
-                                <option value="income">Income</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
                             <label>Amount:</label>
                             <input type="number" id="trans-amount" step="0.01" min="0" required placeholder="0.00">
                         </div>
@@ -102,12 +94,22 @@
                             <input type="date" id="trans-date" required>
                         </div>
 
-                        <div class="form-group">
-                            <label>Category:</label>
-                            <select id="trans-category" required>
-                                <!-- categories will be dynamically populated here -->
-                                <option value="">Select Category</option>
-                            </select>
+                        <div class="type-category-row">
+                            <div class="form-group">
+                                <label>Type:</label>
+                                <select id="trans-type" required>
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Category:</label>
+                                <select id="trans-category" required>
+                                    <!-- categories will be dynamically populated here -->
+                                    <option value="">Select Category</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-group">
