@@ -4,6 +4,7 @@ import { db } from '../db/db.js';
 export class DashboardManager { 
     constructor() {
         this.monthPicker = document.getElementById('dashboard-month-picker');
+        this.planSelector = document.getElementById('dashboard-plan-selector');
 
         // KPIs references (key performance indicators)
         this.kpiIncome = document.getElementById('kpi-income');
@@ -23,7 +24,12 @@ export class DashboardManager {
 
         this.monthPicker.addEventListener('change', () => this.refreshDashboard());
 
+        if (this.planSelector) {
+            this.planSelector.addEventListener('change', () => this.handlePlanChange());
+        }
+
         // initial load
+        await this.loadPlans();
         this.refreshDashboard();
     }
 
@@ -34,6 +40,9 @@ export class DashboardManager {
         const allTransactions = await db.getAll('transactions');
         const allCategories = await db.getAll('categories');
         const allBudgets = await db.getAll('budgets');
+
+        // keep plans list in sync in case budgets changed elsewhere
+        await this.loadPlans(allBudgets);
 
         // 2. filter by month
         const currentTransactions = allTransactions.filter(t => t.date.startsWith(selectedMonth));
@@ -47,6 +56,36 @@ export class DashboardManager {
         this.renderBudgetComparisonChart(currentTransactions, allBudgets, allCategories, selectedMonth);
         this.renderIncomeVsExpenseChart(currentTransactions);
         this.renderHistoryChart(allTransactions, selectedMonth);
+    }
+
+    async loadPlans(preloadedBudgets) {
+        if (!this.planSelector) return;
+
+        const budgets = preloadedBudgets || await db.getAll('budgets');
+        const uniqueMonths = Array.from(new Set(budgets.map(b => b.month))).sort();
+
+        this.planSelector.innerHTML = '<option value="">Existing plans...</option>';
+
+        uniqueMonths.forEach(month => {
+            const option = document.createElement('option');
+            option.value = month;
+            option.textContent = month;
+            this.planSelector.appendChild(option);
+        });
+
+        const current = this.monthPicker.value;
+        if (current && uniqueMonths.includes(current)) {
+            this.planSelector.value = current;
+        } else {
+            this.planSelector.value = '';
+        }
+    }
+
+    handlePlanChange() {
+        const selected = this.planSelector.value;
+        if (!selected) return;
+        this.monthPicker.value = selected;
+        this.refreshDashboard();
     }
 
     updateKPIs(transactions) {

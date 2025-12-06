@@ -110,6 +110,13 @@ h2, h3 { color: var(--text-dark); margin-top: 0; }
     align-items: center;
     margin-bottom: 24px;
 }
+
+.dashboard-header .dashboard-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .dashboard-header .month-picker-wrapper {
     display: flex;
     align-items: center;
@@ -119,6 +126,10 @@ h2, h3 { color: var(--text-dark); margin-top: 0; }
 
 .dashboard-header .month-picker-wrapper input[type="month"] {
     max-width: 160px;
+}
+
+#dashboard-plan-selector {
+    max-width: 200px;
 }
 
 /* forms */
@@ -166,8 +177,18 @@ td { padding: 12px; border-bottom: 1px solid #f3f4f6; }
     margin-bottom: 20px; /* separate month picker from card */
 }
 
+#budget-section .filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 #budget-section .filter-bar input[type="month"] {
     max-width: 160px; /* just wide enough to show month/year */
+}
+
+#budget-section #budget-plan-selector {
+    max-width: 200px;
 }
 
 /* stack Select Budget card above the table */

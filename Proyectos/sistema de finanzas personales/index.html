@@ -34,10 +34,15 @@
             <section id="dashboard-section" class="view-section active">
                 <div class="dashboard-header">
                     <h2>Financial Dashboard</h2>
-                    <label class="month-picker-wrapper">
-                        <span>Monthly Plan:</span>
-                        <input type="month" id="dashboard-month-picker">
-                    </label>
+                    <div class="dashboard-controls">
+                        <label class="month-picker-wrapper">
+                            <span>Monthly Plan:</span>
+                            <input type="month" id="dashboard-month-picker">
+                        </label>
+                        <select id="dashboard-plan-selector">
+                            <option value="">Existing plans...</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="summary-cards">
@@ -168,6 +173,9 @@
                 <div class="filter-bar">
                     <label>Monthly Plan:</label>
                     <input type="month" id="budget-month-picker">
+                    <select id="budget-plan-selector">
+                        <option value="">Existing plans...</option>
+                    </select>
                 </div>
 
                 <div class="split-view">
