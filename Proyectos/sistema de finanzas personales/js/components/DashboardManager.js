@@ -5,6 +5,7 @@ export class DashboardManager {
     constructor() {
         this.monthPicker = document.getElementById('dashboard-month-picker');
         this.planSelector = document.getElementById('dashboard-plan-selector');
+        this.alertIcon = document.getElementById('dashboard-alert');
 
         // KPIs references (key performance indicators)
         this.kpiIncome = document.getElementById('kpi-income');
@@ -47,6 +48,9 @@ export class DashboardManager {
         // 2. filter by month
         const currentTransactions = allTransactions.filter(t => t.date.startsWith(selectedMonth));
 
+        // compute budget alerts for this month
+        this.updateBudgetAlerts(selectedMonth, allBudgets, allTransactions, allCategories);
+
         // 3. update KPIs
 
         this.updateKPIs(currentTransactions);
@@ -56,6 +60,35 @@ export class DashboardManager {
         this.renderBudgetComparisonChart(currentTransactions, allBudgets, allCategories, selectedMonth);
         this.renderIncomeVsExpenseChart(currentTransactions);
         this.renderHistoryChart(allTransactions, selectedMonth);
+    }
+
+    updateBudgetAlerts(selectedMonth, allBudgets, allTransactions, allCategories) {
+        if (!this.alertIcon) return;
+
+        const monthlyBudgets = allBudgets.filter(b => b.month === selectedMonth);
+        const monthExpenses = allTransactions.filter(t => t.date.startsWith(selectedMonth) && t.type === 'expense');
+
+        const overLimit = [];
+
+        monthlyBudgets.forEach(b => {
+            const spent = monthExpenses
+                .filter(t => t.category_id === b.category_id)
+                .reduce((sum, t) => sum + t.amount, 0);
+
+            if (spent > b.max_amount) {
+                const cat = allCategories.find(c => c.id === b.category_id);
+                const name = cat ? cat.name : `Category ${b.category_id}`;
+                overLimit.push(`${name} is over budget by $${(spent - b.max_amount).toFixed(2)}`);
+            }
+        });
+
+        if (overLimit.length > 0) {
+            this.alertIcon.style.display = 'flex';
+            this.alertIcon.title = overLimit.join('\n');
+        } else {
+            this.alertIcon.style.display = 'none';
+            this.alertIcon.title = '';
+        }
     }
 
     async loadPlans(preloadedBudgets) {
