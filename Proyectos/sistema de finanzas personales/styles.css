@@ -150,6 +150,25 @@ table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 th { text-align: left; padding: 12px; background-color: #f9fafb; color: #6b7280; font-weight: 600; }
 td { padding: 12px; border-bottom: 1px solid #f3f4f6; }
 
+/* budget layout */
+#budget-section .filter-bar {
+    margin-bottom: 20px; /* separate month picker from card */
+}
+
+#budget-section .filter-bar input[type="month"] {
+    max-width: 160px; /* just wide enough to show month/year */
+}
+
+/* stack Select Budget card above the table */
+#budget-section .split-view {
+    display: block;
+}
+
+#budget-section .split-view .card {
+    max-width: 420px; /* narrower select budget card */
+    margin-bottom: 20px; /* space between card and table */
+}
+
 /* transactions layout: single column form */
 #transactions-section .card {
     max-width: 420px;   /* keep the card itself compact */
