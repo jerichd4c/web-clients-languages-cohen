@@ -38,6 +38,11 @@ body {
     margin-bottom: 10px;
 }
 
+/* move sidebar title slightly to the right */
+.sidebar h2 {
+    margin: 0 0 16px 20px;
+}
+
 .sidebar ul {
     list-style: none;
     padding: 0;
