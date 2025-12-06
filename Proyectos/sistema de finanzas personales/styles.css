@@ -90,7 +90,7 @@ body {
 /* cards, inputs, tables */
 .card {
     background: var(--white);
-    padding: 40px;
+    padding: 32px;
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
@@ -206,6 +206,35 @@ td { padding: 12px; border-bottom: 1px solid #f3f4f6; }
 
 #transactions-section .type-category-row .form-group {
     flex: 1;
+}
+
+/* categories layout */
+#categories-section .card {
+    max-width: 420px;   /* smaller new/edit category card */
+}
+
+/* make name and color inputs narrower and stacked */
+#categories-section #category-form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#categories-section #cat-name,
+#categories-section #cat-color {
+    max-width: 260px;
+}
+
+/* add space between name and color controls */
+#categories-section #cat-name {
+    margin-bottom: 16px;
+}
+
+/* keep buttons under the color input, aligned to left */
+#categories-section #btn-save-cat,
+#categories-section #btn-cancel-cat {
+    align-self: flex-start;
+    margin-top: 16px;
 }
 
 /* dashboard summary cards */
