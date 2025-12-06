@@ -256,3 +256,12 @@ td { padding: 12px; border-bottom: 1px solid #f3f4f6; }
 .filters-container input[type="text"] {
     max-width: 220px;
 }
+
+/* group filter type + category together */
+.filters-container select {
+    flex: 0 0 180px;
+}
+
+.filters-container input[type="text"] {
+    flex: 1 1 200px;
+}
