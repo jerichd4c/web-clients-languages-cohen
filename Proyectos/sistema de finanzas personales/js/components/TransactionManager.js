@@ -19,6 +19,9 @@ export class TransactionManager {
         this.filterCategory = document.getElementById('filter-category');
         this.searchInput = document.getElementById('search-input');
 
+        // optional callback to notify other components (e.g., BudgetManager)
+        this.onChange = null;
+
         this.categoriesCache = {}; // for quick access to colors
 
         this.init();
@@ -103,6 +106,11 @@ export class TransactionManager {
             tx.oncomplete = () => {
                 this.resetForm();
                 this.loadTransactions(); // refresh list
+
+                // notify external listeners (e.g., to refresh budgets)
+                if (typeof this.onChange === 'function') {
+                    this.onChange();
+                }
             };
         } catch (error) {
             console.error('Error saving transaction:', error);
@@ -194,6 +202,11 @@ export class TransactionManager {
         if (!confirm('Are you sure you want to delete this transaction?')) return;
         await db.delete('transactions', id);
         this.loadTransactions();
+
+        // notify external listeners
+        if (typeof this.onChange === 'function') {
+            this.onChange();
+        }
     }
 
     resetForm() {

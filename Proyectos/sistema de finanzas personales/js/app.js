@@ -19,19 +19,25 @@ document.addEventListener('DOMContentLoaded', async () => {
             new CategoryManager();
         }
 
-        // transaction manager
-        if (document.getElementById('transactions-section')) {
-            new TransactionManager();
-        }
+        // instantiate managers (only if their sections exist)
+        let transactionManager = null;
+        let budgetManager = null;
 
-        // budget manager
         if (document.getElementById('budget-section')) {
-            new BudgetManager();
+            budgetManager = new BudgetManager();
         }
 
-        // dashboard manager
+        if (document.getElementById('transactions-section')) {
+            transactionManager = new TransactionManager();
+        }
+
         if (document.getElementById('dashboard-section')) {
             new DashboardManager();
+        }
+
+        // link transactions -> budget refresh
+        if (transactionManager && budgetManager) {
+            transactionManager.onChange = () => budgetManager.loadBudgetStatus();
         }
 
         new Navigation();
