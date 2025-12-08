@@ -381,7 +381,7 @@ h3 {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 10px;
+    font-size: 12px;
     margin-bottom: 0;
     /* Align with select */
 }
@@ -400,7 +400,7 @@ h3 {
 label {
     display: block;
     margin-bottom: 8px;
-    font-size: 10px;
+    font-size: 12px;
     color: #000000;
     /* Black for better readability */
 }
@@ -540,7 +540,7 @@ tr:hover td {
 }
 
 .amount {
-    font-size: 14px;
+    font-size: 24px;
     margin-top: 16px;
     text-shadow: none;
 }
