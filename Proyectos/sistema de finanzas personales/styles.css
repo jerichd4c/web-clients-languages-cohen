@@ -268,6 +268,61 @@ h3 {
     font-family: inherit;
     font-size: 14px;
     letter-spacing: 0.5px;
+
+    /* Flexbox for title and controls */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Window Control Buttons */
+.window-controls {
+    display: flex;
+    gap: 2px;
+    margin-left: auto;
+}
+
+.win-btn {
+    width: 16px;
+    height: 14px;
+    min-width: 16px;
+    padding: 0;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: none;
+    font-size: 11px;
+    line-height: 1;
+    cursor: pointer;
+
+    /* Outset Border (raised button) */
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.win-btn:hover {
+    background-color: #d4d0c8;
+}
+
+.win-btn:active {
+    /* Inset Border (pressed button) */
+    box-shadow:
+        inset 1px 1px 0px var(--border-black),
+        inset -1px -1px 0px var(--border-light),
+        inset 2px 2px 0px var(--border-gray),
+        inset -2px -2px 0px #dfdfdf;
+    padding: 1px 0 0 1px;
+}
+
+.win-close:active {
+    background-color: #c0504d;
+    color: #ffffff;
 }
 
 /* Page Headers (on Teal background) */
@@ -346,8 +401,8 @@ label {
     display: block;
     margin-bottom: 8px;
     font-size: 10px;
-    color: #555555;
-    /* Strong Gray */
+    color: #000000;
+    /* Black for better readability */
 }
 
 input,

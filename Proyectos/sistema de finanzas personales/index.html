@@ -69,22 +69,50 @@
 
                 <div class="charts-grid">
                     <div class="chart-container">
-                        <h3>Expenses by Category</h3>
+                        <h3>
+                            <span>Expenses by Category</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
                         <canvas id="chart-categories"></canvas>
                     </div>
 
                     <div class="chart-container">
-                        <h3>Budget vs Reality</h3>
+                        <h3>
+                            <span>Budget vs Reality</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
                         <canvas id="chart-budgets"></canvas>
                     </div>
 
                     <div class="chart-container">
-                        <h3>Income vs Expense</h3>
+                        <h3>
+                            <span>Income vs Expense</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
                         <canvas id="chart-balance-bar"></canvas>
                     </div>
 
                     <div class="chart-container">
-                        <h3>Anual Evolution</h3>
+                        <h3>
+                            <span>Anual Evolution</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
                         <canvas id="chart-history"></canvas>
                     </div>
                 </div>
@@ -95,7 +123,14 @@
                 <h2>Transaction Manager</h2>
 
                 <div class="card">
-                    <h3>New Transaction</h3>
+                    <h3>
+                        <span>New Transaction</span>
+                        <div class="window-controls">
+                            <button class="win-btn" title="Minimize">_</button>
+                            <button class="win-btn" title="Maximize">□</button>
+                            <button class="win-btn win-close" title="Close">×</button>
+                        </div>
+                    </h3>
                     <form id="transaction-form">
                         <input type="hidden" id="trans-id">
 
@@ -187,7 +222,14 @@
 
                 <div class="split-view">
                     <div class="card">
-                        <h3>Select Budget</h3>
+                        <h3>
+                            <span>Select Budget</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
                         <form id="budget-form">
                             <input type="hidden" id="budget-id">
                             <div class="form-group">
@@ -231,7 +273,14 @@
                 <h2>Category Manager</h2>
 
                 <div class="card">
-                    <h3>New/Edit Category</h3>
+                    <h3>
+                        <span>New/Edit Category</span>
+                        <div class="window-controls">
+                            <button class="win-btn" title="Minimize">_</button>
+                            <button class="win-btn" title="Maximize">□</button>
+                            <button class="win-btn win-close" title="Close">×</button>
+                        </div>
+                    </h3>
                     <form id="category-form">
                         <input type="hidden" id="cat-id">
                         <div class="form-group">
