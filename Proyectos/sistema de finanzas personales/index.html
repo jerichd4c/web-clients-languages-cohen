@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -230,11 +231,15 @@
                     <h3>New/Edit Category</h3>
                     <form id="category-form">
                         <input type="hidden" id="cat-id">
-                        <label>Name:</label>
-                        <input type="text" id="cat-name" required placeholder="Example: Gym">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" id="cat-name" required placeholder="Example: Gym">
+                        </div>
 
-                        <label>Color (for graphs):</label>
-                        <input type="color" id="cat-color" value="#36A2EB">
+                        <div class="form-group">
+                            <label>Color (for graphs):</label>
+                            <input type="color" id="cat-color" value="#36A2EB">
+                        </div>
 
                         <button type="submit" id="btn-save-cat">Save Category</button>
                         <button type="button" id="btn-cancel-cat" style="display:none">Cancel</button>
@@ -253,4 +258,5 @@
 
     <script type="module" src="./js/app.js"></script>
 </body>
+
 </html>

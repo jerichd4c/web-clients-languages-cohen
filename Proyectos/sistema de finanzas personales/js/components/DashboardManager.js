@@ -1,7 +1,7 @@
 import { db } from '../db/db.js';
 
 // pseudo component
-export class DashboardManager { 
+export class DashboardManager {
     constructor() {
         this.monthPicker = document.getElementById('dashboard-month-picker');
         this.planSelector = document.getElementById('dashboard-plan-selector');
@@ -28,6 +28,11 @@ export class DashboardManager {
         if (this.planSelector) {
             this.planSelector.addEventListener('change', () => this.handlePlanChange());
         }
+
+        // retro rpg chart defaults
+        Chart.defaults.color = '#000000';
+        Chart.defaults.font.family = "'Press Start 2P', cursive";
+        Chart.defaults.borderColor = '#000000';
 
         // initial load
         await this.loadPlans();
@@ -137,7 +142,7 @@ export class DashboardManager {
         this.kpiBalance.textContent = `$${balance.toFixed(2)}`;
 
         // balance color
-        this.kpiBalance.style.color = balance >= 0 ? 'green' : 'red';
+        this.kpiBalance.style.color = balance >= 0 ? '#008000' : '#cf0000'; // Theme Green/Red
     }
 
     // GRAPH 1: Expenses by Category (donut)
@@ -159,7 +164,7 @@ export class DashboardManager {
         const colors = []
 
         Object.keys(dataMap).forEach(catId => {
-            const cat= categories.find(c => c.id === Number(catId));
+            const cat = categories.find(c => c.id === Number(catId));
             labels.push(cat ? cat.name : 'Uncategorized');
             data.push(dataMap[catId]);
             colors.push(cat ? cat.color : '#ccc');
@@ -172,6 +177,8 @@ export class DashboardManager {
                 datasets: [{
                     data: data,
                     backgroundColor: colors,
+                    borderColor: '#ffffff', // white border to separate segments
+                    borderWidth: 2
                 }]
             }
         });
@@ -179,7 +186,7 @@ export class DashboardManager {
 
     // GRAPH 2: Budget vs Actual (bar)
     renderBudgetComparisonChart(transactions, budgets, categories, selectedMonth) {
-        const ctx= document.getElementById('chart-budgets').getContext('2d');
+        const ctx = document.getElementById('chart-budgets').getContext('2d');
 
         // filter budget by month
         const monthlyBudgets = budgets.filter(b => b.month === selectedMonth);
@@ -207,11 +214,11 @@ export class DashboardManager {
             data: {
                 labels: labels,
                 datasets: [
-                    { label: 'Budget', data: estimatedData, backgroundColor: '#36A2EB' },
-                    { label: 'Actual Spend', data: realData, backgroundColor: '#FF6384' }
+                    { label: 'Budget', data: estimatedData, backgroundColor: '#2563EB' }, // Blue
+                    { label: 'Actual Spend', data: realData, backgroundColor: '#cf0000' } // Red
                 ]
             },
-            options: { scales: { y: { beginAtZero: true } } }
+            options: { scales: { y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.1)' } }, x: { grid: { color: 'rgba(0,0,0,0.1)' } } } }
         });
     }
 
@@ -229,9 +236,10 @@ export class DashboardManager {
                 datasets: [{
                     label: 'Total Amount',
                     data: [income, expense],
-                    backgroundColor: ['#4BC0C0', '#FF6384']
+                    backgroundColor: ['#008000', '#cf0000'] // Theme Green, Red
                 }]
-            }
+            },
+            options: { scales: { y: { grid: { color: 'rgba(0,0,0,0.1)' } }, x: { grid: { color: 'rgba(0,0,0,0.1)' } } } }
         });
     }
 
@@ -247,7 +255,7 @@ export class DashboardManager {
 
         allTransactions.forEach(t => {
             if (t.date.startsWith(year)) {
-                const monthIndex = parseInt(t.date.split('-')[1]) - 1; 
+                const monthIndex = parseInt(t.date.split('-')[1]) - 1;
                 if (t.type === 'income') monthlyBalance[monthIndex] += t.amount;
                 else monthlyBalance[monthIndex] -= t.amount;
             }
@@ -260,10 +268,13 @@ export class DashboardManager {
                 datasets: [{
                     label: `Balance ${year}`,
                     data: monthlyBalance,
-                    borderColor: '#9966FF',
-                    fill: false,
+                    borderColor: '#2563EB', // Blue
+                    backgroundColor: 'rgba(37, 99, 235, 0.4)', // Blue fill
+                    fill: true,
+                    tension: 0.1 // straighter lines for retro feel
                 }]
-            }
+            },
+            options: { scales: { y: { grid: { color: 'rgba(0,0,0,0.1)' } }, x: { grid: { color: 'rgba(0,0,0,0.1)' } } } }
         });
     }
 
@@ -272,25 +283,34 @@ export class DashboardManager {
         if (this.charts[key]) {
             this.charts[key].destroy();
         }
-        
+
         // base options for charts
         const baseOptions = {
             responsive: true,
             // css control size
-            maintainAspectRatio: false, 
+            maintainAspectRatio: false,
             plugins: {
-                legend: { labels: { font: { size: 10 } } },
+                legend: { labels: { font: { size: 10, family: "'Press Start 2P', cursive" } } },
                 tooltip: {
-                    bodyFont: { size: 10 },
-                    titleFont: { size: 11 }
+                    bodyFont: { size: 10, family: "'Press Start 2P', cursive" },
+                    titleFont: { size: 11, family: "'Press Start 2P', cursive" },
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    titleColor: '#000000',
+                    bodyColor: '#000000',
+                    borderColor: '#000000',
+                    borderWidth: 2,
+                    displayColors: false,
+                    cornerRadius: 0
+                }
             }
-        }
-    };
+        };
 
         // merge base options
         config.options = {
             ...baseOptions,
-            ...(config.options || {})
+            ...(config.options || {}),
+            plugins: { ...baseOptions.plugins, ...(config.options?.plugins || {}) },
+            scales: { ...baseOptions.scales, ...(config.options?.scales || {}) }
         };
 
         this.charts[key] = new Chart(ctx, config);
