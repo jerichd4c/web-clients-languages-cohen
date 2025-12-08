@@ -11,7 +11,29 @@
 </head>
 
 <body>
-    <div class="app-container">
+
+    <!-- Windows 95 Startup Screen -->
+    <div id="win95-startup" class="win95-startup">
+        <div class="win95-logo-container">
+            <!--windows 95 Logo -->
+            <img src="images/windows95_logo.jpg" alt="Windows 95" class="win95-logo-image">
+
+            <!-- loading Bar -->
+            <div class="win95-loading">
+                <div class="win95-loading-bar">
+                    <div id="win95-progress" class="win95-progress"></div>
+                </div>
+                <div id="win95-status" class="win95-status">Starting Windows 95...</div>
+            </div>
+
+            <!-- copyright (as in the original) -->
+            <div class="win95-copyright">
+                © 1985-1995 Microsoft Corp.
+            </div>
+        </div>
+    </div>
+
+    <div class="app-container" style="display: none;">
         <nav class="taskbar">
             <button class="start-button">
                 <img src="icons/windows_95.ico" alt="" class="start-logo">

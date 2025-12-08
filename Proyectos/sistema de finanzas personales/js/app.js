@@ -4,10 +4,50 @@ import { TransactionManager } from "./components/TransactionManager.js";
 import { BudgetManager } from "./components/BudgetManager.js";
 import { DashboardManager } from './components/DashboardManager.js';
 import { Navigation } from './components/Navigation.js';
+import { StartupManager } from './components/StartupManager.js';
+
+// hide app container until startup completes
+document.querySelector('.app-container').style.display = 'none';
 
 // wait for DOM to load
 document.addEventListener('DOMContentLoaded', async () => {
     try {
+        //EXTRA: show startup screen
+        const startup= new StartupManager();
+
+        // skip startup with escape key (for dev convenience)
+        const skipStartupHandler = () => {
+            startup.skipStartup();
+            // remove listeners to avoid multiple calls when startup finishes
+            document.removeEventListener('keydown', keyHandler);
+            document.getElementById('win95-startup').removeEventListener('click', clickHandler);
+        };
+        
+        // key listener
+        const keyHandler = (e) => {
+            if (e.key === 'Escape') {
+                skipStartupHandler();
+            }
+        };
+
+        // click listener
+        const clickHandler = () => {
+            skipStartupHandler();
+        };
+
+        // add listeners
+        document.addEventListener('keydown', keyHandler);
+        document.getElementById('win95-startup').addEventListener('click', clickHandler);
+
+        // init sequence
+        await startup.start();
+
+        // remove listeners after normal completion
+        document.removeEventListener('keydown', keyHandler);
+        document.getElementById('win95-startup').removeEventListener('click', clickHandler);
+
+        // END OF STARTUP SEQUENCE
+
         // 1. init database
         await db.open();
 
