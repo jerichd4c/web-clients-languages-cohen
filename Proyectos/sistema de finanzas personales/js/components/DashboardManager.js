@@ -31,7 +31,7 @@ export class DashboardManager {
 
         // retro rpg chart defaults
         Chart.defaults.color = '#000000';
-        Chart.defaults.font.family = "'Press Start 2P', cursive";
+        Chart.defaults.font.family = '"MS Sans Serif", "Segoe UI", sans-serif';
         Chart.defaults.borderColor = '#000000';
 
         // initial load
@@ -290,10 +290,10 @@ export class DashboardManager {
             // css control size
             maintainAspectRatio: false,
             plugins: {
-                legend: { labels: { font: { size: 10, family: "'Press Start 2P', cursive" } } },
+                legend: { labels: { font: { size: 10, family: '"MS Sans Serif", "Segoe UI", sans-serif' } } },
                 tooltip: {
-                    bodyFont: { size: 10, family: "'Press Start 2P', cursive" },
-                    titleFont: { size: 11, family: "'Press Start 2P', cursive" },
+                    bodyFont: { size: 10, family: '"MS Sans Serif", "Segoe UI", sans-serif' },
+                    titleFont: { size: 11, family: '"MS Sans Serif", "Segoe UI", sans-serif' },
                     backgroundColor: 'rgba(255, 255, 255, 0.95)',
                     titleColor: '#000000',
                     bodyColor: '#000000',

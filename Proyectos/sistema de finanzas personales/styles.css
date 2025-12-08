@@ -1,19 +1,29 @@
 :root {
-    /* Retro RPG Light Palette */
-    --primary: #2563EB;
-    /* Royal Blue */
+    /* Windows 95 Palette */
+    --bg-desktop: #008080;
+    /* Teal */
+    --bg-surface: #c0c0c0;
+    /* Silver */
+    --text-main: #000000;
+    /* Black */
+    --text-gray: #808080;
+    /* Dark Gray Text */
+    --primary: #000080;
+    /* Navy Blue (Title Bars) */
+    --primary-light: #1084d0;
+    /* Highlighted Blue */
     --secondary: #008000;
-    /* Darker Green for text readability */
+    /* Green */
     --danger: #cf0000;
     /* Red */
-    --bg-dark: #ffffff;
-    /* White Background */
-    --bg-panel: #f9fafb;
-    /* Very Light Gray Panel */
-    --text-main: #000000;
-    /* Black Text */
-    --border-color: #000000;
-    /* Black Borders */
+
+    /* 3D Borders */
+    --border-light: #ffffff;
+    --border-gray: #808080;
+    --border-dark: #404040;
+    /* or #000000 for sharper contrast */
+    --border-black: #000000;
+
     --sidebar-width: 280px;
 }
 
@@ -22,27 +32,46 @@
 }
 
 body {
-    font-family: 'Press Start 2P', cursive;
+    font-family: "MS Sans Serif", "Segoe UI", sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--bg-dark);
+    background-color: var(--bg-desktop);
     color: var(--text-main);
-    image-rendering: pixelated;
     line-height: 1.5;
+    /* Clean font rendering for that crisp look */
+    -webkit-font-smoothing: none;
 }
 
 /* Scrollbar styling */
+/* Scrollbar styling - Windows 95 style */
 ::-webkit-scrollbar {
-    width: 12px;
+    width: 16px;
+    height: 16px;
+    background: var(--bg-surface);
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-dark);
+    background: #dfdfdf;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--primary);
-    border: 2px solid var(--bg-dark);
+    background: var(--bg-surface);
+    border-top: 1px solid var(--border-light);
+    border-left: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-black);
+    border-bottom: 1px solid var(--border-black);
+    box-shadow: inset -1px -1px 0 var(--border-gray), inset 1px 1px 0 #dfdfdf;
+}
+
+::-webkit-scrollbar-button {
+    background: var(--bg-surface);
+    width: 16px;
+    height: 16px;
+    border-top: 1px solid var(--border-light);
+    border-left: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-black);
+    border-bottom: 1px solid var(--border-black);
+    box-shadow: inset -1px -1px 0 var(--border-gray), inset 1px 1px 0 #dfdfdf;
 }
 
 /* main layout */
@@ -52,14 +81,15 @@ body {
 }
 
 /* sidebar */
+/* sidebar */
 .sidebar {
     width: var(--sidebar-width);
-    background-color: var(--bg-panel);
-    border-right: 4px solid var(--border-color);
+    background-color: var(--bg-surface);
+    border-right: 2px solid var(--border-black);
+    box-shadow: inset -1px -1px 0 var(--border-gray), inset 1px 1px 0 var(--border-light);
     position: fixed;
     height: 100%;
     padding-top: 20px;
-    box-shadow: 4px 0 0 rgba(0, 0, 0, 0.5);
     z-index: 100;
 }
 
@@ -77,25 +107,21 @@ body {
 }
 
 .nav-item {
-    padding: 20px;
+    padding: 12px 20px;
     cursor: pointer;
-    font-size: 12px;
-    color: #555555;
-    /* Strong Gray */
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    color: var(--text-main);
 }
 
 .nav-item:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: var(--white);
+    background-color: var(--primary);
+    color: #ffffff;
 }
 
 .nav-item.active {
     background-color: var(--primary);
-    color: var(--bg-dark);
-    /* Dark text on gold */
-    border-right: none;
-    box-shadow: inset -4px 0 0 rgba(0, 0, 0, 0.2);
+    color: #ffffff;
+    border: 1px dotted #ffffff;
 }
 
 
@@ -117,17 +143,18 @@ body {
 }
 
 /* RPG BORDER BOX MIXIN STYLE */
+/* Windows 95 Window/Panel Style */
 .card,
 .chart-container {
-    background: var(--bg-panel);
+    background: var(--bg-surface);
     padding: 24px;
-    border: 4px solid var(--border-color);
-    border-radius: 0;
-    /* Square corners */
+    border: 2px solid var(--bg-surface);
+    /* Outset Border (3D Raised) */
     box-shadow:
-        inset 2px 2px 0px rgba(255, 255, 255, 0.3),
-        inset -2px -2px 0px rgba(0, 0, 0, 0.5),
-        4px 4px 0px rgba(0, 0, 0, 0.5);
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
     margin-bottom: 24px;
     position: relative;
     color: var(--text-main);
@@ -138,16 +165,62 @@ body {
 h2,
 h3 {
     color: var(--text-main);
-    text-shadow: none;
     margin-top: 0;
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 24px;
+    font-weight: bold;
 }
 
 h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+/* Windows 95 Title Bar for Cards */
+.card h3,
+.chart-container h3,
+.sidebar h2 {
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 6px 8px;
+    margin: -24px -24px 20px -24px;
+    /* Pull flush to borders */
+    font-family: inherit;
     font-size: 14px;
-    border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
-    padding-bottom: 10px;
+    letter-spacing: 0.5px;
+    /* Optional: Gradient */
+    background: linear-gradient(90deg, var(--primary), #1084d0);
+}
+
+.sidebar h2 {
+    margin: 0;
+    /* Reset since sidebar padding handles it differently */
+    margin-bottom: 20px;
+    padding: 8px;
+    text-align: center;
+    border: 2px solid var(--bg-surface);
+    box-shadow: inset 1px 1px 0 var(--border-light), inset -1px -1px 0 var(--border-black);
+}
+
+/* Page Headers (on Teal background) */
+.view-section>h2,
+.dashboard-header h2 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 24px;
+    text-shadow: none;
+    font-weight: bold;
+}
+
+/* Specific section headers on teal background */
+.filters-bar h3,
+.table-container>h3,
+.list-container h3 {
+    color: #ffffff;
+    background: none;
+    margin: 0 0 16px 0;
+    padding: 0;
+    font-size: 18px;
 }
 
 /* dashboard header */
@@ -169,6 +242,16 @@ h3 {
     display: flex;
     align-items: center;
     gap: 16px;
+
+    /* Windows 95 Panel Look for controls */
+    background: var(--bg-surface);
+    padding: 8px 12px;
+    border: 2px solid var(--bg-surface);
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
 }
 
 .dashboard-header .month-picker-wrapper {
@@ -202,80 +285,80 @@ label {
 input,
 select {
     width: 100%;
-    padding: 12px;
-    background-color: var(--bg-dark);
-    border: 2px solid var(--border-color);
+    padding: 6px;
+    background-color: #ffffff;
+    /* Inset Border (3D Sunken) */
+    border-top: 1px solid var(--border-black);
+    border-left: 1px solid var(--border-black);
+    border-bottom: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+    box-shadow: inset 1px 1px 0 var(--border-gray), 1px 1px 0 #fff;
+
     border-radius: 0;
     color: var(--text-main);
-    font-family: 'Press Start 2P', cursive;
-    font-size: 10px;
-    box-shadow: inset 2px 2px 0 rgba(0, 0, 0, 0.1);
+    font-family: inherit;
+    font-size: 14px;
 }
 
 input:focus,
 select:focus {
     outline: none;
-    border-color: var(--primary);
-    background-color: #ffffff;
 }
 
 option {
     background-color: #ffffff;
     color: #000000;
-    font-family: 'Press Start 2P', cursive;
+    font-family: inherit;
 }
 
 /* Buttons */
+/* Buttons - Windows 95 Style */
 button {
-    font-family: 'Press Start 2P', cursive;
-    background-color: var(--primary);
-    color: #ffffff;
-    padding: 12px 24px;
-    border: 4px solid #000;
-    /* simple black border */
-    border-radius: 0;
+    font-family: inherit;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border: none;
     cursor: pointer;
-    font-size: 10px;
-    text-transform: uppercase;
-    box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.2);
-    transition: transform 0.1s, box-shadow 0.1s;
-    position: relative;
-    top: 0;
-    left: 0;
+    font-size: 12px;
+
+    /* Outset Border */
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
+
+    /* active: transform: none; */
+    min-width: 80px;
+    text-align: center;
 }
 
 button:hover {
-    background-color: #3b82f6;
-    transform: translate(-1px, -1px);
-    box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.2);
+    background-color: var(--bg-surface);
 }
 
 button:active {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0 #000;
-}
-
-button.btn-delete {
-    background-color: var(--danger);
-    color: white;
-}
-
-button.btn-delete:hover,
-button.btn-delete-budget:hover {
-    background-color: #ff3333;
-}
-
-button.btn-edit,
-button.btn-edit-budget {
-    background-color: #F59E0B;
-    /* Orange */
-    color: white;
+    /* Inset Border on click */
+    box-shadow:
+        inset 1px 1px 0px var(--border-black),
+        inset -1px -1px 0px var(--border-light),
+        inset 2px 2px 0px var(--border-gray),
+        inset -2px -2px 0px #dfdfdf;
+    padding: 7px 11px 5px 13px;
+    /* Shift content slightly */
+    transform: none;
 }
 
 button.btn-delete,
 button.btn-delete-budget {
-    background-color: var(--danger);
-    color: white;
+    color: var(--text-main);
+}
+
+button.btn-edit,
+button.btn-edit-budget {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
 }
 
 /* Tables */
@@ -285,33 +368,33 @@ button.btn-delete-budget {
 
 table {
     width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
+    border-collapse: collapse;
     margin-top: 10px;
-    border: 2px solid var(--border-color);
+    background: #ffffff;
+    border: 1px solid var(--border-gray);
+    box-shadow: inset 1px 1px 0 var(--border-black), 1px 1px 0 var(--border-light);
 }
 
 th {
     text-align: left;
-    padding: 16px;
-    background-color: var(--primary);
-    color: var(--bg-dark);
-    font-size: 10px;
-    border-bottom: 2px solid var(--border-color);
+    padding: 8px;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    font-size: 12px;
+    border: 1px solid var(--border-gray);
+    /* Header looks like a button usually */
+    box-shadow: inset 1px 1px 0 var(--border-light), inset -1px -1px 0 var(--border-black);
 }
 
 td {
-    padding: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    font-size: 10px;
-}
-
-tr:last-child td {
-    border-bottom: none;
+    padding: 8px;
+    font-size: 12px;
+    border: 1px solid #dfdfdf;
 }
 
 tr:hover td {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--primary);
+    color: white;
 }
 
 /* Dashboard Summary Cards (KPIs) */
@@ -324,8 +407,13 @@ tr:hover td {
 .card.kpi {
     flex: 1;
     text-align: center;
-    background: var(--bg-panel);
-    border: 4px solid var(--border-color);
+    background: var(--bg-surface);
+    border: 2px solid var(--bg-surface);
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
 }
 
 .amount {
@@ -351,8 +439,11 @@ tr:hover td {
 
 .chart-container canvas {
     max-height: 200px;
-    filter: sepia(0.2) contrast(1.1);
-    /* Slight retro feel to charts */
+    /* filter: sepia(0.2) contrast(1.1); */
+    background: #fff;
+    border: 1px solid var(--border-gray);
+    box-shadow: inset 1px 1px 0 var(--border-black), 1px 1px 0 var(--border-light);
+    padding: 5px;
 }
 
 /* Specific Sections Layouts */
@@ -417,8 +508,8 @@ tr:hover td {
     align-items: center;
     justify-content: center;
     font-size: 20px;
-    border: 2px solid white;
-    box-shadow: 2px 2px 0 #000;
+    border: 1px solid #000;
+    box-shadow: inset 1px 1px 0 var(--border-light);
     animation: blink 1s infinite step-end;
 }
 
@@ -436,6 +527,16 @@ tr:hover td {
     gap: 16px;
     align-items: center;
     flex-wrap: wrap;
+
+    /* Windows 95 Panel Look for filters */
+    background: var(--bg-surface);
+    padding: 8px 12px;
+    border: 2px solid var(--bg-surface);
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
 }
 
 .filter-bar label {
@@ -466,10 +567,18 @@ tr:hover td {
 }
 
 .styled-list li {
-    padding: 12px;
-    border: 2px solid var(--border-color);
-    margin-bottom: 8px;
+    padding: 8px;
+    margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
-    background: var(--bg-panel);
+
+    /* Windows 95 "List Item" / Input Field look */
+    background: #ffffff;
+    border-top: 1px solid var(--border-black);
+    border-left: 1px solid var(--border-black);
+    border-bottom: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+    box-shadow: inset 1px 1px 0 var(--border-gray), 1px 1px 0 #fff;
+
+    color: var(--text-main);
 }
