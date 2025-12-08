@@ -178,6 +178,14 @@ h3 {
     align-items: center;
     gap: 12px;
     font-size: 10px;
+    margin-bottom: 0;
+    /* Align with select */
+}
+
+.dashboard-header select,
+.dashboard-header input {
+    width: auto;
+    margin-bottom: 0;
 }
 
 /* Forms & Inputs */
@@ -216,6 +224,7 @@ select:focus {
 option {
     background-color: #ffffff;
     color: #000000;
+    font-family: 'Press Start 2P', cursive;
 }
 
 /* Buttons */
@@ -422,9 +431,28 @@ tr:hover td {
 }
 
 /* Filters */
-.filters-bar {
+.filter-bar {
     margin-top: 24px;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.filter-bar label {
+    margin-bottom: 0;
+    /* Override default label margin for inline layout */
+    margin-right: 8px;
+}
+
+.filter-bar input,
+.filter-bar select {
+    width: auto;
+    /* Prevent full width in filter bar */
+    flex-grow: 1;
+    max-width: 200px;
+    /* Cap width */
 }
 
 .filters-container {
