@@ -290,10 +290,10 @@ export class DashboardManager {
             // css control size
             maintainAspectRatio: false,
             plugins: {
-                legend: { labels: { font: { size: 10, family: '\'W95FA\', "MS Sans Serif", "Segoe UI", sans-serif' } } },
+                legend: { labels: { font: { size: 12, family: '\'W95FA\', "MS Sans Serif", "Segoe UI", sans-serif' } } },
                 tooltip: {
-                    bodyFont: { size: 10, family: '\'W95FA\', "MS Sans Serif", "Segoe UI", sans-serif' },
-                    titleFont: { size: 11, family: '\'W95FA\', "MS Sans Serif", "Segoe UI", sans-serif' },
+                    bodyFont: { size: 12, family: '\'W95FA\', "MS Sans Serif", "Segoe UI", sans-serif' },
+                    titleFont: { size: 13, family: '\'W95FA\', "MS Sans Serif", "Segoe UI", sans-serif' },
                     backgroundColor: 'rgba(255, 255, 255, 0.95)',
                     titleColor: '#000000',
                     bodyColor: '#000000',
