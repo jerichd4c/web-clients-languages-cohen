@@ -639,6 +639,7 @@ tr:hover td {
     margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
     /* Windows 95 "List Item" / Input Field look */
     background: #ffffff;
@@ -649,4 +650,18 @@ tr:hover td {
     box-shadow: inset 1px 1px 0 var(--border-gray), 1px 1px 0 #fff;
 
     color: var(--text-main);
+}
+
+.category-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-color-box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--border-black);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
 }

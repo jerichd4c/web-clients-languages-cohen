@@ -10,7 +10,7 @@ export class CategoryManager {
         this.inputColor = document.getElementById('cat-color');
         this.inputId = document.getElementById('cat-id');
         this.btnCancel = document.getElementById('btn-cancel-cat');
-        
+
         // link events to methods
         this.init();
 
@@ -36,9 +36,11 @@ export class CategoryManager {
 
         categories.forEach(cat => {
             const li = document.createElement('li');
-            li.style.borderLeft = '5px solid ${cat.color}'; // color indicator
             li.innerHTML = `
-                <span>${cat.name}</span>
+                <div class="category-info">
+                    <span class="category-color-box" style="background-color: ${cat.color};"></span>
+                    <span>${cat.name}</span>
+                </div>
                 <div class="actions">
                     <button class="btn-edit" data-id="${cat.id}">Edit</button>
                     <button class="btn-delete" data-id="${cat.id}">Delete</button>
@@ -97,7 +99,7 @@ export class CategoryManager {
         this.inputId.value = cat.id;
         this.btnCancel.style.display = 'inline-block';
         document.getElementById('btn-save-cat').textContent = 'Update Category';
-    
+
     }
 
     resetForm() {
