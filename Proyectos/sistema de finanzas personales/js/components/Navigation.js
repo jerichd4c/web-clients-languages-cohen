@@ -1,10 +1,11 @@
 //navigation component
 export class Navigation {
     constructor() {
-        this.navItems = document.querySelectorAll('.nav-item');
+        this.navItems = document.querySelectorAll('.taskbar-btn');
         this.sections = document.querySelectorAll('.view-section');
 
         this.init();
+        this.initClock();
     }
 
     init() {
@@ -38,5 +39,25 @@ export class Navigation {
                 }
             }
         });
+    }
+
+    // Initialize and update taskbar clock
+    initClock() {
+        const updateClock = () => {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-US', {
+                hour: 'numeric',
+                minute: '2-digit',
+                hour12: true
+            });
+            const clockElement = document.querySelector('.time-text');
+            if (clockElement) {
+                clockElement.textContent = timeStr;
+            }
+        };
+
+        // Update immediately and then every minute
+        updateClock();
+        setInterval(updateClock, 60000);
     }
 }
