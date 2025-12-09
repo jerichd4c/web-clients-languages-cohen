@@ -2,7 +2,10 @@ import { db } from '../db/db.js';
 
 // pseudo component
 export class DashboardManager {
-    constructor() {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.render();
+
         this.monthPicker = document.getElementById('dashboard-month-picker');
         this.planSelector = document.getElementById('dashboard-plan-selector');
         this.alertIcon = document.getElementById('dashboard-alert');
@@ -16,6 +19,93 @@ export class DashboardManager {
         this.charts = {};
 
         this.init();
+    }
+
+    render() {
+        this.container.innerHTML = `
+            <section id="dashboard-section" class="view-section active">
+                <div class="dashboard-header">
+                    <h2>Financial Dashboard</h2>
+                    <div class="dashboard-controls">
+                        <label class="month-picker-wrapper">
+                            <span>Monthly Plan:</span>
+                            <input type="month" id="dashboard-month-picker">
+                        </label>
+                        <select id="dashboard-plan-selector">
+                            <option value="">Existing plans...</option>
+                        </select>
+                        <div id="dashboard-alert" class="dashboard-alert" style="display:none;" title="">
+                            &#9888;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="summary-cards">
+                    <div class="card kpi">
+                        <h3>Income</h3>
+                        <p id="kpi-income" class="amount positive">$0.00</p>
+                    </div>
+                    <div class="card kpi">
+                        <h3>Expenses</h3>
+                        <p id="kpi-expense" class="amount negative">$0.00</p>
+                    </div>
+                    <div class="card kpi">
+                        <h3>Balance</h3>
+                        <p id="kpi-balance" class="amount">$0.00</p>
+                    </div>
+                </div>
+
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>
+                            <span>Expenses by Category</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
+                        <canvas id="chart-categories"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>
+                            <span>Budget vs Reality</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
+                        <canvas id="chart-budgets"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>
+                            <span>Income vs Expense</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
+                        <canvas id="chart-balance-bar"></canvas>
+                    </div>
+
+                    <div class="chart-container">
+                        <h3>
+                            <span>Anual Evolution</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
+                        <canvas id="chart-history"></canvas>
+                    </div>
+                </div>
+            </section>
+        `;
     }
 
     async init() {

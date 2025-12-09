@@ -2,7 +2,10 @@ import { db } from '../db/db.js';
 
 // pseudo component
 export class CategoryManager {
-    constructor() {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.render();
+
         // DOM references
         this.form = document.getElementById('category-form');
         this.listContainer = document.getElementById('categories-list');
@@ -14,6 +17,47 @@ export class CategoryManager {
         // link events to methods
         this.init();
 
+    }
+
+    render() {
+        this.container.innerHTML = `
+            <section id="categories-section" class="view-section">
+                <h2>Category Manager</h2>
+
+                <div class="card">
+                    <h3>
+                        <span>New/Edit Category</span>
+                        <div class="window-controls">
+                            <button class="win-btn" title="Minimize">_</button>
+                            <button class="win-btn" title="Maximize">□</button>
+                            <button class="win-btn win-close" title="Close">×</button>
+                        </div>
+                    </h3>
+                    <form id="category-form">
+                        <input type="hidden" id="cat-id">
+                        <div class="form-group">
+                            <label>Name:</label>
+                            <input type="text" id="cat-name" required placeholder="Example: Gym">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Color (for graphs):</label>
+                            <input type="color" id="cat-color" value="#36A2EB">
+                        </div>
+
+                        <button type="submit" id="btn-save-cat">Save Category</button>
+                        <button type="button" id="btn-cancel-cat" style="display:none">Cancel</button>
+                    </form>
+                </div>
+
+                <div class="list-container">
+                    <h3>Categories List</h3>
+                    <ul id="categories-list" class="styled-list">
+                        <!-- categories will be dynamically populated here -->
+                    </ul>
+                </div>
+            </section>
+        `;
     }
 
     init() {

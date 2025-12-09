@@ -2,7 +2,10 @@ import { db } from '../db/db.js';
 
 // pseudo component
 export class TransactionManager {
-    constructor() {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.render();
+
         // DOM references
         this.form = document.getElementById('transaction-form');
         this.inputId = document.getElementById('trans-id');
@@ -25,6 +28,99 @@ export class TransactionManager {
         this.categoriesCache = {}; // for quick access to colors
 
         this.init();
+    }
+
+    render() {
+        this.container.innerHTML = `
+            <section id="transactions-section" class="view-section">
+                <h2>Transaction Manager</h2>
+
+                <div class="card">
+                    <h3>
+                        <span>New Transaction</span>
+                        <div class="window-controls">
+                            <button class="win-btn" title="Minimize">_</button>
+                            <button class="win-btn" title="Maximize">□</button>
+                            <button class="win-btn win-close" title="Close">×</button>
+                        </div>
+                    </h3>
+                    <form id="transaction-form">
+                        <input type="hidden" id="trans-id">
+
+                        <div class="form-group">
+                            <label>Amount:</label>
+                            <input type="number" id="trans-amount" step="0.01" min="0" required placeholder="0.00">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Date:</label>
+                            <input type="date" id="trans-date" required>
+                        </div>
+
+                        <div class="type-category-row">
+                            <div class="form-group">
+                                <label>Type:</label>
+                                <select id="trans-type" required>
+                                    <option value="expense">Expense</option>
+                                    <option value="income">Income</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Category:</label>
+                                <select id="trans-category" required>
+                                    <!-- categories will be dynamically populated here -->
+                                    <option value="">Select Category</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <input type="text" id="trans-desc" placeholder="Detail">
+                        </div>
+
+                        <button type="submit" id="btn-save-trans">Register Transaction</button>
+                        <button type="button" id="btn-cancel-trans" style="display:none;">Cancel</button>
+                    </form>
+                </div>
+
+                <div class="filters-bar">
+                    <h3>History</h3>
+                    <div class="filters-container">
+                        <select id="filter-type">
+                            <option value="all">All Types</option>
+                            <option value="expense">Only Expenses</option>
+                            <option value="income">Only Incomes</option>
+                        </select>
+
+                        <select id="filter-category">
+                            <option value="all">All Categories</option>
+                            <!-- categories will be dynamically populated here -->
+                        </select>
+                        <input type="text" id="search-input" placeholder="Search By Description">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="transactions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Amount</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="transactions-list">
+                            <!-- transactions will be dynamically populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        `;
     }
 
     async init() {

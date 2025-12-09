@@ -77,25 +77,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         // (instance only loads if HTML has a container)
 
         // category manager
-        if (document.getElementById('categories-section')) {
-            new CategoryManager();
-        }
-
-        // instantiate managers (only if their sections exist)
-        let transactionManager = null;
-        let budgetManager = null;
-
-        if (document.getElementById('budget-section')) {
-            budgetManager = new BudgetManager();
-        }
-
-        if (document.getElementById('transactions-section')) {
-            transactionManager = new TransactionManager();
-        }
-
-        if (document.getElementById('dashboard-section')) {
-            new DashboardManager();
-        }
+        // instantiate managers with their container IDs
+        const categoryManager = new CategoryManager('categories-container');
+        const budgetManager = new BudgetManager('budget-container');
+        const transactionManager = new TransactionManager('transactions-container');
+        const dashboardManager = new DashboardManager('dashboard-container');
 
         // link transactions -> budget refresh
         if (transactionManager && budgetManager) {

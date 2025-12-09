@@ -2,7 +2,10 @@ import { db } from '../db/db.js';
 
 // pseudo component
 export class BudgetManager {
-    constructor() {
+    constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.render();
+
         //DOM references
         this.monthPicker = document.getElementById('budget-month-picker');
         this.planSelector = document.getElementById('budget-plan-selector');
@@ -13,6 +16,69 @@ export class BudgetManager {
         this.listContainer = document.getElementById('budget-list');
 
         this.init();
+    }
+
+    render() {
+        this.container.innerHTML = `
+            <section id="budget-section" class="view-section">
+                <h2>Budget control</h2>
+
+                <div class="filter-bar">
+                    <label>Monthly Plan:</label>
+                    <input type="month" id="budget-month-picker">
+                    <select id="budget-plan-selector">
+                        <option value="">Existing plans...</option>
+                    </select>
+                </div>
+
+                <div class="split-view">
+                    <div class="card">
+                        <h3>
+                            <span>Select Budget</span>
+                            <div class="window-controls">
+                                <button class="win-btn" title="Minimize">_</button>
+                                <button class="win-btn" title="Maximize">□</button>
+                                <button class="win-btn win-close" title="Close">×</button>
+                            </div>
+                        </h3>
+                        <form id="budget-form">
+                            <input type="hidden" id="budget-id">
+                            <div class="form-group">
+                                <label>Category:</label>
+                                <select id="budget-category" required>
+                                    <!-- categories will be dynamically populated here -->
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Monthly Limit:</label>
+                                <input type="number" id="budget-amount" min="1" step="0.01" required placeholder="0.00">
+                            </div>
+
+                            <button type="submit">Save Limit</button>
+                        </form>
+                    </div>
+
+                    <div class="table-container" style="flex-grow: 1;">
+                        <h3>Monthly check</h3>
+                        <table id="budget-table">
+                            <thead>
+                                <tr>
+                                    <th>Category</th>
+                                    <th>Budget</th>
+                                    <th>Actual Expense</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="budget-list">
+                                <!-- budget data will be dynamically populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        `;
     }
 
     async init() {
