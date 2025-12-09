@@ -15,13 +15,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         //EXTRA: show startup screen
         const startup= new StartupManager();
 
-        // Check for skip preference
+        // check for skip preference
         const shouldSkip = localStorage.getItem('skipIntro') === 'true';
         
-        // Setup skip button logic
+        // setup skip button logic
         const skipBtn = document.getElementById('btn-skip-intro');
         if (skipBtn) {
-            // Set initial state
+            // set initial state
             if (shouldSkip) {
                 skipBtn.classList.add('active');
             }
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             skipBtn.addEventListener('click', () => {
                 const isSkipping = skipBtn.classList.toggle('active');
                 localStorage.setItem('skipIntro', isSkipping);
-                alert(`Intro is ${isSkipping ? 'OFF' : 'ON'}`);
+                alert(isSkipping ? 'Intro Skipped (OFF)' : 'Intro Enabled (ON)');
             });
         }
 

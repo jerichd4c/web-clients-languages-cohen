@@ -23,9 +23,12 @@ export class Navigation {
     switchView(targetId) {
         // 1. update menu (active class)
         this.navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('data-target') === targetId) {
-                item.classList.add('active');
+            // only update active state for navigation items (those with data-target)
+            if (item.getAttribute('data-target')) {
+                item.classList.remove('active');
+                if (item.getAttribute('data-target') === targetId) {
+                    item.classList.add('active');
+                }
             }
         });
 
