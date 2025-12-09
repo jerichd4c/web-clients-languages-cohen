@@ -88,6 +88,33 @@ document.addEventListener('DOMContentLoaded', async () => {
             transactionManager.onChange = () => budgetManager.loadBudgetStatus();
         }
 
+        // link categories -> transactions and budget refresh
+        if (categoryManager) {
+            categoryManager.onChange = async () => {
+                console.log('Category change detected. Updating components...');
+                
+                const updates = [];
+
+                if (transactionManager) {
+                    updates.push(async () => {
+                        console.log('Updating TransactionManager...');
+                        await transactionManager.loadCategoriesIntoSelects();
+                        transactionManager.loadTransactions();
+                    });
+                }
+                
+                if (budgetManager) {
+                    updates.push(async () => {
+                        console.log('Updating BudgetManager...');
+                        await budgetManager.loadCategories();
+                        budgetManager.loadBudgetStatus();
+                    });
+                }
+
+                await Promise.allSettled(updates.map(u => u()));
+            };
+        }
+
         new Navigation();
         
         console.log('App initialized successfully.');

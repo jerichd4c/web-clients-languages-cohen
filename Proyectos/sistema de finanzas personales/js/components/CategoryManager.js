@@ -14,6 +14,9 @@ export class CategoryManager {
         this.inputId = document.getElementById('cat-id');
         this.btnCancel = document.getElementById('btn-cancel-cat');
 
+        // optional callback to notify other components
+        this.onChange = null;
+
         // link events to methods
         this.init();
 
@@ -124,6 +127,7 @@ export class CategoryManager {
                 tx.oncomplete = () => {
                     this.resetForm();
                     this.loadCategories();
+                    if (typeof this.onChange === 'function') this.onChange();
                 };
 
             } else {
@@ -131,6 +135,7 @@ export class CategoryManager {
                 await db.add('categories', data);
                 this.resetForm();
                 this.loadCategories();
+                if (typeof this.onChange === 'function') this.onChange();
             }
         } catch (error) {
             alert('Error saving category: ' + error.message);
@@ -184,6 +189,7 @@ export class CategoryManager {
             tx.oncomplete = () => {
                 alert('Category and associated transactions deleted successfully.');
                 this.loadCategories();
+                if (typeof this.onChange === 'function') this.onChange();
             };
         } catch (error) {
             console.error(error);
