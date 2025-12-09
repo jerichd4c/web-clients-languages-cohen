@@ -84,6 +84,13 @@ h3 {
     }
 }
 
+/* Specific Sections Layouts */
+#transactions-section .card,
+#budget-section .split-view .card,
+#categories-section .card {
+    max-width: 100%;
+}
+
 @media (min-width: 1024px) {
 
     #transactions-section .card,

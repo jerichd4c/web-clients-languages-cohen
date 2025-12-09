@@ -34,11 +34,3 @@
     justify-content: space-between;
     align-items: center;
 }
-
-/* Specific Sections Layouts */
-#transactions-section .card,
-#budget-section .split-view .card,
-#categories-section .card {
-    max-width: 100%;
-    /* Let cards take available space or define consistent max-width */
-}
