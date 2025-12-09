@@ -7,7 +7,7 @@ export class StartupManager {
         this.appContainer = document.querySelector('.app-container');
 
         // load Windows 95 startup sound
-        this.startupSound = new Audio('./sounds/windows95_startup.mp3');
+        this.startupSound = new Audio('./resources/sounds/windows95_startup.mp3');
         this.startupSound.volume = 0.5; // Adjust as needed
 
         // startup messages
