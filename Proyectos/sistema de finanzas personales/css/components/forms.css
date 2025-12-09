@@ -1,0 +1,50 @@
+/* Forms & Inputs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 12px;
+    color: #000000;
+    /* Black for better readability */
+}
+
+input,
+select {
+    width: 100%;
+    padding: 6px;
+    background-color: #ffffff;
+    /* Inset Border (3D Sunken) */
+    border-top: 1px solid var(--border-black);
+    border-left: 1px solid var(--border-black);
+    border-bottom: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+    box-shadow: inset 1px 1px 0 var(--border-gray), 1px 1px 0 #fff;
+
+    border-radius: 0;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 14px;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+}
+
+option {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: inherit;
+}
+
+.type-category-row {
+    display: flex;
+    gap: 16px;
+}
+
+.type-category-row .form-group {
+    flex: 1;
+}

@@ -1,0 +1,99 @@
+/* Buttons */
+/* Buttons - Windows 95 Style */
+button {
+    font-family: inherit;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    padding: 6px 12px;
+    border: none;
+    cursor: pointer;
+    font-size: 12px;
+
+    /* Outset Border */
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
+
+    /* active: transform: none; */
+    min-width: 80px;
+    text-align: center;
+}
+
+button:hover {
+    background-color: var(--bg-surface);
+}
+
+button:active {
+    /* Inset Border on click */
+    box-shadow:
+        inset 1px 1px 0px var(--border-black),
+        inset -1px -1px 0px var(--border-light),
+        inset 2px 2px 0px var(--border-gray),
+        inset -2px -2px 0px #dfdfdf;
+    padding: 7px 11px 5px 13px;
+    /* Shift content slightly */
+    transform: none;
+}
+
+button.btn-delete,
+button.btn-delete-budget {
+    color: var(--text-main);
+}
+
+button.btn-edit,
+button.btn-edit-budget {
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+}
+
+/* Window Control Buttons */
+.window-controls {
+    display: flex;
+    gap: 2px;
+    margin-left: auto;
+}
+
+.win-btn {
+    width: 16px;
+    height: 14px;
+    min-width: 16px;
+    padding: 0;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: none;
+    font-size: 11px;
+    line-height: 1;
+    cursor: pointer;
+
+    /* Outset Border (raised button) */
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.win-btn:hover {
+    background-color: #d4d0c8;
+}
+
+.win-btn:active {
+    /* Inset Border (pressed button) */
+    box-shadow:
+        inset 1px 1px 0px var(--border-black),
+        inset -1px -1px 0px var(--border-light),
+        inset 2px 2px 0px var(--border-gray),
+        inset -2px -2px 0px #dfdfdf;
+    padding: 1px 0 0 1px;
+}
+
+.win-close:active {
+    background-color: #c0504d;
+    color: #ffffff;
+}

@@ -1,0 +1,44 @@
+/* Windows 95 Window/Panel Style */
+.card,
+.chart-container {
+    background: var(--bg-surface);
+    padding: 24px;
+    /* Outset Border (3D Raised) - more prominent */
+    border-top: 2px solid var(--border-light);
+    border-left: 2px solid var(--border-light);
+    border-bottom: 2px solid var(--border-black);
+    border-right: 2px solid var(--border-black);
+    box-shadow:
+        inset 1px 1px 0px #ffffff,
+        inset -1px -1px 0px var(--border-gray),
+        2px 2px 0px rgba(0, 0, 0, 0.2);
+    margin-bottom: 24px;
+    position: relative;
+    color: var(--text-main);
+}
+
+/* Windows 95 Title Bar for Cards */
+.card h3,
+.chart-container h3 {
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 3px 6px;
+    margin: -22px -22px 16px -22px;
+    /* Leave small silver margin around title bar */
+    font-family: inherit;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+
+    /* Flexbox for title and controls */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Specific Sections Layouts */
+#transactions-section .card,
+#budget-section .split-view .card,
+#categories-section .card {
+    max-width: 100%;
+    /* Let cards take available space or define consistent max-width */
+}

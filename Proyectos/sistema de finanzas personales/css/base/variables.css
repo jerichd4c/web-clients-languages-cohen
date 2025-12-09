@@ -1,0 +1,45 @@
+/* Windows 95 Custom Font */
+@font-face {
+    font-family: 'W95FA';
+    src: url('../../resources/fonts/w95font.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'W95FA';
+    src: url('../../resources/fonts/w95font-bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+:root {
+    /* Windows 95 Palette */
+    --bg-desktop: #008080;
+    /* Teal */
+    --bg-surface: #c0c0c0;
+    /* Silver */
+    --text-main: #000000;
+    /* Black */
+    --text-gray: #808080;
+    /* Dark Gray Text */
+    --primary: #000080;
+    /* Navy Blue (Title Bars) */
+    --primary-light: #1084d0;
+    /* Highlighted Blue */
+    --secondary: #008000;
+    /* Green */
+    --danger: #cf0000;
+    /* Red */
+
+    /* 3D Borders */
+    --border-light: #ffffff;
+    --border-gray: #808080;
+    --border-dark: #404040;
+    /* or #000000 for sharper contrast */
+    --border-black: #000000;
+
+    --sidebar-width: 280px;
+}

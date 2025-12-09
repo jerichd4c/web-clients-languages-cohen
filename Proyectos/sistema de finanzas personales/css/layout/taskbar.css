@@ -1,0 +1,178 @@
+/* Windows 95 Taskbar */
+.taskbar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    width: 100%;
+    background-color: var(--bg-surface);
+    border-top: 2px solid var(--border-light);
+    box-shadow: inset 0 1px 0 #ffffff;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 4px;
+}
+
+/* Start Button */
+.start-button {
+    height: 32px;
+    padding: 2px 8px 2px 4px;
+    font-weight: bold;
+    font-size: 12px;
+    min-width: auto;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: none;
+    cursor: pointer;
+
+    /* Outset Border (raised button) */
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.start-button:hover {
+    background-color: var(--bg-surface);
+}
+
+.start-button:active {
+    box-shadow:
+        inset 1px 1px 0px var(--border-black),
+        inset -1px -1px 0px var(--border-light),
+        inset 2px 2px 0px var(--border-gray),
+        inset -2px -2px 0px #dfdfdf;
+    padding: 3px 7px 1px 5px;
+}
+
+.start-logo {
+    width: 18px;
+    height: 18px;
+    image-rendering: pixelated;
+}
+
+/* Taskbar Separator */
+.taskbar-separator {
+    width: 2px;
+    height: 32px;
+    background: linear-gradient(to right, var(--border-gray), var(--border-light));
+    margin: 0 2px;
+}
+
+/* Taskbar Buttons Container */
+.taskbar-buttons {
+    display: flex;
+    gap: 2px;
+    flex: 1;
+}
+
+/* Taskbar Navigation Buttons */
+.taskbar-btn {
+    height: 32px;
+    padding: 2px 8px;
+    font-size: 11px;
+    min-width: 120px;
+    max-width: 160px;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    border: none;
+    cursor: pointer;
+
+    /* Outset Border (raised button) */
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    text-align: left;
+}
+
+.taskbar-btn:hover {
+    background-color: var(--bg-surface);
+}
+
+.taskbar-btn.active {
+    /* Inset Border (pressed button) */
+    box-shadow:
+        inset 1px 1px 0px var(--border-black),
+        inset -1px -1px 0px var(--border-light),
+        inset 2px 2px 0px var(--border-gray),
+        inset -2px -2px 0px #dfdfdf;
+
+    /* Dotted/stippled pattern for active window */
+    background-image:
+        repeating-linear-gradient(0deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.1) 1px,
+            rgba(0, 0, 0, 0.1) 2px),
+        repeating-linear-gradient(90deg,
+            transparent,
+            transparent 1px,
+            rgba(0, 0, 0, 0.1) 1px,
+            rgba(0, 0, 0, 0.1) 2px);
+    background-size: 2px 2px;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    padding: 3px 7px 1px 9px;
+    font-weight: bold;
+}
+
+/* System Tray */
+.system-tray {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 8px;
+    height: 32px;
+    border-left: 2px solid var(--border-gray);
+    border-right: 1px solid var(--border-light);
+}
+
+.tray-time {
+    font-size: 11px;
+    padding: 4px 8px;
+    background-color: var(--bg-surface);
+
+    /* Inset Border (sunken) */
+    border-top: 1px solid var(--border-black);
+    border-left: 1px solid var(--border-black);
+    border-bottom: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+    box-shadow: inset 1px 1px 0 var(--border-gray);
+
+    /* Flexbox for icons and time */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tray-icon {
+    width: 16px;
+    height: 16px;
+    image-rendering: pixelated;
+    cursor: pointer;
+}
+
+/* Navigation Icons */
+.nav-icon {
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    margin-right: 8px;
+    image-rendering: pixelated;
+    /* Keep icons crisp */
+}

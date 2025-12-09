@@ -1,0 +1,78 @@
+/* Filters */
+.filter-bar {
+    margin-top: 24px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+
+    /* Windows 95 Panel Look for filters */
+    background: var(--bg-surface);
+    padding: 8px 12px;
+    border: 2px solid var(--bg-surface);
+    box-shadow:
+        inset 1px 1px 0px var(--border-light),
+        inset -1px -1px 0px var(--border-black),
+        inset 2px 2px 0px #dfdfdf,
+        inset -2px -2px 0px var(--border-gray);
+}
+
+.filter-bar label {
+    margin-bottom: 0;
+    /* Override default label margin for inline layout */
+    margin-right: 8px;
+}
+
+.filter-bar input,
+.filter-bar select {
+    width: auto;
+    /* Prevent full width in filter bar */
+    flex-grow: 1;
+    max-width: 200px;
+    /* Cap width */
+}
+
+.filters-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+/* Category List */
+.styled-list {
+    list-style: none;
+    padding: 0;
+}
+
+.styled-list li {
+    padding: 8px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    /* Windows 95 "List Item" / Input Field look */
+    background: #ffffff;
+    border-top: 1px solid var(--border-black);
+    border-left: 1px solid var(--border-black);
+    border-bottom: 1px solid var(--border-light);
+    border-right: 1px solid var(--border-light);
+    box-shadow: inset 1px 1px 0 var(--border-gray), 1px 1px 0 #fff;
+
+    color: var(--text-main);
+}
+
+.category-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.category-color-box {
+    width: 20px;
+    height: 20px;
+    border: 1px solid var(--border-black);
+    box-shadow: inset 1px 1px 0 rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+}

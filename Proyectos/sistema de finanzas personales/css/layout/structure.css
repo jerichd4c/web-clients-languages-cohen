@@ -1,0 +1,94 @@
+/* main layout */
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Main Content Area */
+.content-area {
+    flex-grow: 1;
+    padding: 40px;
+    padding-bottom: 60px;
+    /* Extra space for taskbar */
+    width: 100%;
+}
+
+/* view manager */
+.view-section {
+    display: none;
+}
+
+.view-section.active {
+    display: block;
+}
+
+/* Page Headers (on Teal background) */
+.view-section>h2,
+.dashboard-header h2 {
+    color: #ffffff;
+    font-size: 24px;
+    margin-bottom: 24px;
+    text-shadow: none;
+    font-weight: bold;
+}
+
+/* Specific section headers on teal background */
+.filters-bar h3,
+.table-container>h3,
+.list-container h3 {
+    color: #ffffff;
+    background: none;
+    margin: 0 0 16px 0;
+    padding: 0;
+    font-size: 18px;
+}
+
+h2,
+h3 {
+    color: var(--text-main);
+    margin-top: 0;
+    font-size: 18px;
+    margin-bottom: 24px;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 16px;
+    margin-bottom: 16px;
+}
+
+/* Responsive */
+@media (max-width: 850px) {
+    .sidebar {
+        width: 0;
+        overflow: hidden;
+        padding: 0;
+        border: none;
+    }
+
+    /* Simple mobile nav hack: assume sidebar is hidden or user adds a toggle. 
+       For this task, we will just shrink content area. */
+    .content-area {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+    }
+
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-cards {
+        flex-direction: column;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    #transactions-section .card,
+    #budget-section .split-view .card,
+    #categories-section .card {
+        max-width: 500px;
+    }
+}

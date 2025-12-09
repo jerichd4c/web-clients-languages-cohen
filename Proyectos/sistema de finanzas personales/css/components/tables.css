@@ -1,0 +1,35 @@
+/* Tables */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    background: #ffffff;
+    border: 1px solid var(--border-gray);
+    box-shadow: inset 1px 1px 0 var(--border-black), 1px 1px 0 var(--border-light);
+}
+
+th {
+    text-align: left;
+    padding: 8px;
+    background-color: var(--bg-surface);
+    color: var(--text-main);
+    font-size: 12px;
+    border: 1px solid var(--border-gray);
+    /* Header looks like a button usually */
+    box-shadow: inset 1px 1px 0 var(--border-light), inset -1px -1px 0 var(--border-black);
+}
+
+td {
+    padding: 8px;
+    font-size: 12px;
+    border: 1px solid #dfdfdf;
+}
+
+tr:hover td {
+    background-color: var(--primary);
+    color: white;
+}
