@@ -15,36 +15,58 @@ document.addEventListener('DOMContentLoaded', async () => {
         //EXTRA: show startup screen
         const startup= new StartupManager();
 
-        // skip startup with escape key (for dev convenience)
-        const skipStartupHandler = () => {
+        // Check for skip preference
+        const shouldSkip = localStorage.getItem('skipIntro') === 'true';
+        
+        // Setup skip button logic
+        const skipBtn = document.getElementById('btn-skip-intro');
+        if (skipBtn) {
+            // Set initial state
+            if (shouldSkip) {
+                skipBtn.classList.add('active');
+            }
+            
+            skipBtn.addEventListener('click', () => {
+                const isSkipping = skipBtn.classList.toggle('active');
+                localStorage.setItem('skipIntro', isSkipping);
+                alert(`Intro is ${isSkipping ? 'OFF' : 'ON'}`);
+            });
+        }
+
+        if (shouldSkip) {
             startup.skipStartup();
-            // remove listeners to avoid multiple calls when startup finishes
+        } else {
+            // skip startup with escape key (for dev convenience)
+            const skipStartupHandler = () => {
+                startup.skipStartup();
+                // remove listeners to avoid multiple calls when startup finishes
+                document.removeEventListener('keydown', keyHandler);
+                document.getElementById('win95-startup').removeEventListener('click', clickHandler);
+            };
+            
+            // key listener
+            const keyHandler = (e) => {
+                if (e.key === 'Escape') {
+                    skipStartupHandler();
+                }
+            };
+
+            // click listener
+            const clickHandler = () => {
+                skipStartupHandler();
+            };
+
+            // add listeners
+            document.addEventListener('keydown', keyHandler);
+            document.getElementById('win95-startup').addEventListener('click', clickHandler);
+
+            // init sequence
+            await startup.start();
+
+            // remove listeners after normal completion
             document.removeEventListener('keydown', keyHandler);
             document.getElementById('win95-startup').removeEventListener('click', clickHandler);
-        };
-        
-        // key listener
-        const keyHandler = (e) => {
-            if (e.key === 'Escape') {
-                skipStartupHandler();
-            }
-        };
-
-        // click listener
-        const clickHandler = () => {
-            skipStartupHandler();
-        };
-
-        // add listeners
-        document.addEventListener('keydown', keyHandler);
-        document.getElementById('win95-startup').addEventListener('click', clickHandler);
-
-        // init sequence
-        await startup.start();
-
-        // remove listeners after normal completion
-        document.removeEventListener('keydown', keyHandler);
-        document.getElementById('win95-startup').removeEventListener('click', clickHandler);
+        }
 
         // END OF STARTUP SEQUENCE
 

@@ -12,7 +12,9 @@ export class Navigation {
         this.navItems.forEach(item => {
             item.addEventListener('click', () => {
                 const targetId = item.getAttribute('data-target');
-                this.switchView(targetId);
+                if (targetId) {
+                    this.switchView(targetId);
+                }
             });
         });
     }

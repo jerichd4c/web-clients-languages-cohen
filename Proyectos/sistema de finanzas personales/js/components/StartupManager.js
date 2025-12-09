@@ -26,9 +26,24 @@ export class StartupManager {
     }
 
     async start() {
-        // show startup screen
+        // initial state: hidden
+        this.startupScreen.style.opacity = '0';
         this.startupScreen.style.display = 'flex';
         this.appContainer.style.display = 'none';
+        
+        // wait 1 second before starting fade in
+        await new Promise(r => setTimeout(r, 1000));
+
+        // fade in
+        this.startupScreen.style.transition = 'opacity 1s ease-in';
+        this.startupScreen.style.opacity = '1';
+        
+        // wait for fade in to complete
+        await new Promise(r => setTimeout(r, 1000));
+
+        // clean up inline styles so CSS classes can work later for fade-out
+        this.startupScreen.style.transition = '';
+        this.startupScreen.style.opacity = '';
         
         return new Promise((resolve) => {
             this.animateStartup(resolve);
