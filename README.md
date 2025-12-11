@@ -15,23 +15,50 @@ I am using a repository because i find it easier to store things on **GitHub**, 
 
 ## Used languages and tools 👨🏻‍💻
 
-As course title suggest, primarily frontend **markup** and **stylesheet** languages, as well as **web-development** languages will be used, such as:
+As course title suggest, primarily frontend **markup** and **stylesheet** languages, as well as **web-development** languages will be used:
 
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 * **HTML (hypertext markup language)** </>
 
     A widely-used markup language for web development.
 
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 * **CSS (Cascading style-sheets)** 🛠️
     
     A style sheet language used for designing and styling web pages and components.
 
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 * **JS (JavaScript)** 🇯‌🇸‌
 
     A high-level scripting language that, when combined with CSS and HTML, becomes a powerful tool for web development.
 
-## Important notes ⚠️
+## 🛠️ How to Run
 
-This marks the **current** end of the **README.md**, however, i will be updating both the repo as well as this file as the course continues.
+1.  Clone this repository: `git clone https://github.com/jerichd4c/web-clients-languages-cohen.git`
+2.  Navigate to the specific class or project folder.
+3.  Open the `index.html` file in your browser (or use the VS Code **Live Server** extension for the best experience).
+
+## Repository Structure 📂
+
+Here is a quick overview of the contents organized by class and project:
+
+### 📚 Classes
+
+*   **Class 1**: Introduction to **HTML** and **CSS**. Includes a personal biography page and basic styling tests.
+*   **Class 2**: Introduction to **JavaScript**. Contains logic tests and exam exercises.
+*   **Class 3**: Continued JavaScript practice and DOM interaction.
+*   **Class 4**: Asynchronous JavaScript (Promises, Async/Await).
+*   **Class 5**: Data Persistence and IndexedDB.
+
+### 📖 Documentation
+
+*   **Course Resources**: Links to the official course repository and reference materials.
+
+### 🚀 Projects
+
+*   **Matrix Calculator**: A web-based tool for performing operations on matrices (addition, multiplication, determinants, etc.).
+*   **Trivia Game**: A dynamic quiz game with configurable difficulty and categories, fetching questions from an external API.
+*   **Personal Finance System**: A comprehensive finance tracker with a **Windows 95** aesthetic, featuring budget management, transaction tracking, and data persistence via IndexedDB. [**Live Demo**](https://personal-finance-system-w95.vercel.app/)
 
 ---
 
