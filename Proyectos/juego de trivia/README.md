@@ -1,75 +1,84 @@
-# Trivia Challenge 🎮
+<a id="readme-top"></a>
 
-A browser-based multiple choice trivia game built with HTML, CSS, and vanilla JavaScript. Configure question count, difficulty, and category, then race the 20‑second timer to earn points and finish with your stats.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <h3 align="center">Trivia Challenge</h3>
 
-## Quick Start 🚀
+  <p align="center">
+    A fast-paced trivia game fetching questions from the Open Trivia DB.
+  </p>
+</div>
 
-1. Open `trivia_game.html` in your browser.
-2. Click **Start Quiz** on the welcome screen.
-3. Fill in configuration: player name (2–20 chars), number of questions (5–20), difficulty (Easy/Medium/Hard), optional category (Mixed by default).
-4. Press **Start Game!** — questions load (loading screen).
-5. Answer each question before the 20s timer hits zero. Correct answers give points (+10).
-6. View feedback screen (3s countdown) between questions.
-7. At the end, check your Results: score, accuracy %, average time per question.
-8. Play again with same settings or start a new game.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#gameplay-mechanics">Gameplay Mechanics</a></li>
+    <li><a href="#scoring--stats">Scoring & Stats</a></li>
+    <li><a href="#sounds">Sounds</a></li>
+  </ol>
+</details>
 
-## Screens & Flow 🧭
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-- **Welcome**: Entry point; launches configuration.
-- **Configuration**: Player settings (name, count, difficulty, category). Native validation + custom constraints.
-- **Loading**: Spinner while fetching questions from Open Trivia DB.
-- **Game**: Question card, options grid (4 answers), timer, stats (score, correct answers, progress).
-- **Feedback**: Shows result of the last answer (correct / incorrect / time's up) and a 3‑second countdown.
-- **Results**: Final summary (player, score, accuracy %, average time per question) + action buttons.
+A browser-based multiple choice trivia game built with **vanilla JavaScript**. Players can configure question counts, difficulty levels, and categories before racing against a 20-second timer.
 
-## Configuration Controls ⚙️
+### Built With
 
-- `Player name`: Required, 2–20 characters.
-- `Number of questions`: Numeric input (5–20). Synchronized display label.
-- `Difficulty`: Toggle buttons (Easy / Medium / Hard) — only one active at a time.
-- `Category`: Select list (Mixed plus dynamically fetched categories from API).
+* HTML5
+* CSS3
+* JavaScript (Vanilla)
+* [Open Trivia DB API](https://opentdb.com/)
 
-## Gameplay Mechanics 🎯
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- **Question Source**: Open Trivia DB (`https://opentdb.com/api.php`) with parameters: amount, difficulty (optional), category (optional), type=multiple, encode=base64.
-- **Answer Options**: 4 choices (1 correct + 3 incorrect). Decoded from Base64 before display.
-- **Timer**: 20 seconds per question; circular SVG progress with color changes (warning ≤10s, danger ≤5s). A beep sound plays in final 5 seconds.
-- **Selection**: Once an option is picked, answers lock; correct answer highlighted (green) and incorrect selection (red). Feedback screen appears after a short (≈800ms) highlight delay.
-- **Feedback Duration**: 3‑second countdown before next question automatically loads.
-- **Time Tracking**: Per-question elapsed time measured; full 20s added if time expires. Average displayed on results screen.
+<!-- GETTING STARTED -->
+## Getting Started
 
-## Scoring & Stats 📊
+To play the trivia locally:
+
+1. Navigate to `Proyectos/juego de trivia/`.
+2. Open `trivia_game.html` in your browser.
+3. Configure your player name, difficulty, and category to start.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GAMEPLAY MECHANICS -->
+## Gameplay Mechanics
+
+- **Question Source**: Dynamically fetched from Open Trivia DB using Base64 encoding for character safety.
+- **Timer**: 20 seconds per question with a visual SVG progress bar that changes color as time runs out.
+- **Feedback**: Immediate visual feedback (correct/incorrect) followed by a 3-second countdown transition.
+- **Error Handling**: Graceful handling of API timeouts or empty results.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- SCORING & STATS -->
+## Scoring & Stats
 
 - **Points**: +10 per correct answer.
-- **Accuracy**: `(correctAnswers / totalQuestions) * 100` rounded to 1 decimal.
-- **Average Time**: `totalTime / totalQuestions` (seconds, 1 decimal). Includes either time until selection or full 20s on timeout.
-- **Progress**: `currentQuestionIndex + 1` of `totalQuestions` displayed live.
+- **Accuracy**: Final percentage based on correct vs. total questions.
+- **Average Time**: Tracking time-to-answer for performance summary.
 
-## Sounds 🔊
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-Loaded and preloaded for responsiveness:
-- `correct.mp3`: Correct answer feedback.
-- `wrong.mp3`: Incorrect or timeout.
-- `timer-beep.mp3`: Final 5 seconds countdown tick.
-- `game-start.mp3`: Game initialization.
-- `results.mp3`: Results screen display.
+<!-- SOUNDS -->
+## Sounds
 
-## Error Handling ⚠️
+- **Correct/Wrong**: Audio cues for answer validation.
+- **Timer Beep**: Warning sound during the final 5 seconds.
+- **Ambience**: Start and result screen sound effects for immersion.
 
-- API response codes mapped: `0` success, `1` no results, others treated as errors.
-- Failure to fetch questions returns to config screen with an alert.
-- Timeouts treated as incorrect answers (full time counted).
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Files 📁
+<!-- FILES -->
+## Files
 
-- `trivia_game.html` — Page structure (screens, forms, containers).
-- `trivia_game.css` — Styling (layout, animations, timer, feedback, results).
-- `trivia_game.js` — Core logic: configuration, fetching, decoding, timer, scoring, transitions, sounds.
-- `sounds/` — Audio assets (MP3 files).
-
-## Technical Notes 🛠️
-
-- Uses `performance.now()` for precise per-question timing accumulation.
-- Base64 decoding via `window.atob` wrapped with URI decoding for special characters.
-- Screen switching by toggling `.active` class on sibling `.screen` containers.
-- Prevents multi-click input with `isAnswerSelected` flag.
+- `trivia_game.html` — Core structure and screens
+- `trivia_game.css` — Animations, layout, and visual states
+- `trivia_game.js` — Fetching logic, timer control, and state management
+- `sounds/` — Audio assets

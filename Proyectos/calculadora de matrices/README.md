@@ -1,31 +1,75 @@
-# Matrix calculator with web languages ⚙️
+<a id="readme-top"></a>
 
-Small browser-based matrix calculator (HTML / CSS / JS) for quick operations with one or two matrices.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <h3 align="center">Matrix Calculator</h3>
 
-## Quick start 🚀
+  <p align="center">
+    A web-based tool for performing operations on matrices (2x2 to 10x10).
+  </p>
+</div>
 
-1. Open `matrix_calculator.html` in your browser.
-2. The page loads with two editable **3×3** matrices.
-3. Change size (2–10), fill manually, or use **Random** / **Example** buttons, then run operations from the center panel.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+    </li>
+    <li><a href="#main-controls">Main Controls</a></li>
+    <li><a href="#behavior--notes">Behavior & Notes</a></li>
+  </ol>
+</details>
 
-## Main controls 🧭
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-- **Size selectors** (`#matrix1-size`, `#matrix2-size`): change matrix dimensions — this **resets values**.
-- **Random** / **Example**: quickly fill the matrix with values.
-- **Clear**: reset a matrix or the result (`Borrar Matriz`, `Borrar Resultado`).
-- **Single-matrix ops**: `ESCALAR` (use inline `#scalar-input-*`), **Transpose**, **Determinant**, **Inverse**, **Identity**.
-- **Pair ops**: **Sum**, **Subtract**, **Multiply** (follow dimension rules).
-- **Messages**: `#calculation-error` (errors) and `#calculation-success` (success). Results are displayed in `#result-display`.
+Small browser-based matrix calculator built with **HTML**, **CSS**, and **JavaScript** for quick operations with one or two matrices.
 
-## Behavior & notes ⚠️
+### Built With
 
-- All operations require every involved cell to contain a valid number — validation prevents incomplete calculations.
-- Changing a matrix **size discards** previous values (no undo).
-- Random values are numeric (2 decimal places) to avoid string-concatenation bugs.
-- Determinant/inverse routines are fine for small matrices; performance may degrade for large sizes.
+* HTML5
+* CSS3
+* JavaScript (Vanilla)
 
-## Files 📁
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- `matrix_calculator.html` — UI
-- `matrix_calculator.css` — styles
-- `matrix_calculator.js` — logic and operations
+<!-- GETTING STARTED -->
+## Getting Started
+
+To run the calculator locally:
+
+1. Clone the repository (if not already done).
+2. Navigate to `Proyectos/calculadora de matrices/`.
+3. Open `matrix_calculator.html` in your browser.
+
+<p align="right">(<a href="#readme-top">back to top">back to top</a>)</p>
+
+<!-- MAIN CONTROLS -->
+## Main Controls
+
+- **Size Selectors**: Change matrix dimensions (2–10). *Note: This resets current values.*
+- **Random / Example**: Quickly fill matrices with generated values.
+- **Clear**: Reset a matrix or the result display.
+- **Single-matrix Operations**: Calculate **Scalar** multiplication, **Transpose**, **Determinant**, **Inverse**, and **Identity**.
+- **Pair Operations**: Perform matrix **Sum**, **Subtraction**, and **Multiplication**.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- BEHAVIOR & NOTES -->
+## Behavior & Notes
+
+- **Validation**: Every cell must contain a valid number to run operations.
+- **Precision**: Random values are limited to 2 decimal places to avoid visual bugs.
+- **Efficiency**: Determinant and inverse routines are optimized for small matrices; performance may vary with larger dimensions.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FILES -->
+## Files
+
+- `matrix_calculator.html` — UI Structure
+- `matrix_calculator.css` — Styles and layout
+- `matrix_calculator.js` — Logic and operations

@@ -1,45 +1,79 @@
-# Personal Finance System 💸
+<a id="readme-top"></a>
 
-A retro-styled personal finance management application built with HTML, CSS, and vanilla JavaScript, featuring a nostalgic Windows 95 aesthetic. Track your income, expenses, and budgets with a fully functional desktop-like interface.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <h3 align="center">Personal Finance System</h3>
 
-## Quick Start 🚀
+  <p align="center">
+    A retro-styled finance manager with a nostalgic Windows 95 aesthetic.
+  </p>
+</div>
 
-1. Open `index.html` in your browser.
-2. Enjoy the **Windows 95 startup sequence** (or press `Esc` / click the screen to skip).
-3. Use the **Taskbar** at the bottom to navigate between apps (Dashboard, Transactions, Budget, Categories).
-4. Start by adding some **Categories** or use the defaults.
-5. Record your **Transactions** (Income/Expense).
-6. Set up **Budgets** to monitor your spending.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About The Project</a></li>
+    <li><a href="#getting-started">Getting Started</a></li>
+    <li><a href="#features--screens">Features & Screens</a></li>
+    <li><a href="#technical-notes">Technical Notes</a></li>
+  </ol>
+</details>
 
-## Features & Screens 🧭
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-- **Startup**: A faithful recreation of the Windows 95 boot sequence, complete with loading bars and sound effects.
-- **Dashboard**: Visual overview of your financial health using charts (powered by Chart.js) and summary cards.
-- **Transactions**: A ledger to record and view all your financial movements. Supports filtering and deletion.
-- **Budget**: Set monthly spending limits per category and track your progress with visual progress bars.
-- **Categories**: Manage your transaction categories with custom names and colors.
-- **Taskbar Navigation**: Switch between different "apps" seamlessly without reloading the page.
+A comprehensive personal finance application built with a faithful recreation of the **Windows 95 interface**. Track income, expenses, and monthly budgets with full data persistence.
 
-## Controls & Configuration ⚙️
+### Built With
 
-- **Navigation**: Click the buttons on the bottom taskbar to switch views.
-- **Skip Intro**: Toggle the "Skip Intro" button in the Start Menu/Taskbar to bypass the boot sequence on future visits.
-- **Data Entry**: Use the forms in each section to add data. All data is validated before saving.
-- **Persistence**: Your data is saved automatically using the browser's **IndexedDB**, so it persists even after you close the browser.
+* HTML5
+* CSS3 (Modular)
+* JavaScript (Vanilla)
+* IndexedDB
+* [Chart.js](https://www.chartjs.org/)
 
-## Technical Notes 🛠️
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-- **Architecture**: Built using a modular component-based architecture (`DashboardManager`, `TransactionManager`, etc.) with a central `app.js` controller.
-- **Data Storage**: Uses **IndexedDB** for robust client-side storage of Categories, Transactions, and Budgets.
-- **Styling**: Modular CSS structure (Base, Layout, Components, Sections) with no external frameworks (except Chart.js).
-- **Visualization**: Integrates **Chart.js** for rendering dynamic financial charts.
-- **State Management**: Implements an Observer-like pattern to synchronize data across components (e.g., updating the Budget view when a new Transaction is added).
+<!-- GETTING STARTED -->
+## Getting Started
 
-## Files 📁
+To launch the system:
 
-- `index.html` — Main entry point and application shell.
-- `js/app.js` — Core logic, initialization, and component coordination.
-- `js/db/db.js` — IndexedDB wrapper and schema definition.
-- `js/components/` — Individual logic for Dashboard, Transactions, Budget, etc.
-- `css/` — Organized styles (Base, Layout, Components, Sections).
-- `resources/` — Icons and images for the Windows 95 theme.
+1. Navigate to `Proyectos/sistema de finanzas personales/`.
+2. Open `index.html` in your browser.
+3. Experience the **boot sequence** (optional: press Esc to skip).
+4. Use the bottom **Taskbar** to navigate between apps.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FEATURES & SCREENS -->
+## Features & Screens
+
+- **Dashboard**: Financial health overview with dynamic charts.
+- **Transactions**: Ledger for recording and filtering income/expenses.
+- **Budget**: Monthly limits tracking with real-time progress bars.
+- **Categories**: Custom categorization system for transactions.
+- **Start Menu**: App settings and "Skip Intro" toggle for faster access.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- TECHNICAL NOTES -->
+## Technical Notes
+
+- **Architecture**: Modular component-based logic (`DashboardManager`, `TransactionManager`).
+- **Persistence**: Built on **IndexedDB** for robust client-side storage.
+- **State Management**: Observer-pattern synchronization across views.
+- **Aesthetic**: Custom CSS tokens mimicking classic UI elements without frameworks.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FILES -->
+## Files
+
+- `index.html` — Main UI shell
+- `js/app.js` — Core coordinator
+- `js/db/db.js` — IndexedDB wrapper
+- `css/` — Modular styling (Base, Layout, Components)
+- `resources/` — Retro assets and icons
