@@ -1,8 +1,7 @@
 <a id="readme-top"></a>
 
 <!-- PROJECT LOGO -->
-<br />
-<div align="center">
+
   <h3 align="center">Trivia Challenge</h3>
 
   <p align="center">
@@ -81,4 +80,4 @@ To play the trivia locally:
 - `trivia_game.html` — Core structure and screens
 - `trivia_game.css` — Animations, layout, and visual states
 - `trivia_game.js` — Fetching logic, timer control, and state management
-- `sounds/` — Audio assets
+- `sounds/` — Audio assets

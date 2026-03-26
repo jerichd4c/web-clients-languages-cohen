@@ -1,8 +1,7 @@
 <a id="readme-top"></a>
 
 <!-- PROJECT LOGO -->
-<br />
-<div align="center">
+
   <h3 align="center">Matrix Calculator</h3>
 
   <p align="center">
