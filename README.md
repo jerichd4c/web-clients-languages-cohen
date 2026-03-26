@@ -5,7 +5,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/jerichd4c/web-clients-languages-cohen">
-    <img src="https://img.shields.io/badge/Web%20Clients-Languages-blue?style=for-the-badge&logo=javascript" alt="Logo" width="120" height="40">
+    <img src="https://img.shields.io/badge/Web%20Clients-Languages-blue?style=for-the-badge&logo=javascript" alt="Logo" width="240" height="40">
   </a>
 
 <h3 align="center">Web Clients Languages - Sebastian Cohen</h3>
