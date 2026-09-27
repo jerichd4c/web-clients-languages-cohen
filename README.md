@@ -109,16 +109,6 @@ A web-based tool for performing operations on matrices.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- MARKDOWN LINKS & IMAGES -->
-[contributors-shield]: https://img.shields.io/github/contributors/jerichd4c/web-clients-languages-cohen.svg?style=for-the-badge
-[contributors-url]: https://github.com/jerichd4c/web-clients-languages-cohen/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/jerichd4c/web-clients-languages-cohen.svg?style=for-the-badge
-[forks-url]: https://github.com/jerichd4c/web-clients-languages-cohen/network/members
-[stars-shield]: https://img.shields.io/github/stars/jerichd4c/web-clients-languages-cohen.svg?style=for-the-badge
-[stars-url]: https://github.com/jerichd4c/web-clients-languages-cohen/stargazers
-[issues-shield]: https://img.shields.io/github/issues/jerichd4c/web-clients-languages-cohen.svg?style=for-the-badge
-[issues-url]: https://github.com/jerichd4c/web-clients-languages-cohen/issues
-[license-shield]: https://img.shields.io/github/license/jerichd4c/web-clients-languages-cohen.svg?style=for-the-badge
-[license-url]: https://github.com/jerichd4c/web-clients-languages-cohen
 
 [HTML-shield]: https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white
 [HTML-url]: https://developer.mozilla.org/en-US/docs/Web/HTML
