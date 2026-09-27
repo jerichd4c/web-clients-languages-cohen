@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/jerichd4c/web-clients-languages-cohen">
+  <a href="https://github.com/jerichd4c/web-clients-languages">
     <img src="https://img.shields.io/badge/Web%20Clients-Languages-blue?style=for-the-badge&logo=javascript" alt="Logo" width="240" height="40">
   </a>
 
@@ -67,7 +67,7 @@ All you need is a modern web browser.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/jerichd4c/web-clients-languages-cohen.git
+   git clone https://github.com/jerichd4c/web-clients-languages.git
    ```
 2. Navigate to the project or class folder.
 3. Open the `index.html` (or the specific `.html` file) in your browser.
@@ -79,18 +79,18 @@ All you need is a modern web browser.
 
 Here are the primary projects developed during the course. Each has its own detailed documentation in its respective folder.
 
-### [Personal Finance System](https://github.com/jerichd4c/web-clients-languages-cohen/tree/main/Proyectos/sistema%20de%20finanzas%20personales)
+### [Personal Finance System](https://github.com/jerichd4c/web-clients-languages/tree/main/Proyectos/sistema%20de%20finanzas%20personales)
 A retro-styled management application with a **Windows 95 aesthetic**.
 * **Features**: Startup sequence, Dashboard with Chart.js, Transaction ledger, and IndexedDB persistence.
 * **Documentation**: [Finance README](Proyectos/sistema%20de%20finanzas%20personales/README.md)
 * [**Live Demo**](https://personal-finance-system-w95.vercel.app/)
 
-### [Trivia Challenge](https://github.com/jerichd4c/web-clients-languages-cohen/tree/main/Proyectos/juego%20de%20trivia)
+### [Trivia Challenge](https://github.com/jerichd4c/web-clients-languages/tree/main/Proyectos/juego%20de%20trivia)
 A dynamic multiple-choice trivia game fetching questions from an external API.
 * **Features**: Timer, category selection, difficulty levels, and audio feedback.
 * **Documentation**: [Trivia README](Proyectos/juego%20de%20trivia/README.md)
 
-### [Matrix Calculator](https://github.com/jerichd4c/web-clients-languages-cohen/tree/main/Proyectos/calculadora%20de%20matrices)
+### [Matrix Calculator](https://github.com/jerichd4c/web-clients-languages/tree/main/Proyectos/calculadora%20de%20matrices)
 A web-based tool for performing operations on matrices.
 * **Features**: Support for matrices up to 10x10, determinants, inverses, and matrix multiplication.
 * **Documentation**: [Matrix README](Proyectos/calculadora%20de%20matrices/README.md)
